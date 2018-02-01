@@ -20,12 +20,14 @@ include_directories(
         include/protobuf_ops
         include/serializer
         include/logging
+        include/time_utils
 )
 
 set(SOURCE_FILES
         src/protobuf_ops/protobuf_ops.cc
         src/dms_frame/DMSFrame.pb.cc
         src/serializer/serializer.cc
+        src/time_utils/TimeUtils.cc
         )
 
 add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES})

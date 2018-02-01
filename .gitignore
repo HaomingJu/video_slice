@@ -1,0 +1,17 @@
+build
+build_doc
+output*
+.idea
+*.iml
+.sln
+*.swp
+*.local
+.DS_Store
+.gradle
+third_module
+build.properties.local
+build.properties
+*local*
+*.tmp
+tags
+

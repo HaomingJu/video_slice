@@ -21,6 +21,7 @@ include_directories(
         include/serializer
         include/logging
         include/time_utils
+        include/search_path
 )
 
 set(SOURCE_FILES
@@ -28,6 +29,7 @@ set(SOURCE_FILES
         src/dms_frame/DMSFrame.pb.cc
         src/serializer/serializer.cc
         src/time_utils/TimeUtils.cc
+        src/search_path/searchMP4.cc
         )
 
 add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES})
@@ -45,6 +47,7 @@ target_link_libraries(${PROJECT_NAME}
     )
 
 add_subdirectory(test)
+add_subdirectory(example)
 
 set(OUTPUT_ROOT ${PROJECT_SOURCE_DIR}/output_${platform}_${architecture})
 set(CMAKE_INSTALL_PREFIX ${OUTPUT_ROOT})

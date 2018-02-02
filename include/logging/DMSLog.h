@@ -1,8 +1,8 @@
 #ifndef __DMS_DMSLOG_H__
 #define __DMS_DMSLOG_H__
 
-#include "hobotlog/hobotlog.hpp"
 #include <string>
+#include "hobotlog/hobotlog.hpp"
 
 #ifndef MODULE_TAG
 #define MODULE_TAG "HobotDMS"
@@ -21,7 +21,8 @@
 
 #ifdef LOGV_T
 #undef LOGV_T
-#define LOGV_T(tag) LOG_TAG(rtc::HOBOT_LOG_VERBOSE, std::string("[VRBS] ") + tag)
+#define LOGV_T(tag) \
+  LOG_TAG(rtc::HOBOT_LOG_VERBOSE, std::string("[VRBS] ") + tag)
 
 #endif
 #ifdef LOGD_T
@@ -39,14 +40,13 @@
 #define LOGW_T(tag) LOG_TAG(rtc::HOBOT_LOG_WARN, std::string("[WARN] ") + tag)
 #endif
 
-
-#define FUN_IN(modulename)                                   \
-    do {                                                     \
-        LOGV_T(modulename) << "(" << __func__<< ") ++in"; \
-    } while (0);
-#define FUN_OUT(modulename)                                   \
-    do {                                                      \
-        LOGV_T(modulename) << "(" << __func__<< ") --out"; \
-    } while (0);
+#define FUN_IN(modulename)                             \
+  do {                                                 \
+    LOGV_T(modulename) << "(" << __func__ << ") ++in"; \
+  } while (0);
+#define FUN_OUT(modulename)                             \
+  do {                                                  \
+    LOGV_T(modulename) << "(" << __func__ << ") --out"; \
+  } while (0);
 
 #endif  //__DMS_DMSLOG_H__

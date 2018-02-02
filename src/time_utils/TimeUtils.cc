@@ -4,10 +4,10 @@
 #include <thread>
 
 #define MODULE_TAG "TIMEUTILS"
-#include "logging/DMSLog.h"
-#include "time_utils/TimeUtils.h"
 #include <string.h>
 #include <string>
+#include "logging/DMSLog.h"
+#include "time_utils/TimeUtils.h"
 
 int64_t TimeUtils::mStartEpochTime = 0L;
 int64_t TimeUtils::mInitTimestamp;
@@ -16,15 +16,14 @@ int TimeUtils::mDivider = 1;
 
 #ifdef android
 #include <sstream>
-int stoi(const std::string& s)
-{
-    std::stringstream stream;
-    int i;
-    stream << s;
-    stream >> i;
-    return i;
+int stoi(const std::string &s) {
+  std::stringstream stream;
+  int i;
+  stream << s;
+  stream >> i;
+  return i;
 }
-#endif // android
+#endif  // android
 
 void TimeUtils::reset() {
   std::chrono::milliseconds time =
@@ -71,25 +70,21 @@ void TimeUtils::sleepFor(int64_t timeMs) {
       std::chrono::milliseconds(timeMs * mMultiple / mDivider));
 }
 
-
-
-void TimeUtils::StringMstoTimMs(const std::string &result, int64_t& timeMs)
-{
-    //result = "20091231-195124_275"
-    if (result.length() != 19)
-    {
-        timeMs = -1;
-        return;
-    }
-    std::tm tm_;
-    tm_.tm_sec = stoi(result.substr(13, 2));
-    tm_.tm_min = stoi(result.substr(11, 2));
-    tm_.tm_hour = stoi(result.substr(9, 2));
-    tm_.tm_mday = stoi(result.substr(6, 2));
-    tm_.tm_mon = stoi(result.substr(4, 2)) - 1;
-    tm_.tm_year = stoi(result.substr(0, 4)) - 1900;
-    timeMs = mktime(&tm_);
-    //auto now2 = std::chrono::system_clock::from_time_t(std::mktime(&tm_));
+void TimeUtils::StringMstoTimMs(const std::string &result, int64_t &timeMs) {
+  // result = "20091231-195124_275"
+  if (result.length() != 19) {
+    timeMs = -1;
+    return;
+  }
+  std::tm tm_;
+  tm_.tm_sec = stoi(result.substr(13, 2));
+  tm_.tm_min = stoi(result.substr(11, 2));
+  tm_.tm_hour = stoi(result.substr(9, 2));
+  tm_.tm_mday = stoi(result.substr(6, 2));
+  tm_.tm_mon = stoi(result.substr(4, 2)) - 1;
+  tm_.tm_year = stoi(result.substr(0, 4)) - 1900;
+  timeMs = mktime(&tm_);
+  // auto now2 = std::chrono::system_clock::from_time_t(std::mktime(&tm_));
 }
 
 void TimeUtils::TimeMstoStringMs(int64_t timeMs, std::string &result) {

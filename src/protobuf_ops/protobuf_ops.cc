@@ -65,7 +65,7 @@ int DMSProtoReader::startReader(const std::string &filename) {
   }
   LOGI_T(MODULE_TAG) << "max_proto_len = " << max_proto_len;
   if (mProtoBufVec.capacity() < max_proto_len) {
-    mProtoBufVec.reserve(max_proto_len);
+    mProtoBufVec.reserve(max_proto_len + 8);
   }
 
   return 0;
@@ -106,3 +106,85 @@ void DMSProtoReader::stopReader() {
   if (mIfs.is_open())
     mIfs.close();
 };
+
+int DMSProtoReader::cutOneFile(int64_t start_id, int64_t end_id,
+                               const std::string &fname) {
+  if ((start_id > end_id) || (start_id < 0) ||
+      (end_id >= mProtoInfoVec.size())) {
+    return -1;
+  }
+
+  std::ofstream Ofs;
+  Ofs.open(fname.c_str(), std::ofstream::binary);
+  if (!Ofs.is_open()) {
+    return -1;
+  }
+  // Write VERSION
+  mIfs.seekg(0);
+  mIfs.read(&mProtoBufVec[0], 4);
+  Ofs.write(&mProtoBufVec[0], 4);
+
+  for (int i = start_id; i <= end_id; ++i) {
+    ProtoInfo_t &frame_info = mProtoInfoVec[i];
+    mIfs.seekg((int)frame_info.prtPos - 4);
+    mIfs.read(&mProtoBufVec[0], frame_info.prtLen + 4);
+    Ofs.write(&mProtoBufVec[0], frame_info.prtLen + 4);
+  }
+
+  if (Ofs.is_open())
+    Ofs.close();
+
+  return 0;
+}
+
+int ProtoOps::cutOneFile(const std::string &fname_src, int64_t start_id,
+                         int64_t end_id, const std::string &fname_dst) {
+  DMSProtoReader *proto_reader_ptr = new DMSProtoReader();
+  proto_reader_ptr->startReader(fname_src);
+  return proto_reader_ptr->cutOneFile(start_id, end_id, fname_dst);
+  proto_reader_ptr->stopReader();
+  delete proto_reader_ptr;
+  proto_reader_ptr = nullptr;
+}
+
+int ProtoOps::mergeTwoFile(const std::string &fname_src1,
+                           const std::string &fname_src2,
+                           const std::string &&fname_dst) {
+  DMSProtoReader *proto_reader_ptr_1 = new DMSProtoReader();
+  DMSProtoReader *proto_reader_ptr_2 = new DMSProtoReader();
+  proto_reader_ptr_1->startReader(fname_src1);
+  proto_reader_ptr_2->startReader(fname_src2);
+
+  std::ofstream Ofs;
+  Ofs.open(fname_dst.c_str(), std::ofstream::binary);
+  if (!Ofs.is_open()) {
+    return -1;
+  }
+  // Write VERSION
+  proto_reader_ptr_1->mIfs.seekg(0);
+  proto_reader_ptr_1->mIfs.read(&(proto_reader_ptr_1->mProtoBufVec[0]), 4);
+  Ofs.write(&(proto_reader_ptr_1->mProtoBufVec[0]), 4);
+  int count_1 = proto_reader_ptr_1->getFrameCnt();
+  int count_2 = proto_reader_ptr_2->getFrameCnt();
+
+  for (int i = 0; i < count_1; ++i) {
+    ProtoInfo_t &frame_info = proto_reader_ptr_1->mProtoInfoVec[i];
+    proto_reader_ptr_1->mIfs.seekg((int)frame_info.prtPos - 4);
+    proto_reader_ptr_1->mIfs.read(&(proto_reader_ptr_1->mProtoBufVec[0]),
+                                  frame_info.prtLen + 4);
+    Ofs.write(&(proto_reader_ptr_1->mProtoBufVec[0]), frame_info.prtLen + 4);
+  }
+  for (int i = 0; i < count_2; ++i) {
+    ProtoInfo_t &frame_info = proto_reader_ptr_2->mProtoInfoVec[i];
+    proto_reader_ptr_2->mIfs.seekg((int)frame_info.prtPos - 4);
+    proto_reader_ptr_2->mIfs.read(&(proto_reader_ptr_2->mProtoBufVec[0]),
+                                  frame_info.prtLen + 4);
+    Ofs.write(&(proto_reader_ptr_2->mProtoBufVec[0]), frame_info.prtLen + 4);
+  }
+  proto_reader_ptr_1->stopReader();
+  proto_reader_ptr_2->stopReader();
+  delete proto_reader_ptr_1;
+  proto_reader_ptr_1 = nullptr;
+  delete proto_reader_ptr_2;
+  proto_reader_ptr_2 = nullptr;
+}

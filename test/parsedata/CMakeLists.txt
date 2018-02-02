@@ -1,4 +1,4 @@
-project(unit_test)
+project(test_parsedata)
 
 include_directories(
         ${videoslice_SOURCE_DIR}/include

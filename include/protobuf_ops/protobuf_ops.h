@@ -50,7 +50,7 @@ class ProtoOps {
                         int64_t end_id, const std::string &fname_dst);
   static int mergeTwoFile(const std::string &fname_src1,
                           const std::string &fname_src2,
-                          const std::string &&fname_dst);
+                          const std::string &fname_dst);
 };
 }  // namespace HobotDMS
 

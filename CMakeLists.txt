@@ -47,7 +47,7 @@ target_link_libraries(${PROJECT_NAME}
     )
 
 add_subdirectory(test)
-add_subdirectory(example)
+add_subdirectory(jni_Nebula)
 
 set(OUTPUT_ROOT ${PROJECT_SOURCE_DIR}/output_${platform}_${architecture})
 set(CMAKE_INSTALL_PREFIX ${OUTPUT_ROOT})

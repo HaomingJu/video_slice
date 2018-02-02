@@ -149,7 +149,7 @@ int ProtoOps::cutOneFile(const std::string &fname_src, int64_t start_id,
 
 int ProtoOps::mergeTwoFile(const std::string &fname_src1,
                            const std::string &fname_src2,
-                           const std::string &&fname_dst) {
+                           const std::string &fname_dst) {
   DMSProtoReader *proto_reader_ptr_1 = new DMSProtoReader();
   DMSProtoReader *proto_reader_ptr_2 = new DMSProtoReader();
   proto_reader_ptr_1->startReader(fname_src1);

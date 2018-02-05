@@ -5,13 +5,13 @@
 
 int Slice::DMSProto_CutOneFile(const std::string &fname_src, int64_t start_id,
                                int64_t end_id, const std::string &fname_dst) {
-  return HobotDMS::ProtoOps::cutOneFile(fname_src, start_id, end_id, fname_dst);
+  return 0;
 }
 
 int Slice::DMSProto_MergeTwoFile(const std::string &fname_src1,
                                  const std::string &fname_src2,
                                  const std::string &fname_dst) {
-  return HobotDMS::ProtoOps::mergeTwoFile(fname_src1, fname_src2, fname_dst);
+  return 0;
 }
 
 int Slice::DMSVideo_CutOneFile(const std::string &fname_src, int64_t start_id,

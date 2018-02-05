@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include <stirng.h>
+#include <cstring>
 #include <cstdio>
 #include <cstdlib>
 #include "video_utils/video_utils.h"

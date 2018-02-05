@@ -30,9 +30,9 @@ bool MetaDeserializer::Deserialize(std::ifstream &ifs, size_t pos,
   return true;
 };
 bool MetaDeserializer::Deserialize(uint8_t *buf, size_t buf_size) {
-  LOGI_T(MODULE_TAG) << "MetaDeserializer::Deserialize get one frame before";
+  LOGV_T(MODULE_TAG) << "MetaDeserializer::Deserialize get one frame before";
   m_fproto_deserialize->ParseFromArray(buf, buf_size);
-  LOGI_T(MODULE_TAG) << "MetaDeserializer::Deserialize get one frame after";
+  LOGV_T(MODULE_TAG) << "MetaDeserializer::Deserialize get one frame after";
   return true;
 };
 
@@ -43,12 +43,12 @@ bool MetaDeserializer::getTime(int64_t &frame_id_, int64_t &timestamp_) {
   }
   if (m_fproto_deserialize->has_frame_id()) {
     frame_id_ = m_fproto_deserialize->frame_id();
-    LOGI_T(MODULE_TAG) << "get frame_id_: " << frame_id_;
+    LOGV_T(MODULE_TAG) << "get frame_id_: " << frame_id_;
   }
   // write img info
-  LOGI_T(MODULE_TAG) << "Write img infor";
+  LOGV_T(MODULE_TAG) << "Write img infor";
   timestamp_ = m_fproto_deserialize->image().time();
 
-  return 0;
+  return true;
 }
 }  // namespace HobotDMS

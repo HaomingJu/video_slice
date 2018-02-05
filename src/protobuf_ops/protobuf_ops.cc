@@ -7,7 +7,7 @@
 
 using namespace HobotDMS;
 
-int DMSProtoReader::startReader(const std::string &filename) {
+int ProtoReader::startReader(const std::string &filename) {
   m_deserializer = new MetaDeserializer();
   if (m_deserializer == nullptr)
     return -1;
@@ -21,21 +21,20 @@ int DMSProtoReader::startReader(const std::string &filename) {
   size_t max_proto_len = 0;
 
   /// 2. Read Version
-  uint32_t version = 0;
   uint8_t tran_ver[4];
   mIfs.read((char *)tran_ver, 4);
-  version = (tran_ver[0] << 24) & 0xFF000000;
-  version |= (tran_ver[1] << 16) & 0x00FF0000;
-  version |= (tran_ver[2] << 8) & 0x0000FF00;
-  version |= (tran_ver[3]) & 0x000000FF;
+  mVersion = (tran_ver[0] << 24) & 0xFF000000;
+  mVersion |= (tran_ver[1] << 16) & 0x00FF0000;
+  mVersion |= (tran_ver[2] << 8) & 0x0000FF00;
+  mVersion |= (tran_ver[3]) & 0x000000FF;
 
   size_t cur_pos = 4;  // current position in ifstream
   ProtoInfo_t protoInfo;
   mProtoInfoVec.clear();
   mProtoBufVec.clear();
   LOGI_T(MODULE_TAG) << "project's VERSION: " << VERSION;
-  LOGI_T(MODULE_TAG) << "proto's VERSION: " << version;
-  switch (version) {
+  LOGI_T(MODULE_TAG) << "proto's VERSION: " << mVersion;
+  switch (mVersion) {
     // [version, [ProtoLen, ProtoData], [ProtoLen, ProtoData], ...]
     case VERSION:
       while (cur_pos < fileSize) {
@@ -50,6 +49,7 @@ int DMSProtoReader::startReader(const std::string &filename) {
 
         protoInfo.prtLen = proto_len;
         protoInfo.prtPos = cur_pos + 4;
+        // TODO read timestamp into a RB-tree to speed up
 
         mProtoInfoVec.push_back(protoInfo);
         cur_pos += 4 + proto_len;
@@ -71,17 +71,20 @@ int DMSProtoReader::startReader(const std::string &filename) {
   return 0;
 };
 
-int DMSProtoReader::readOne(int64_t &frame_id_, int64_t &timestamp_) {
+uint32_t ProtoReader::getVersion() { return mVersion; }
+
+int ProtoReader::readOne(int64_t &frame_id_, int64_t &timestamp_) {
   if (mInput_cnt < 0 ||
       static_cast<unsigned int>(mInput_cnt) >= mProtoInfoVec.size()) {
     LOGI_T(MODULE_TAG) << "mInput_cnt = " << mInput_cnt;
     LOGI_T(MODULE_TAG) << "mProtoInfoVec.size = " << mProtoInfoVec.size();
     return -1;
   }
+  LOGV_T(MODULE_TAG) << "read from input_cnt = "<<mInput_cnt;
   ProtoInfo_t &frame_info = mProtoInfoVec[mInput_cnt];
   mIfs.seekg((int)frame_info.prtPos);
   mIfs.read(&mProtoBufVec[0], frame_info.prtLen);
-  LOGI_T(MODULE_TAG) << "read from file frame_info.prtLen = "
+  LOGV_T(MODULE_TAG) << "read from file frame_info.prtLen = "
                      << frame_info.prtLen;
   if (m_deserializer->Deserialize((uint8_t *)(&mProtoBufVec[0]),
                                   frame_info.prtLen) &&
@@ -92,14 +95,54 @@ int DMSProtoReader::readOne(int64_t &frame_id_, int64_t &timestamp_) {
   return -1;
 };
 
-int DMSProtoReader::seekTo(int pos) {
+int ProtoReader::readOneRaw(std::vector<char> &proto_raw, int64_t &timestamp_) {
+  if (mInput_cnt < 0 ||
+      static_cast<unsigned int>(mInput_cnt) >= mProtoInfoVec.size()) {
+    LOGI_T(MODULE_TAG) << "mInput_cnt = " << mInput_cnt;
+    LOGI_T(MODULE_TAG) << "mProtoInfoVec.size = " << mProtoInfoVec.size();
+    return -1;
+  }
+  ProtoInfo_t &frame_info = mProtoInfoVec[mInput_cnt];
+  proto_raw.resize(frame_info.prtLen);
+  mIfs.seekg((int)frame_info.prtPos);
+  mIfs.read(&proto_raw[0], frame_info.prtLen);
+  LOGV_T(MODULE_TAG) << "read from file frame_info.prtLen = "
+                     << frame_info.prtLen;
+  int64_t frame_id;
+  if (m_deserializer->Deserialize((uint8_t *)(&proto_raw[0]),
+                                  frame_info.prtLen) &&
+      m_deserializer->getTime(frame_id, timestamp_)) {
+    mInput_cnt++;
+    return 0;
+  }
+  return -1;
+}
+
+int ProtoReader::seekByPos(int pos) {
   // LOGI_T(MODULE_TAG) << "do seek:  " << pos;
   mInput_cnt = pos;
   return 0;
-};
+}
 
-int DMSProtoReader::getFrameCnt(void) { return mProtoInfoVec.size(); };
-void DMSProtoReader::stopReader() {
+int ProtoReader::seekByTime(int64_t timestamp_) {
+  // TODO use RB-tree to do seek
+  this->seekByPos(0);
+  int64_t frame_id = 0, timestamp = 0;
+  while (mInput_cnt < mProtoInfoVec.size()) {
+    this->readOne(frame_id, timestamp);
+    LOGV_T(MODULE_TAG) << "seek timestamp = " << timestamp;
+    LOGV_T(MODULE_TAG) << "seek frame_id= " << frame_id;
+    if (timestamp >= timestamp_) {
+      mInput_cnt--;
+      return 0;
+    }
+  }
+  return -1;
+}
+
+int ProtoReader::getFrameCnt(void) { return mProtoInfoVec.size(); };
+
+void ProtoReader::stopReader() {
   mProtoInfoVec.clear();
   if (m_deserializer != nullptr)
     delete m_deserializer;
@@ -107,8 +150,52 @@ void DMSProtoReader::stopReader() {
     mIfs.close();
 };
 
-int DMSProtoReader::cutOneFile(int64_t start_id, int64_t end_id,
-                               const std::string &fname) {
+///////////////////////////////////////////////////////////////////////////////
+int ProtoWriter::startWriter(const std::string &filename) {
+  mFileName = filename;
+  mOfs.open(mFileName.c_str(), std::ofstream::binary);
+  if (!mOfs.is_open())
+    return -1;
+  return 0;
+}
+
+int ProtoWriter::writeVersion(uint32_t version) {
+  /// Write Version info
+  if (mOfs.is_open()) {
+    unsigned char tran_ver[4];
+    tran_ver[0] = version >> 24 & 0x00FF;
+    tran_ver[1] = version >> 16 & 0x00FF;
+    tran_ver[2] = version >> 8 & 0x00FF;
+    tran_ver[3] = version >> 0 & 0x00FF;
+    mOfs.write((char *)tran_ver, 4);
+    return 0;
+  }
+  return -1;
+};
+
+int ProtoWriter::writeRaw(const std::vector<char> &proto_raw) {
+  char temp_len[4];
+  size_t buf_size = proto_raw.size();
+  temp_len[3] = buf_size & 0x00FF;
+  temp_len[2] = (buf_size >> 8) & 0x00FF;
+  temp_len[1] = (buf_size >> 16) & 0x00FF;
+  temp_len[0] = (buf_size >> 24) & 0x00FF;
+  mOfs.write(temp_len, 4);
+  if (!mOfs.good())
+    return -1;
+  mOfs.write(&proto_raw[0], proto_raw.size());
+  if (!mOfs.good())
+    return -1;
+  return 0;
+};
+
+void ProtoWriter::stopWriter() {
+  if (mOfs.is_open())
+    mOfs.close();
+};
+#if 0
+int ProtoReader::cutOneFile(int64_t start_id, int64_t end_id,
+                            const std::string &fname) {
   if ((start_id > end_id) || (start_id < 0) ||
       (end_id >= mProtoInfoVec.size())) {
     return -1;
@@ -136,10 +223,50 @@ int DMSProtoReader::cutOneFile(int64_t start_id, int64_t end_id,
 
   return 0;
 }
+#endif
 
+///////////////////////////////////////////////////////////////////////////////
+
+ProtoOps::ProtoOps()
+    : proto_reader_(new ProtoReader()), proto_writer_(new ProtoWriter()) {}
+
+ProtoOps::~ProtoOps() {}
+
+int ProtoOps::cut_merge_proto(std::vector<CutNodeProto> nodes,
+                              const std::string out_file) {
+  if (nodes.empty())
+    return -1;
+  // use first node's version
+  proto_reader_->startReader(nodes[0].filename);
+  uint32_t ver = proto_reader_->getVersion();
+  LOGI_T(MODULE_TAG) << "version = " << ver;
+  proto_reader_->stopReader();
+  proto_writer_->startWriter(out_file);
+  proto_writer_->writeVersion(ver);
+
+  std::vector<char> proto_raw;
+  int64_t timestamp = 0;
+  for (auto iter = nodes.cbegin(); iter != nodes.cend(); iter++) {
+    LOGI_T(MODULE_TAG) << "  filename = " << iter->filename;
+    LOGI_T(MODULE_TAG) << "  start_ts = " << iter->start_ts;
+    proto_reader_->startReader(iter->filename);
+    proto_reader_->seekByTime(iter->start_ts);
+    while (!proto_reader_->readOneRaw(proto_raw, timestamp)) {
+      if (timestamp > iter->end_ts)
+        break;
+      LOGI_T(MODULE_TAG) << "  cur_ts = " << timestamp;
+      proto_writer_->writeRaw(proto_raw);
+    }
+    proto_reader_->stopReader();
+  }
+  // TODO err handle
+  return 0;
+}
+
+#if 0
 int ProtoOps::cutOneFile(const std::string &fname_src, int64_t start_id,
                          int64_t end_id, const std::string &fname_dst) {
-  DMSProtoReader *proto_reader_ptr = new DMSProtoReader();
+  ProtoReader *proto_reader_ptr = new ProtoReader();
   proto_reader_ptr->startReader(fname_src);
   return proto_reader_ptr->cutOneFile(start_id, end_id, fname_dst);
   proto_reader_ptr->stopReader();
@@ -150,8 +277,8 @@ int ProtoOps::cutOneFile(const std::string &fname_src, int64_t start_id,
 int ProtoOps::mergeTwoFile(const std::string &fname_src1,
                            const std::string &fname_src2,
                            const std::string &fname_dst) {
-  DMSProtoReader *proto_reader_ptr_1 = new DMSProtoReader();
-  DMSProtoReader *proto_reader_ptr_2 = new DMSProtoReader();
+  ProtoReader *proto_reader_ptr_1 = new ProtoReader();
+  ProtoReader *proto_reader_ptr_2 = new ProtoReader();
   proto_reader_ptr_1->startReader(fname_src1);
   proto_reader_ptr_2->startReader(fname_src2);
 
@@ -188,3 +315,4 @@ int ProtoOps::mergeTwoFile(const std::string &fname_src1,
   delete proto_reader_ptr_2;
   proto_reader_ptr_2 = nullptr;
 }
+#endif

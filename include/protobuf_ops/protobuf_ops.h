@@ -16,19 +16,19 @@ typedef struct ProtoInfo {
   size_t prtLen;
 } ProtoInfo_t;
 
-/// class DMSProtoReader
-class DMSProtoReader {
+class ProtoReader {
  public:
   int startReader(const std::string &filename);
   int getPos() { return mInput_cnt; }
-  int seekTo(int pos);
   int getFrameCnt(void);
   void stopReader();
 
+  uint32_t getVersion();
   int readOne(int64_t &frame_id_, int64_t &timestamp_);
-  int cutOneFile(int64_t start_id, int64_t end_id, const std::string &fname);
+  int readOneRaw(std::vector<char> &proto_raw, int64_t &timestamp);
+  int seekByPos(int pos);
+  int seekByTime(int64_t timestamp);
 
-  MetaDeserializer *m_deserializer = nullptr;
   inline size_t GetFileSize(std::ifstream &ifs) {
     // 保留原始位置
     size_t cur_pos = ifs.tellg();
@@ -37,20 +37,45 @@ class DMSProtoReader {
     ifs.seekg(cur_pos);
     return size;
   }
+
+ private:
+  MetaDeserializer *m_deserializer;
   std::string mFileName;
   std::ifstream mIfs;
   std::vector<char> mProtoBufVec;
   std::vector<ProtoInfo_t> mProtoInfoVec;
   int mInput_cnt;
+  uint32_t mVersion;
 };
+
+class ProtoWriter {
+ public:
+  int startWriter(const std::string &filename);
+  int writeVersion(uint32_t version);
+  int writeRaw(const std::vector<char> &proto_raw);
+  void stopWriter();
+
+ private:
+  std::string mFileName;
+  std::ofstream mOfs;
+};
+
+typedef struct CutNodeProto_ {
+  int64_t start_ts;
+  int64_t end_ts;
+  std::string filename;
+} CutNodeProto;
 
 class ProtoOps {
  public:
-  static int cutOneFile(const std::string &fname_src, int64_t start_id,
-                        int64_t end_id, const std::string &fname_dst);
-  static int mergeTwoFile(const std::string &fname_src1,
-                          const std::string &fname_src2,
-                          const std::string &fname_dst);
+  ProtoOps();
+  ~ProtoOps();
+  int cut_merge_proto(std::vector<CutNodeProto> nodes,
+                      const std::string out_file);
+
+ private:
+  std::unique_ptr<ProtoReader> proto_reader_;
+  std::unique_ptr<ProtoWriter> proto_writer_;
 };
 }  // namespace HobotDMS
 

@@ -1,4 +1,4 @@
-project(test_parsedata)
+project(cut_merge_proto)
 
 include_directories(
         ${videoslice_SOURCE_DIR}/include
@@ -6,7 +6,7 @@ include_directories(
 
 set(SOURCE_FILES
         main.cc
-        )
+)
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 

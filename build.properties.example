@@ -32,6 +32,8 @@ repository2_password	deploy-alpha@hobot.cc
 # dependency artifacts
 artifact1   third_party:protobuf:2.6.1:zip:true
 artifact2   com.hobot.native.hobot:hobotlog:1.0.4:zip
+artifact3   com.hobot.native.hobot-dms:ffmpeg:3.4.1:zip:true
+
 # artifact{n} {group}:{name}:{version}:{ext}:{forward}:{is_general}
 
 # dependency exclude

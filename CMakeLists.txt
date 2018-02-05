@@ -6,9 +6,10 @@ project(videoslice)
 
 message("config types: ${CMAKE_CONFIGURATION_TYPES}")
 
-set(CMAKE_BUILD_TYPE Release)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -pthread -fPIC")
+set(CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS}  -pthread -fPIC")
+set(CMAKE_INSTALL_PREFIX ${_INSTALL_DIR})
 add_definitions(-D_GLIBCXX_USE_CXX11_ABI=0)
 add_definitions(-DHR_POSIX)
 add_definitions(-DHR_LINUX)
@@ -30,6 +31,7 @@ set(SOURCE_FILES
         src/serializer/serializer.cc
         src/time_utils/TimeUtils.cc
         src/search_path/searchMP4.cc
+        src/video_utils/cut_merge_video.c
         )
 
 add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES})
@@ -43,14 +45,14 @@ endif()
 target_link_libraries(${PROJECT_NAME}
     protobuf
     hobotlog
+    avformat
+    avcodec
+    avutil
     ${LOG_LIB}
     )
 
 add_subdirectory(test)
 add_subdirectory(jni_Nebula)
-
-set(OUTPUT_ROOT ${PROJECT_SOURCE_DIR}/output_${platform}_${architecture})
-set(CMAKE_INSTALL_PREFIX ${OUTPUT_ROOT})
 
 install(TARGETS ${PROJECT_NAME}
     DESTINATION lib)

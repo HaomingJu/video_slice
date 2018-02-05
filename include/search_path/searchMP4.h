@@ -2,11 +2,12 @@
 #define __SEARCH_PATH_SEARCH_H__
 #include <iostream>
 #include <vector>
+#include "video_utils/video_utils.h"
+
 namespace HobotDMS {
 typedef struct Slice_info_ {
   std::string mp4_path = "";
-  int frame_start_id = -1;
-  int frame_end_id = -1;
+  int64_t start_timestamp = -1;
 } Slice_info;
 
 class SearchMP4 {
@@ -14,8 +15,8 @@ class SearchMP4 {
   SearchMP4();
   ~SearchMP4();
 
-  std::vector<Slice_info> &getMP4Path(const int64_t &start_point,  // 起始时间点
-                                      const int &mp4_len);  // 持续时间长度
+  int getMP4Path(const int64_t &start_point, const int64_t &len,
+                 std::vector<CutNode> &node);
   bool addSearchPath(std::string &path);  // 增加搜索路径
   bool delSearchPath(std::string &path);  // 删除搜索路径
   void showSearchPath();

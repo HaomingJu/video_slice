@@ -77,13 +77,14 @@ void TimeUtils::StringMstoTimMs(const std::string &result, int64_t &timeMs) {
     return;
   }
   std::tm tm_;
+  tm_.tm_isdst = 0;
   tm_.tm_sec = stoi(result.substr(13, 2));
   tm_.tm_min = stoi(result.substr(11, 2));
   tm_.tm_hour = stoi(result.substr(9, 2));
   tm_.tm_mday = stoi(result.substr(6, 2));
   tm_.tm_mon = stoi(result.substr(4, 2)) - 1;
   tm_.tm_year = stoi(result.substr(0, 4)) - 1900;
-  timeMs = mktime(&tm_);
+  timeMs = mktime(&tm_) * 1000 + stoi(result.substr(16, 3));
   // auto now2 = std::chrono::system_clock::from_time_t(std::mktime(&tm_));
 }
 
@@ -94,6 +95,8 @@ void TimeUtils::TimeMstoStringMs(int64_t timeMs, std::string &result) {
   int ms = (timeMs % 1000);
 
   std::tm *ttm = localtime(&ttime_t);
+  // std::tm *ttm = gmtime(&ttime_t);
+  ttm->tm_isdst = 0;
   char date_time_format[] = "%Y%m%d-%H%M%S";
   char time_str[] = "yyyy.mm.dd.HH-MM.SS.fff";
   strftime(time_str, strlen(time_str), date_time_format, ttm);

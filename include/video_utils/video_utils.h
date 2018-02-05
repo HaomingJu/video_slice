@@ -10,7 +10,7 @@ typedef struct CutNode_ {
   double end_seconds;
   double start_seconds_refined;
   double end_seconds_refined;
-  char *filename;
+  char filename[256];
 } CutNode;
 
 /**

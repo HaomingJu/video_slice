@@ -8,6 +8,23 @@ using namespace HobotDMS;
 using namespace std;
 
 int main(int argc, char **argv) {
+  HobotDMS::SearchMP4 search_mp4;
+  std::vector<CutNode> node;
+  std::string search_path = "/home/haoming/Desktop";
+  search_mp4.addSearchPath(search_path);
+
+  search_mp4.getMP4Path(1262312750319, 10000, node);
+
+  for (int i = 0; i < node.size(); ++i) {
+    std::cout << "name: " << node[i].filename << std::endl
+              << "start_timestamp: " << node[i].start_seconds << std::endl
+              << "end_timestamp: " << node[i].end_seconds << std::endl;
+  }
+
+  cut_merge_video((CutNode *)(&(node[0])), node.size(),
+                  "/home/haoming/Desktop/result.mp4");
+
+  /*
   SetLogLevel(HOBOT_LOG_DEBUG);
   SearchMP4 search;
   std::string search_path = "/home/haoming/Desktop";
@@ -27,6 +44,7 @@ int main(int argc, char **argv) {
   std::cout << "filename = " << node[0].filename << std::endl;
   std::cout << "start_timestamp = " << node[0].start_seconds << std::endl;
   std::cout << "end_timestamp = " << node[0].end_seconds << std::endl;
+  */
 
   return 0;
 }

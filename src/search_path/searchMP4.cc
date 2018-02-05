@@ -37,9 +37,6 @@ int SearchMP4::getMP4Path(const int64_t &start_point, const int64_t &mp4_len,
               return info_1.start_timestamp < info_2.start_timestamp ? true
                                                                      : false;
             });
-  //    v_slice_info.pop_back();
-
-  // |--------|---------|xxxxxxxxxx|
   int64_t end_point = start_point + mp4_len;
   int low = 0;
   int high = v_slice_info.size();
@@ -86,12 +83,13 @@ int SearchMP4::getMP4Path(const int64_t &start_point, const int64_t &mp4_len,
     node_len = (file_2 - file_1) + 1;
   CutNode cut_node;
 
+  std::cout << "------------------" << std::endl;
   for (int i = 0; i < node_len; ++i) {
-    cut_node.filename =
-        const_cast<char *>(v_slice_info[i + file_1].mp4_path.c_str());
+    strcpy(cut_node.filename, v_slice_info[i + file_1].mp4_path.c_str());
     cut_node.start_seconds =
-        start_point - v_slice_info[i + file_1].start_timestamp;
-    cut_node.end_seconds = end_point - v_slice_info[i + file_1].start_timestamp;
+        double(start_point - v_slice_info[i + file_1].start_timestamp) / 1000;
+    cut_node.end_seconds =
+        double(end_point - v_slice_info[i + file_1].start_timestamp) / 1000;
     if (i < (node_len - 1))
       cut_node.end_seconds = -1;
     if (i >= 1)
@@ -99,6 +97,7 @@ int SearchMP4::getMP4Path(const int64_t &start_point, const int64_t &mp4_len,
     if (i == 0)
       cut_node.start_seconds =
           cut_node.start_seconds <= 0 ? -1 : cut_node.start_seconds;
+
     node.push_back(cut_node);
   }
   if (end_point >= v_slice_info.back().start_timestamp) {

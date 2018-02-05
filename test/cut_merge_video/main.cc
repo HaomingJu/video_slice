@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include <stirng.h>
 #include <cstdio>
 #include <cstdlib>
 #include "video_utils/video_utils.h"
@@ -12,7 +14,7 @@ int main(int argc, char **argv) {
   for (i = 0; i < node_len; i++) {
     sscanf(argv[1 + i * 3], "%lf", &node[i].start_seconds);
     sscanf(argv[2 + i * 3], "%lf", &node[i].end_seconds);
-    node[i].filename = argv[3 + i * 3];
+    strcpy(node[i].filename, argv[3 + i * 3]);
   }
   const char *out_filename = argv[argc - 1];
   cut_merge_video(node, node_len, out_filename);

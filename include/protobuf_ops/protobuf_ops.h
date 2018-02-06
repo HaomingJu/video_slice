@@ -18,6 +18,8 @@ typedef struct ProtoInfo {
 
 class ProtoReader {
  public:
+  ProtoReader();
+  ~ProtoReader();
   int startReader(const std::string &filename);
   int getPos() { return mInput_cnt; }
   int getFrameCnt(void);
@@ -39,7 +41,7 @@ class ProtoReader {
   }
 
  private:
-  MetaDeserializer *m_deserializer;
+  std::unique_ptr<MetaDeserializer> m_deserializer;
   std::string mFileName;
   std::ifstream mIfs;
   std::vector<char> mProtoBufVec;
@@ -50,6 +52,8 @@ class ProtoReader {
 
 class ProtoWriter {
  public:
+  ProtoWriter();
+  ~ProtoWriter();
   int startWriter(const std::string &filename);
   int writeVersion(uint32_t version);
   int writeRaw(const std::vector<char> &proto_raw);
@@ -66,17 +70,9 @@ typedef struct CutNodeProto_ {
   std::string filename;
 } CutNodeProto;
 
-class ProtoOps {
- public:
-  ProtoOps();
-  ~ProtoOps();
-  int cut_merge_proto(std::vector<CutNodeProto> nodes,
-                      const std::string out_file);
+int cut_merge_proto(std::vector<CutNodeProto> nodes,
+                    const std::string out_file);
 
- private:
-  std::unique_ptr<ProtoReader> proto_reader_;
-  std::unique_ptr<ProtoWriter> proto_writer_;
-};
 }  // namespace HobotDMS
 
 #endif  // SRC_MODULES_INCLUDE_HOBOT_DMS_MODULES_UTILS_PROTOBUF_OPS_H_

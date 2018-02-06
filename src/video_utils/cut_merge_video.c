@@ -171,7 +171,7 @@ int cut_merge_video(CutNode *node, int node_len, const char *out_filename) {
         in_stream = ifmt_ctx->streams[pkt.stream_index];
         out_stream = ofmt_ctx->streams[pkt.stream_index];
 
-        log_packet(ifmt_ctx, &pkt, "in");
+        /* log_packet(ifmt_ctx, &pkt, "in"); */
 
         double tmp_end_seconds = av_q2d(in_stream->time_base) * pkt.pts;
         if (end_seconds > 0 && tmp_end_seconds > end_seconds) {
@@ -213,8 +213,8 @@ int cut_merge_video(CutNode *node, int node_len, const char *out_filename) {
         tmp_pts = pkt.pts;
         tmp_dts = pkt.dts;
         last_duration = pkt.duration;
-        log_packet(ofmt_ctx, &pkt, "out");
-        printf("\n");
+        /* log_packet(ofmt_ctx, &pkt, "out"); */
+        /* printf("\n"); */
 
         ret = av_interleaved_write_frame(ofmt_ctx, &pkt);
         if (ret < 0) {

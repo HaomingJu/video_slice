@@ -5,10 +5,14 @@
 #include "protobuf_ops/protobuf_ops.h"
 #include "logging/DMSLog.h"
 
-using namespace HobotDMS;
+namespace HobotDMS {
+
+ProtoReader::ProtoReader()
+    : mVersion(0), mInput_cnt(0), m_deserializer(new MetaDeserializer()) {}
+
+ProtoReader::~ProtoReader() { this->stopReader(); }
 
 int ProtoReader::startReader(const std::string &filename) {
-  m_deserializer = new MetaDeserializer();
   if (m_deserializer == nullptr)
     return -1;
   mFileName = filename;
@@ -69,7 +73,7 @@ int ProtoReader::startReader(const std::string &filename) {
   }
 
   return 0;
-};
+}
 
 uint32_t ProtoReader::getVersion() { return mVersion; }
 
@@ -80,7 +84,7 @@ int ProtoReader::readOne(int64_t &frame_id_, int64_t &timestamp_) {
     LOGI_T(MODULE_TAG) << "mProtoInfoVec.size = " << mProtoInfoVec.size();
     return -1;
   }
-  LOGV_T(MODULE_TAG) << "read from input_cnt = "<<mInput_cnt;
+  LOGV_T(MODULE_TAG) << "read from input_cnt = " << mInput_cnt;
   ProtoInfo_t &frame_info = mProtoInfoVec[mInput_cnt];
   mIfs.seekg((int)frame_info.prtPos);
   mIfs.read(&mProtoBufVec[0], frame_info.prtLen);
@@ -93,14 +97,14 @@ int ProtoReader::readOne(int64_t &frame_id_, int64_t &timestamp_) {
     return 0;
   }
   return -1;
-};
+}
 
 int ProtoReader::readOneRaw(std::vector<char> &proto_raw, int64_t &timestamp_) {
   if (mInput_cnt < 0 ||
       static_cast<unsigned int>(mInput_cnt) >= mProtoInfoVec.size()) {
     LOGI_T(MODULE_TAG) << "mInput_cnt = " << mInput_cnt;
     LOGI_T(MODULE_TAG) << "mProtoInfoVec.size = " << mProtoInfoVec.size();
-    return -1;
+    return -2;
   }
   ProtoInfo_t &frame_info = mProtoInfoVec[mInput_cnt];
   proto_raw.resize(frame_info.prtLen);
@@ -140,17 +144,20 @@ int ProtoReader::seekByTime(int64_t timestamp_) {
   return -1;
 }
 
-int ProtoReader::getFrameCnt(void) { return mProtoInfoVec.size(); };
+int ProtoReader::getFrameCnt(void) { return mProtoInfoVec.size(); }
 
 void ProtoReader::stopReader() {
   mProtoInfoVec.clear();
-  if (m_deserializer != nullptr)
-    delete m_deserializer;
   if (mIfs.is_open())
     mIfs.close();
-};
+}
 
 ///////////////////////////////////////////////////////////////////////////////
+
+ProtoWriter::ProtoWriter() {}
+
+ProtoWriter::~ProtoWriter() {}
+
 int ProtoWriter::startWriter(const std::string &filename) {
   mFileName = filename;
   mOfs.open(mFileName.c_str(), std::ofstream::binary);
@@ -227,40 +234,57 @@ int ProtoReader::cutOneFile(int64_t start_id, int64_t end_id,
 
 ///////////////////////////////////////////////////////////////////////////////
 
-ProtoOps::ProtoOps()
-    : proto_reader_(new ProtoReader()), proto_writer_(new ProtoWriter()) {}
-
-ProtoOps::~ProtoOps() {}
-
-int ProtoOps::cut_merge_proto(std::vector<CutNodeProto> nodes,
-                              const std::string out_file) {
+int cut_merge_proto(std::vector<CutNodeProto> nodes,
+                    const std::string out_file) {
   if (nodes.empty())
     return -1;
+  std::unique_ptr<ProtoReader> proto_reader_(new ProtoReader());
+  std::unique_ptr<ProtoWriter> proto_writer_(new ProtoWriter());
   // use first node's version
-  proto_reader_->startReader(nodes[0].filename);
+  int ret = proto_reader_->startReader(nodes[0].filename);
+  if (ret)
+    return ret;
   uint32_t ver = proto_reader_->getVersion();
   LOGI_T(MODULE_TAG) << "version = " << ver;
   proto_reader_->stopReader();
-  proto_writer_->startWriter(out_file);
-  proto_writer_->writeVersion(ver);
+  ret = proto_writer_->startWriter(out_file);
+  if (ret)
+    return ret;
+  ret = proto_writer_->writeVersion(ver);
+  if (ret) {
+    proto_writer_->stopWriter();
+    return ret;
+  }
 
   std::vector<char> proto_raw;
   int64_t timestamp = 0;
   for (auto iter = nodes.cbegin(); iter != nodes.cend(); iter++) {
     LOGI_T(MODULE_TAG) << "  filename = " << iter->filename;
     LOGI_T(MODULE_TAG) << "  start_ts = " << iter->start_ts;
-    proto_reader_->startReader(iter->filename);
-    proto_reader_->seekByTime(iter->start_ts);
-    while (!proto_reader_->readOneRaw(proto_raw, timestamp)) {
+    ret = proto_reader_->startReader(iter->filename);
+    if (ret)
+      return ret;
+    ret = proto_reader_->seekByTime(iter->start_ts);
+    if (ret)
+      return ret;
+    while (1) {
+      ret = proto_reader_->readOneRaw(proto_raw, timestamp);
+      if (ret == -2)
+        break;
+      else if (ret)
+        return ret;
       if (timestamp > iter->end_ts)
         break;
       LOGI_T(MODULE_TAG) << "  cur_ts = " << timestamp;
-      proto_writer_->writeRaw(proto_raw);
+      ret = proto_writer_->writeRaw(proto_raw);
+      if (ret)
+        return ret;
     }
     proto_reader_->stopReader();
   }
   // TODO err handle
   return 0;
+}
 }
 
 #if 0

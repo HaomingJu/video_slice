@@ -23,7 +23,5 @@ int main(int argc, char **argv) {
     nodes.push_back(node);
   }
   const std::string out_filename(argv[argc - 1]);
-  HobotDMS::ProtoOps proto_ops;
-  proto_ops.cut_merge_proto(nodes, out_filename);
-  return 0;
+  return HobotDMS::cut_merge_proto(nodes, out_filename);
 }

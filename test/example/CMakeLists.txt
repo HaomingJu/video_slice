@@ -1,4 +1,4 @@
-project(search)
+project(example)
 
 include_directories(
         ${videoslice_SOURCE_DIR}/include

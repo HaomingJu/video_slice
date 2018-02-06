@@ -1,0 +1,28 @@
+# local config
+# same as config in `build.properties` but with high priority
+
+### linux x86
+# architecture x86
+# platform linux
+# cmake_c_compiler gcc
+# cmake_cxx_compiler g++
+
+### linux armjoc
+# architecture armhf
+# platform linux
+# cmake_c_compiler /opt/gcc-linaro-5.3-2016.02-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-gcc
+# cmake_cxx_compiler /opt/gcc-linaro-5.3-2016.02-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-g++
+
+### android
+architecture arm
+platform android
+ANDROID_NDK /opt/NDK/android-ndk-r14b/
+# ANDROID_STANDALONE_TOOLCHAIN /tmp/android-toolchain-clang-gnustl/
+
+
+
+# setting compiler for arm linux
+# cmake_c_compiler /opt/gcc-linaro-4.9.4-2017.01-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-gcc
+# cmake_cxx_compiler /opt/gcc-linaro-4.9.4-2017.01-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-g++
+# cmake_c_compiler /opt/gcc-linaro-arm-linux-gnueabihf-4.7-2013.03-20130313_linux/bin/arm-linux-gnueabihf-gcc
+# cmake_cxx_compiler /opt/gcc-linaro-arm-linux-gnueabihf-4.7-2013.03-20130313_linux/bin/arm-linux-gnueabihf-g++

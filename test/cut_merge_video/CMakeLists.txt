@@ -1,7 +1,7 @@
 project(cut_merge_video)
 
 include_directories(
-        ${videoslice_SOURCE_DIR}/include
+        ${dataslice_SOURCE_DIR}/include
 )
 
 set(SOURCE_FILES
@@ -10,7 +10,7 @@ set(SOURCE_FILES
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
-target_link_libraries(${PROJECT_NAME} videoslice)
+target_link_libraries(${PROJECT_NAME} dataslice)
 
 install(TARGETS ${PROJECT_NAME}
     RUNTIME DESTINATION bin)

@@ -1,11 +1,11 @@
-Getting Started with videoslice    {#videoslice}
+Getting Started with dataslice    {#videoslice}
 =======
 
 这是一份自动生成的文档，以及建议的格式
 
 # Intro
 
-`TODO` 关于videoslice的简要介绍。
+`TODO` 关于dataslice的简要介绍。
 
 # Build
 

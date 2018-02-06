@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 
 
 include(cmake/hobot_util.cmake)
-project(videoslice)
+project(dataslice)
 
 message("config types: ${CMAKE_CONFIGURATION_TYPES}")
 
@@ -56,3 +56,6 @@ add_subdirectory(test)
 
 install(TARGETS ${PROJECT_NAME}
     DESTINATION lib)
+
+install(FILES "${PROJECT_SOURCE_DIR}/include/slice_video_proto.h"
+    DESTINATION include)

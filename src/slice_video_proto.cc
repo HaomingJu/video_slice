@@ -4,17 +4,24 @@
 #include "protobuf_ops/protobuf_ops.h"
 #include "search_path/searchMP4.h"
 #include "time_utils/TimeUtils.h"
+#define MODULE_TAG "DMS_Slice"
+#include "logging/DMSLog.h"
+
+namespace HobotNebula {
 
 int DMS_Slice::Cut(int64_t start_ms, int64_t dur_ms,
                    const std::string &result_path_name) {
+  LOGI_T(MODULE_TAG) << "start: " << start_ms;
+  LOGI_T(MODULE_TAG) << "dura : " << dur_ms;
+  LOGI_T(MODULE_TAG) << "out  : " << result_path_name;
   if (dur_ms <= 0)
     return -1;
   // 变量定义
   std::string mp4_name = result_path_name + ".mp4";
   std::string proto_name = result_path_name + ".proto";
-  HobotNebula::SearchMP4 search_mp4;
+  SearchMP4 search_mp4;
   std::vector<CutNode> node;
-  std::vector<HobotNebula::CutNodeProto> node_proto;
+  std::vector<CutNodeProto> node_proto;
   std::string search_path = "/storage/sdcard1/com.hobot.dms.sample/video/";
   int ret = -1;
 
@@ -34,7 +41,7 @@ int DMS_Slice::Cut(int64_t start_ms, int64_t dur_ms,
   // 时间戳转换
   for (std::vector<CutNode>::iterator iter = node.begin(); iter != node.end();
        ++iter) {
-    HobotNebula::CutNodeProto tmp_node_proto;
+    CutNodeProto tmp_node_proto;
     tmp_node_proto.filename = std::string(iter->filename);
     int find_index = tmp_node_proto.filename.find("_Nebula_1_5_");
     if (find_index == std::string::npos)
@@ -53,6 +60,6 @@ int DMS_Slice::Cut(int64_t start_ms, int64_t dur_ms,
     node_proto.push_back(tmp_node_proto);
   }
   // 切取proto文件
-  cut_merge_proto(node_proto, proto_name);
-  return 0;
+  return cut_merge_proto(node_proto, proto_name);
+}
 }

@@ -1,11 +1,23 @@
 #include <iostream>
 #include <string>
-#include "hobotlog/hobotlog.hpp"
-#include "protobuf_ops/protobuf_ops.h"
-#include "searchMP4.h"
-#include "time_utils/TimeUtils.h"
-#include "video_utils/video_utils.h"
+#include <sstream>
+#include "slice_video_proto.h"
 
+int main(int argc, char **argv) {
+  if (argc != 4)
+    return -1;
+  HobotNebula::DMS_Slice slice;
+  int64_t start_ms, dura_ms;
+  std::istringstream iss((std::string(argv[1])));
+  iss >> start_ms;
+  std::istringstream iss2((std::string(argv[2])));
+  iss2 >> dura_ms;
+  std::string result_file(argv[3]);
+
+  slice.Cut(start_ms, dura_ms, result_file);
+  return 0;
+}
+#if 0
 #include <sstream>
 int64_t stoi_(const std::string &s) {
   std::stringstream stream;
@@ -84,3 +96,4 @@ int main(int argc, char **argv) {
 
   return 0;
 }
+#endif

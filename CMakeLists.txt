@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 
 
 include(cmake/hobot_util.cmake)
-project(slice_utils)
+project(videoslice)
 
 message("config types: ${CMAKE_CONFIGURATION_TYPES}")
 
@@ -32,9 +32,10 @@ set(SOURCE_FILES
         src/time_utils/TimeUtils.cc
         src/search_path/searchMP4.cc
         src/video_utils/cut_merge_video.c
+        src/slice_video_proto.cc
         )
 
-add_library(${PROJECT_NAME} STATIC ${SOURCE_FILES})
+add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES})
 
 if (${_PLATFORM} STREQUAL "android")
     set(LOG_LIB log)
@@ -52,7 +53,6 @@ target_link_libraries(${PROJECT_NAME}
     )
 
 add_subdirectory(test)
-add_subdirectory(lib_Nebula)
 
-#install(TARGETS ${PROJECT_NAME}
-    #DESTINATION lib)
+install(TARGETS ${PROJECT_NAME}
+    DESTINATION lib)

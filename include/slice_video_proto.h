@@ -3,8 +3,6 @@
 #include <stdint.h>
 #include <string>
 namespace HobotNebula {
-class ProtoOps;
-};
 
 class Slice {
  public:
@@ -13,13 +11,16 @@ class Slice {
 };
 
 class DMS_Slice : public Slice {
+ public:
   int Cut(int64_t start_ms, int64_t dur_ms,
           const std::string &result_path_name) override;
 };
 
 class ADAS_Slice : public Slice {
+ public:
   int Cut(int64_t start_ms, int64_t dur_ms,
           const std::string &result_path_name) override;
 };
+}
 
 #endif  // __SLICE_VIDEO_PROTO_H__

@@ -1,7 +1,7 @@
 #ifndef __SLICE_VIDEO_PROTO_H__
 #define __SLICE_VIDEO_PROTO_H__
 
-namespace HobotDMS {
+namespace HobotNebula {
 class ProtoOps;
 };
 

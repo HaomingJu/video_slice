@@ -55,7 +55,7 @@ int Slice::ADASVideo_MergeTwoFile(const std::string &fname_src1,
 
 /*
 int main(int argc, char **argv) {
-  HobotDMS::SearchMP4 search_mp4;
+  HobotNebula::SearchMP4 search_mp4;
   std::string s1 = "/home/haoming/";
   std::string s2 = "/home/wente";
 

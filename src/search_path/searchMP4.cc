@@ -8,7 +8,7 @@
 #include "TimeUtils.h"
 
 #define MODULE_TAG "SearchMP4"
-namespace HobotDMS {
+namespace HobotNebula {
 SearchMP4::SearchMP4(){};
 
 SearchMP4::~SearchMP4(){};

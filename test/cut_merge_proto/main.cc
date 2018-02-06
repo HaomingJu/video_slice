@@ -10,10 +10,10 @@ int main(int argc, char **argv) {
     return -1;
   SetLogLevel(HOBOT_LOG_DEBUG);
   int node_len = (argc - 2) / 3;
-  std::vector<HobotDMS::CutNodeProto> nodes;
+  std::vector<HobotNebula::CutNodeProto> nodes;
   int i;
   for (i = 0; i < node_len; i++) {
-    HobotDMS::CutNodeProto node;
+    HobotNebula::CutNodeProto node;
     std::istringstream iss(std::string(argv[1 + i * 3]));
     iss >> node.start_ts;
     std::istringstream iss2(std::string(argv[2 + i * 3]));
@@ -23,5 +23,5 @@ int main(int argc, char **argv) {
     nodes.push_back(node);
   }
   const std::string out_filename(argv[argc - 1]);
-  return HobotDMS::cut_merge_proto(nodes, out_filename);
+  return HobotNebula::cut_merge_proto(nodes, out_filename);
 }

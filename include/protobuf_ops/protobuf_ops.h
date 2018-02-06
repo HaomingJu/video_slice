@@ -9,7 +9,7 @@
 #include <vector>
 #include "serializer/serializer.h"
 
-namespace HobotDMS {
+namespace HobotNebula {
 #define VERSION 2017121901
 typedef struct ProtoInfo {
   size_t prtPos;
@@ -73,6 +73,6 @@ typedef struct CutNodeProto_ {
 int cut_merge_proto(std::vector<CutNodeProto> nodes,
                     const std::string out_file);
 
-}  // namespace HobotDMS
+}  // namespace HobotNebula
 
 #endif  // SRC_MODULES_INCLUDE_HOBOT_DMS_MODULES_UTILS_PROTOBUF_OPS_H_

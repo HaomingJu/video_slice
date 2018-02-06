@@ -10,7 +10,7 @@
 #include "dms_frame/DMSFrame.pb.h"
 #include "logging/DMSLog.h"
 #include "serializer/serializer.h"
-namespace HobotDMS {
+namespace HobotNebula {
 // de-serialize
 MetaDeserializer::MetaDeserializer() {
   m_fproto_deserialize = new DMSFrameProtocol::DMSFrame();
@@ -51,4 +51,4 @@ bool MetaDeserializer::getTime(int64_t &frame_id_, int64_t &timestamp_) {
 
   return true;
 }
-}  // namespace HobotDMS
+}  // namespace HobotNebula

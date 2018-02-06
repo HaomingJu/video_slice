@@ -5,7 +5,7 @@
 #include "protobuf_ops/protobuf_ops.h"
 #include "logging/DMSLog.h"
 
-namespace HobotDMS {
+namespace HobotNebula {
 
 ProtoReader::ProtoReader()
     : mVersion(0), mInput_cnt(0), m_deserializer(new MetaDeserializer()) {}

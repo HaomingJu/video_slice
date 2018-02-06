@@ -4,11 +4,11 @@
 #include "searchMP4.h"
 #include "video_utils/video_utils.h"
 
-using namespace HobotDMS;
+using namespace HobotNebula;
 using namespace std;
 
 int main(int argc, char **argv) {
-  HobotDMS::SearchMP4 search_mp4;
+  HobotNebula::SearchMP4 search_mp4;
   std::vector<CutNode> node;
   std::string search_path = "/home/haoming/Desktop";
   search_mp4.addSearchPath(search_path);

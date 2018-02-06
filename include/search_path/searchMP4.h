@@ -4,7 +4,7 @@
 #include <vector>
 #include "video_utils/video_utils.h"
 
-namespace HobotDMS {
+namespace HobotNebula {
 typedef struct Slice_info_ {
   std::string mp4_path = "";
   int64_t start_timestamp = -1;

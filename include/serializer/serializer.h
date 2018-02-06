@@ -9,7 +9,7 @@
 #include <iostream>
 #include "DMSFrame.pb.h"
 
-namespace HobotDMS {
+namespace HobotNebula {
 class MetaDeserializer {
  public:
   MetaDeserializer();
@@ -27,6 +27,6 @@ class MetaDeserializer {
  private:
 };
 
-}  // end of namespace HobotDMS
+}  // end of namespace HobotNebula
 
 #endif  // SRC_HOBOT_DMS_UTILS_SERIALIZE_SERIALIZER_H_

@@ -5,7 +5,7 @@
 #include "hobotlog/hobotlog.hpp"
 
 #ifndef MODULE_TAG
-#define MODULE_TAG "HobotDMS"
+#define MODULE_TAG "HobotNebula"
 #endif
 
 #define LOG_FATAL_LEVEL 0

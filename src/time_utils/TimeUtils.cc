@@ -70,25 +70,27 @@ void TimeUtils::sleepFor(int64_t timeMs) {
       std::chrono::milliseconds(timeMs * mMultiple / mDivider));
 }
 
-void TimeUtils::StringMstoTimMs(const std::string &result, int64_t &timeMs) {
+void TimeUtils::StringMstoTimMs(const std::string &result, int64_t &timeMs,
+                                const char *format) {
   // result = "20091231-195124_275"
-  if (result.length() != 19) {
+  // last "_XXX" is appended ms
+  if (result.length() < 18) {
     timeMs = -1;
     return;
   }
-  std::tm tm_;
-  tm_.tm_isdst = 0;
-  tm_.tm_sec = stoi(result.substr(13, 2));
-  tm_.tm_min = stoi(result.substr(11, 2));
-  tm_.tm_hour = stoi(result.substr(9, 2));
-  tm_.tm_mday = stoi(result.substr(6, 2));
-  tm_.tm_mon = stoi(result.substr(4, 2)) - 1;
-  tm_.tm_year = stoi(result.substr(0, 4)) - 1900;
-  timeMs = mktime(&tm_) * 1000 + stoi(result.substr(16, 3));
-  // auto now2 = std::chrono::system_clock::from_time_t(std::mktime(&tm_));
+  std::tm ttm;
+  memset(&ttm, 0, sizeof(ttm));
+  std::string yyyymmdd_hhmmss(result.substr(0, result.length() - 4));
+  strptime(yyyymmdd_hhmmss.c_str(), format, &ttm);
+  // timeMs = mktime(&ttm) * 1000 + stoi(result.substr(result.length() - 3, 3));
+  timeMs = std::chrono::duration_cast<std::chrono::milliseconds>(
+               std::chrono::system_clock::from_time_t(std::mktime(&ttm))
+                   .time_since_epoch()).count() +
+           stoi(result.substr(result.length() - 3, 3));
 }
 
-void TimeUtils::TimeMstoStringMs(int64_t timeMs, std::string &result) {
+void TimeUtils::TimeMstoStringMs(int64_t timeMs, std::string &result,
+                                 const char *format) {
   auto ttime_t = std::chrono::system_clock::to_time_t(
       std::chrono::system_clock::time_point(std::chrono::milliseconds(timeMs)));
   auto tp_sec = std::chrono::system_clock::from_time_t(ttime_t);
@@ -97,9 +99,8 @@ void TimeUtils::TimeMstoStringMs(int64_t timeMs, std::string &result) {
   std::tm *ttm = localtime(&ttime_t);
   // std::tm *ttm = gmtime(&ttime_t);
   ttm->tm_isdst = 0;
-  char date_time_format[] = "%Y%m%d-%H%M%S";
-  char time_str[] = "yyyy.mm.dd.HH-MM.SS.fff";
-  strftime(time_str, strlen(time_str), date_time_format, ttm);
+  char time_str[64] = {0};
+  strftime(time_str, sizeof(time_str), format, ttm);
   sprintf(&time_str[strlen(time_str)], "_%03d", ms);
   result = time_str;
 }

@@ -6,13 +6,17 @@
 #include "TimeUtils.h"
 
 int main(int argc, char **argv) {
-  if (argc != 2) {
-    return -1;
-  }
-  std::string result(argv[1]);
+  // if (argc != 2) {
+    // return -1;
+  // }
+  // std::string result(argv[1]);
+  int64_t cur_tms = TimeUtils::getEpochTimeMs();
+  std::cout << cur_tms<< std::endl;
+  std::string result;
+  TimeUtils::TimeMstoStringMs(cur_tms, result, "%Y-%m-%d-%H:%M:%S");
   int64_t time_point2 = 0;
   std::cout << result << std::endl;
-  TimeUtils::StringMstoTimMs(result, time_point2);
+  TimeUtils::StringMstoTimMs(result, time_point2, "%Y-%m-%d-%H:%M:%S");
   std::cout << time_point2 << std::endl;
   /*
 std::stringstream stream;

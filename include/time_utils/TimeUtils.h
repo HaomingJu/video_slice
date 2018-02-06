@@ -16,8 +16,10 @@ class TimeUtils {
   static void reset();
   static void initTimeUtil(int64_t curEpochTime, int multiple, int divider);
   static void getTimeRatio(int *pMultiple, int *pDivider);
-  static void TimeMstoStringMs(int64_t timeMs, std::string &result);
-  static void StringMstoTimMs(const std::string &result, int64_t &timeMs);
+  static void StringMstoTimMs(const std::string &result, int64_t &timeMs,
+                              const char *format = "%Y%m%d-%H%M%S");
+  static void TimeMstoStringMs(int64_t timeMs, std::string &result,
+                               const char *format = "%Y%m%d-%H%M%S");
 
  private:
   static int64_t mStartEpochTime;

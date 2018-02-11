@@ -18,6 +18,7 @@ add_definitions(-D${_PLATFORM})
 include_directories(
         include
         include/dms_frame
+        include/adas_frame
         include/protobuf_ops
         include/serializer
         include/logging
@@ -28,6 +29,7 @@ include_directories(
 set(SOURCE_FILES
         src/protobuf_ops/protobuf_ops.cc
         src/dms_frame/DMSFrame.pb.cc
+        src/adas_frame/adas_output.pb.cc
         src/serializer/serializer.cc
         src/time_utils/TimeUtils.cc
         src/search_path/searchMP4.cc

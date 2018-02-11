@@ -10,7 +10,7 @@
 #include "serializer/serializer.h"
 
 namespace HobotNebula {
-#define VERSION 2017121901
+//#define DMS_VERSION 2017121901
 typedef struct ProtoInfo {
   size_t prtPos;
   size_t prtLen;
@@ -40,14 +40,38 @@ class ProtoReader {
     return size;
   }
 
- private:
-  std::unique_ptr<MetaDeserializer> m_deserializer;
+ protected:
   std::string mFileName;
   std::ifstream mIfs;
   std::vector<char> mProtoBufVec;
   std::vector<ProtoInfo_t> mProtoInfoVec;
   int mInput_cnt;
-  uint32_t mVersion;
+  int mVersion;
+  virtual void bin2dec(uint8_t *, int &) = 0;
+  virtual bool getTime(uint8_t *data_, int len_, int64_t &frame_id_,
+                       int64_t &timestamp_) = 0;
+};
+
+class DMS_ProtoReader : public ProtoReader {
+ public:
+  DMS_ProtoReader();
+
+ protected:
+  void bin2dec(uint8_t *, int &);
+  std::unique_ptr<DMS_MetaDeserializer> m_dms_deserializer;
+  bool getTime(uint8_t *data_, int len_, int64_t &frame_id_,
+               int64_t &timestamp_);
+};
+
+class ADAS_ProtoReader : public ProtoReader {
+ public:
+  ADAS_ProtoReader();
+
+ protected:
+  void bin2dec(uint8_t *, int &);
+  std::unique_ptr<ADAS_MetaDeserializer> m_adas_deserializer;
+  bool getTime(uint8_t *data_, int len_, int64_t &frame_id_,
+               int64_t &timestamp_);
 };
 
 class ProtoWriter {
@@ -59,9 +83,19 @@ class ProtoWriter {
   int writeRaw(const std::vector<char> &proto_raw);
   void stopWriter();
 
- private:
+ protected:
   std::string mFileName;
   std::ofstream mOfs;
+  virtual void dec2bin(int, uint8_t *) = 0;
+};
+
+class DMS_ProtoWriter : public ProtoWriter {
+ protected:
+  void dec2bin(int, uint8_t *);
+};
+class ADAS_ProtoWriter : public ProtoWriter {
+ protected:
+  void dec2bin(int, uint8_t *);
 };
 
 typedef struct CutNodeProto_ {
@@ -70,8 +104,10 @@ typedef struct CutNodeProto_ {
   std::string filename;
 } CutNodeProto;
 
-int cut_merge_proto(std::vector<CutNodeProto> nodes,
-                    const std::string out_file);
+int DMS_cut_merge_proto(std::vector<CutNodeProto> nodes,
+                        const std::string out_file);
+int ADAS_cut_merge_proto(std::vector<CutNodeProto> nodes,
+                         const std::string out_file);
 
 }  // namespace HobotNebula
 

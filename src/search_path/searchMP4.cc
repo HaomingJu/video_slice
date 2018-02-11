@@ -7,6 +7,9 @@
 #include "DMSLog.h"
 #include "TimeUtils.h"
 
+#ifdef MODULE_TAG
+#undef MODULE_TAG
+#endif
 #define MODULE_TAG "SearchMP4"
 namespace HobotNebula {
 SearchMP4::SearchMP4(){};

@@ -23,5 +23,6 @@ int main(int argc, char **argv) {
     nodes.push_back(node);
   }
   const std::string out_filename(argv[argc - 1]);
-  return HobotNebula::cut_merge_proto(nodes, out_filename);
+  return HobotNebula::DMS_cut_merge_proto( nodes, out_filename);
+  //return HobotNebula::ADAS_cut_merge_proto( nodes, out_filename);
 }

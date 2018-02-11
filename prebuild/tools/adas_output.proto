@@ -1,0 +1,200 @@
+// Note: START and END tags are used in comments to define sections used in
+// tutorials.  They are not part of the syntax for Protocol Buffers.
+//
+// To get an in-depth walkthrough of this file and the related examples, see:
+// https://developers.google.com/protocol-buffers/docs/tutorials
+
+// 2017.10.19	dongqilu		create the adas_output.proto file
+// 2017.11.17	dongqilu		change gps type from repeated to optional
+
+
+// [START declaration]
+syntax = "proto2";
+package AdasOutputProtocol;
+// [END declaration]
+
+// [START messages]
+
+message GroundPoint {		// in ground space
+  required float x = 1;
+  required float z = 2;
+}
+
+message Rect {
+    required float left = 1;
+    required float top = 2;
+    required float right = 3;
+    required float bottom = 4;
+}
+
+// we can reproduct a 3x3 Matrix(and its inverse)
+// with camera matrix, we can convert points between image space and ground space
+message CameraInfo {
+    repeated float M_ = 1;
+    repeated float MInv_ = 2;
+}
+
+enum ImageFormat{
+    GRAY = 0;
+    YUV = 1;
+    JPEG = 2;
+    PNG = 3;
+}
+message ImageFrame {
+    required int32 width = 1;
+    required int32 height = 2;
+    required int64 time_stamp = 3;
+    optional int32 channel = 4;
+    optional int32 send_mode = 5;
+    optional int32 format = 6; // 图片格式：gray、yuv
+}
+
+message GPS {
+	required int64 time_stamp = 1;
+    required double longitude = 2;  // East: + ; West: -
+    required double latitude = 3;   // North: + ; South: -
+    optional float altitude = 4;
+	optional int64 gps_time = 5;
+}
+
+message Motion {
+    required int64 time_stamp = 1;
+    optional float velocity = 2;  // unit:m/s
+    optional float yaw_rate = 3;
+    optional float acc = 4;
+}
+
+enum LineType{
+  LINE_RAW = 0;     // perception line
+  LINE_LEFT = 1;    // Road Model Left
+  LINE_RIGHT = 2;   // Road Model Right
+  LINE_LEFT_LEFT = 4;    // Road Model Left Left
+  LINE_RIGHT_RIGHT = 8;  // Road Model Right Right
+
+  LINE_DASH = 1024;     // Property Dash
+  LINE_SOLID = 2048;    // Property Solid
+}
+
+// Lane result for each Image Frame
+// each lane is in form of quadratic equation
+// that is, x = coeffs[0] + y * coeff[1] + y^2 * coeff[2]
+message Line {
+    required int32 id = 1;
+    optional int32 type = 2;
+    optional int64 time_stamp = 3;
+	repeated float coeffs = 4;
+	repeated GroundPoint end_points = 5;
+    optional float line_cross_distance = 6;  		// distance to line cross
+    optional float ttlc = 7;  						// time to line cross; unit:second
+    optional float depature_v = 8;  				// unit: m/s
+    optional int64 tracking_time = 9;
+}
+
+message Object {
+    required int32 id = 1;
+    optional int32 type = 2;
+    optional int64 time_stamp = 3;
+    optional GroundPoint relative_location = 4;
+    optional GroundPoint relative_velocity = 5;
+    optional float ttc = 6;
+    optional Rect rect = 7;
+    optional int64 tracking_time = 8;
+	optional bool is_key_object = 9;
+}
+
+enum FunctionStatus{
+    kStatus_Disable = 0;
+    kStatus_Enable = 1;
+    kStatus_Inhibit = 2;
+    kStatus_Failed = 3;
+}
+
+enum WarningLevel{
+    kWarningLevel_None = 0;
+    kWarningLevel_NoticeLevel1 = 1;
+    kWarningLevel_NoticeLevel2 = 2;
+    kWarningLevel_WarningLevel1 = 3;
+    kWarningLevel_WarningLevel2 = 4;
+}
+
+message HMW{
+    enum HmwLevel {
+        kHmwLevel_None = 0;
+        kHmwLevel_NoticeLevel1 = 1;
+        kHmwLevel_NoticeLevel2 = 2;
+        kHmwLevel_WarningLevel1 = 11;
+        kHmwLevel_WarningLevel2 = 12;
+    }
+    optional int32 function_status = 1;
+    optional int32 warning_level = 2;
+    optional float time_to_conllision = 3;   // hmw, unit:second
+    optional int32 object_type = 4;  // reserved
+	optional int32 veh_id = 5;
+}
+
+message FCW {
+    enum FcwLevel {
+        kFcwLevel_None = 0;
+        kFcwLevel_Warning = 1;
+    }
+    optional int32 function_status = 1;
+    optional int32 warning_level = 2;
+    optional float time_to_conllision = 3;     // ttc, unit:second
+    optional int32 object_type = 4;  // reserved
+	optional int32 veh_id = 5;
+}
+
+message PCW {
+    enum PcwLevel {
+        kPcwLevel_None = 0;
+        kPcwLevel_Warning = 1;
+    }
+    optional int32 function_status = 1;
+    optional int32 warning_level = 2;
+    optional float time_to_conllision = 3;     // ttc, unit:second
+    optional int32 object_type = 4;  // reserved
+	optional int32 ped_id = 5;
+}
+
+message LDW {
+    enum LdwLevel {
+        kLdwLevel_None = 0;
+        kLdwLevel_WarningLeftSide = 1;
+        kLdwLevel_WarningRightSide = 2;
+    }
+    optional int32 function_status = 1;
+    optional int32 warning_level = 2;
+    optional float line_cross_distance = 3;     // unit: meter
+    optional int32 object_type = 4;  // reserved
+	optional int32 line_id = 5;
+}
+
+enum WarningType{
+	kWarningLevel_Hmw = 0;
+	kWarningLevel_Fcw = 1;
+	kWarningLevel_Pcw = 2;
+	kWarningLevel_Ldw = 3;
+}
+
+message WarningResult {
+    optional HMW hmw = 1;
+    optional FCW fcw = 2;
+    optional LDW ldw = 3;
+    optional PCW pcw = 4;
+	optional int32 warning_type = 5;
+}
+
+message AdasOutput {
+    required int32 version = 1;
+    required int32 frame_id = 2;
+    optional CameraInfo camera = 3;
+    optional ImageFrame image = 4;
+    optional GPS gps = 5;
+	optional Motion motion = 6;
+    repeated Object vehicles = 7;
+    repeated Object pedestrians = 8;
+    repeated Line lines = 9;
+    optional WarningResult warning_result = 10;
+}
+
+// [END messages]

@@ -1,0 +1,166 @@
+syntax = "proto2";
+
+// VERSION = 2017100101
+package DMSFrameProtocol;
+
+message Rect{
+	required float left = 1;
+	required float right = 2;
+	required float top = 3;
+	required float bottom = 4;
+}
+
+message Rect_i{
+	required int32 left = 1;
+	required int32 right = 2;
+	required int32 top = 3;
+	required int32 bottom = 4;
+}
+
+message Point{
+	required float x = 1;
+	required float y = 2;
+}
+
+message Face{
+	required Rect ROI = 1;
+	required float score = 2;
+}
+
+message LandMark21{
+	repeated Point LDMK = 1;
+	repeated float score = 2;
+}
+
+message Eye{
+	required Rect ROI = 1;
+	required int32 status = 2;
+	required float open_score = 3;
+	required float close_score = 4;
+}
+
+message Eyes{
+	required Eye left= 1;
+	required Eye right= 2;
+}
+
+message AlgoResult{
+	repeated Face face_original_ROIs = 1;
+	optional Face face_filtered_ROIs = 2;
+	optional LandMark21 landmark = 3;
+	optional Eyes eyes = 4;
+	optional Rect face_detect_ROI = 5;
+}
+
+enum WarnState {
+	NONE = 0;
+	W_NOFACE = 1;
+	E_NOFACE = 2;
+	W_DISTRACT = 3;
+	E_DISTRACT = 4;
+	W_FATIGUE = 5;
+	E_FATIGUE = 6;
+	DANGER = 7;
+	SIZE = 8;
+}
+
+enum FaceDir {
+    FRONT = 0;
+    LEFT = 1;
+    RIGHT = 2;
+    UP = 3;
+    DOWN = 4;
+}
+
+message PolicyParams{
+	// gradient for both eyes
+	optional float r_eye_gradient = 1;
+	optional float l_eye_gradient = 2;
+	optional float eye_gradient_thld = 3;
+	// avr close conf
+	optional float avr_r_eye_close = 4;
+	optional float avr_l_eye_close = 5;
+	// avr eyes distance
+	optional float avr_eyes_dist = 6;
+	optional float avr_eyes_dist_thld = 7;
+	optional Point avr_l_eye_point = 8;
+	optional Point avr_r_eye_point = 9;
+
+	// avr nose to eyes distance
+	optional float avr_nose_leye_dist = 10;
+	optional float avr_nose_reye_dist = 11;
+	optional Point avr_nose_point = 12;
+	optional float avr_nose_rl_ratio = 13;
+	optional float avr_nose_rl_ratio_thld = 14;
+
+	// nose position deviation
+	optional Point archor_nose_point = 15;
+	optional float devi_nose_dist_x = 16;
+	optional float devi_nose_dist_y = 17;
+	optional float devi_nose_dist_x_thld = 18;
+	optional float vari_nose_posi_x = 19;
+	optional float vari_nose_posi_y = 20;
+	optional float vari_nose_posi_x_thld = 21;
+	optional float vari_nose_posi_y_thld = 22;
+	optional float devi_nose_dist_y_thld = 23;
+
+	// {avr, cur} {r,l} eye to nose dist/rl eye dist for up face
+	optional float avr_rn_rl_ratio = 24;
+	optional float avr_ln_rl_ratio = 25;
+	optional float cur_rn_rl_ratio = 26;
+	optional float cur_ln_rl_ratio = 27;
+
+	optional float cur_nose_rl_ratio = 28;
+	optional float cur_nose_rl_ratio_side_thld = 29;
+}
+
+message MonitorResult{
+	required WarnState warn_state = 1;
+	required int64 dur_time = 2;
+	optional PolicyParams policy_params = 3;
+	// face dir
+	optional FaceDir face_dir = 4;
+}
+
+message FaceRecogResult{
+	optional int32 persion_id = 1;
+	optional string persion_name = 2;
+	optional int64 persion_timestamp = 3;
+	optional int32 persion_frame_id = 4;
+	optional Rect_i persion_detect_ROI = 5;
+	optional Rect_i persion_result_ROI = 6;
+}
+
+message CANInfo{
+	optional int32 Angle = 1;
+	optional int32 Direction = 2;
+	optional int32 Gears = 3;
+	optional int32 Speed = 4;
+	optional int64 timestamp = 5;
+}
+
+message ImageInfo{
+	required int64 time = 1;
+    // width no write to frame
+	required int32 width = 2;
+    // height no write to frame
+	required int32 height = 3;
+    // format no write to frame
+	required int32 format = 4;
+	required int32 luma = 5;
+	optional int32 img_id = 6;
+}
+
+message DMSFrame{
+	optional int32 frame_id = 1;
+	optional ImageInfo image = 2;
+	optional AlgoResult algo_result = 3;
+	optional MonitorResult monitor_result = 4;
+	repeated CANInfo can_info = 5;
+    // indicate current frame is seeked one
+	optional bool seek_flag = 6 [default = false];
+	optional FaceRecogResult facerecog_result = 7;
+}
+
+
+// protoc -I=./ --cpp_out=./ ./DMSFrameProto.proto

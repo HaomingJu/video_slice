@@ -174,7 +174,7 @@ int cut_merge_video(CutNode *node, int node_len, const char *out_filename) {
         /* log_packet(ifmt_ctx, &pkt, "in"); */
 
         double tmp_end_seconds = av_q2d(in_stream->time_base) * pkt.pts;
-        if (end_seconds > 0 && tmp_end_seconds > end_seconds) {
+        if (end_seconds >= 0 && tmp_end_seconds > end_seconds) {
           // reach end time
           av_packet_unref(&pkt);
           break;

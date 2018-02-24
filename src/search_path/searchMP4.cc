@@ -73,7 +73,7 @@ int SearchMP4::getMP4Path(const int64_t &start_point, const int64_t &mp4_len,
   }
   int file_2 = low;
   int node_len = -1;
-  if (end_point > v_slice_info.back().start_timestamp)
+  if (end_point >= v_slice_info.back().start_timestamp)
     --file_2;
   if (end_point < v_slice_info.front().start_timestamp ||
       start_point > v_slice_info.back().start_timestamp) {

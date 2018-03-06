@@ -1,11 +1,16 @@
 #include "searchMP4.h"
 #include <dirent.h>
+#include <dirent.h>
 #include <stdio.h>
+#include <sys/stat.h>
 #include <algorithm>
 #include <regex>
 #include <vector>
 #include "DMSLog.h"
 #include "TimeUtils.h"
+#include <unistd.h>
+#include <cstdlib>
+
 
 #ifdef MODULE_TAG
 #undef MODULE_TAG
@@ -86,7 +91,6 @@ int SearchMP4::getMP4Path(const int64_t &start_point, const int64_t &mp4_len,
     node_len = (file_2 - file_1) + 1;
   CutNode cut_node;
 
-  std::cout << "------------------" << std::endl;
   for (int i = 0; i < node_len; ++i) {
     strcpy(cut_node.filename, v_slice_info[i + file_1].mp4_path.c_str());
     cut_node.start_seconds =
@@ -141,7 +145,7 @@ void SearchMP4::showSearchPath() {
 bool SearchMP4::getFiles(std::string &path,
                          std::vector<std::string> &v_mp4_path) {
   // 正则匹配
-  std::regex re("DMS_Nebula_1_5_\\d{8}-\\d{6}_\\d{3}.mp4");
+  std::regex re("_Nebula_1_5_\\d{8}-\\d{6}_\\d{3}.mp4");
 
   DIR *dp;
   struct dirent *dirp;
@@ -161,5 +165,41 @@ bool SearchMP4::getFiles(std::string &path,
   }
   closedir(dp);
   return true;
+}
+
+bool SearchMP4::create_path(const std::string &path) {
+  int ret = access(path.c_str(), 0);
+  if (ret != 0) {
+    ret = mk_multi_dirs(path.c_str());
+    if (ret != 0) {
+      LOGW_T(MODULE_TAG) << "Path create failed: " << path << "\tret=" << ret;
+      return false;
+    } else {
+      return true;
+    }
+
+  } else {
+    return true;
+  }
+}
+
+int SearchMP4::mk_multi_dirs(std::string dst_dirs) {
+  std::string subdir;
+  int pos = 0;
+  int endpos = 0;
+
+  while (std::string::npos != (endpos = dst_dirs.find("/", pos))) {
+    if (endpos == 0)
+      subdir = dst_dirs.substr(0, 1);
+    else
+      subdir = dst_dirs.substr(0, endpos);
+    if (access(subdir.c_str(), F_OK) != 0) {
+      int ret = mkdir(subdir.c_str(), 0777);
+      chmod(subdir.c_str(), S_IRUSR | S_IWUSR | S_IXUSR | S_IRGRP | S_IWGRP |
+                                S_IXGRP | S_IROTH | S_IWOTH | S_IXOTH);
+    }
+    pos = endpos + 1;
+  }
+  return 0;
 }
 }

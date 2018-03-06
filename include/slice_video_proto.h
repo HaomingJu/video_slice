@@ -7,19 +7,19 @@ namespace HobotNebula {
 class Slice {
  public:
   virtual int Cut(int64_t start_ms, int64_t dur_ms,
-                  const std::string &result_path_name) = 0;
+                  std::string &result_path_name) = 0;
 };
 
 class DMS_Slice : public Slice {
  public:
   int Cut(int64_t start_ms, int64_t dur_ms,
-          const std::string &result_path_name) override;
+          std::string &result_path_name) override;
 };
 
 class ADAS_Slice : public Slice {
  public:
   int Cut(int64_t start_ms, int64_t dur_ms,
-          const std::string &result_path_name) override;
+          std::string &result_path_name) override;
 };
 }
 

@@ -21,9 +21,11 @@ class SearchMP4 {
   bool delSearchPath(std::string &path);  // 删除搜索路径
   void showSearchPath();
   bool getFiles(std::string &path, std::vector<std::string> &v_mp4_path);
+  bool create_path(const std::string &path);  // 创建路径
 
  private:
   std::vector<std::string> m_search_path;  // 搜索路径集合
+  int mk_multi_dirs(std::string dst_dirs);
 };
 }
 

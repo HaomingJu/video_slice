@@ -27,6 +27,8 @@ class ProtoReader {
 
   uint32_t getVersion();
   int readOne(int64_t &frame_id_, int64_t &timestamp_);
+  int64_t getStartFrameTime();
+  int64_t getEndFrameTime();
   int readOneRaw(std::vector<char> &proto_raw, int64_t &timestamp);
   int seekByPos(int pos);
   int seekByTime(int64_t timestamp);

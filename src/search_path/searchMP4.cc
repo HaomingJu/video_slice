@@ -3,14 +3,14 @@
 #include <dirent.h>
 #include <stdio.h>
 #include <sys/stat.h>
+#include <unistd.h>
 #include <algorithm>
+#include <cstdlib>
 #include <regex>
 #include <vector>
 #include "DMSLog.h"
 #include "TimeUtils.h"
-#include <unistd.h>
-#include <cstdlib>
-
+#include "protobuf_ops.h"
 
 #ifdef MODULE_TAG
 #undef MODULE_TAG
@@ -21,8 +21,8 @@ SearchMP4::SearchMP4(){};
 
 SearchMP4::~SearchMP4(){};
 
-int SearchMP4::getMP4Path(const int64_t &start_point, const int64_t &mp4_len,
-                          std::vector<CutNode> &node) {
+int SearchMP4::getMP4Path(const std::string &flag, const int64_t &start_point,
+                          const int64_t &mp4_len, std::vector<CutNode> &node) {
   Slice_info info;
   std::vector<std::string> mp4_name_list;
   std::vector<Slice_info> v_slice_info;
@@ -110,7 +110,39 @@ int SearchMP4::getMP4Path(const int64_t &start_point, const int64_t &mp4_len,
   if (end_point >= v_slice_info.back().start_timestamp) {
     node.back().end_seconds = -1;
   }
+  // 添加视频间的during time
+  if (node.size() > 1) {
+    ProtoReader *reader = nullptr;
+    if (flag == "DMS") {
+      reader = new DMS_ProtoReader();
+    } else if (flag == "ADAS") {
+      reader = new ADAS_ProtoReader();
+    } else {
+      return -1;
+    }
+    if (!reader)
+      return -1;
 
+    std::vector<std::pair<int64_t, int64_t>> tmp_vector_data;
+    for (std::vector<CutNode>::iterator iter = node.begin(); iter != node.end();
+         ++iter) {
+      std::string proto_name = iter->filename;
+      proto_name.replace(proto_name.find(".mp4"), 4, ".proto");
+      reader->startReader(proto_name);
+      std::pair<int64_t, int64_t> tmp_data;
+      tmp_data.first = reader->getStartFrameTime();
+      tmp_data.second = reader->getEndFrameTime();
+      LOGW_T(MODULE_TAG) << "first value: " << tmp_data.first;
+      LOGW_T(MODULE_TAG) << "second value: " << tmp_data.second;
+      tmp_vector_data.push_back(tmp_data);
+      reader->stopReader();
+    }
+    for (int i = 0; i < tmp_vector_data.size() - 1; ++i) {
+      int64_t delta = tmp_vector_data[i+1].first - tmp_vector_data[i].second;
+      node[i].delta_seconds = double(delta) / 1000;
+      LOGW_T(MODULE_TAG) << "node[" << i << "] = " << node[i].delta_seconds;
+    }
+  }
   return 0;
 };
 

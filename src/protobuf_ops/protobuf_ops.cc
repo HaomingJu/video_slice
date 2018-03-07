@@ -90,6 +90,26 @@ int ProtoReader::startReader(const std::string &filename) {
 
   return 0;
 }
+int64_t ProtoReader::getStartFrameTime() {
+  if (this->getFrameCnt() <= 0)
+    return -1;
+  int64_t tmp_time = 0;
+  int64_t index = 0;
+  this->seekByPos(index);
+  this->readOne(index, tmp_time);
+  return tmp_time;
+};
+int64_t ProtoReader::getEndFrameTime() {
+  if (this->getFrameCnt() <= 0)
+    return -1;
+  int64_t tmp_time = 0;
+  int64_t index = this->getFrameCnt() - 1;
+  LOGD_T(MODULE_TAG) << "jhm: Cnt " << index;
+  LOGD_T(MODULE_TAG) << "jhm: Cnt " << this->getFrameCnt();
+  this->seekByPos(index);
+  this->readOne(index, tmp_time);
+  return tmp_time;
+};
 
 uint32_t ProtoReader::getVersion() { return mVersion; }
 

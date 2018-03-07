@@ -31,7 +31,7 @@ int DMS_Slice::Cut(int64_t start_ms, int64_t dur_ms,
   // 添加搜索路径
   search_mp4.addSearchPath(search_path);
   // 搜索对应的文件路径
-  ret = search_mp4.getMP4Path(start_ms, dur_ms, node);
+  ret = search_mp4.getMP4Path("DMS", start_ms, dur_ms, node);
   if (ret != 0 || node.empty())
     return ret;
 
@@ -106,7 +106,7 @@ int ADAS_Slice::Cut(int64_t start_ms, int64_t dur_ms,
   search_mp4.addSearchPath(search_path);
 
   // 搜索对应的文件路径
-  ret = search_mp4.getMP4Path(start_ms, dur_ms, node);
+  ret = search_mp4.getMP4Path("ADAS", start_ms, dur_ms, node);
   if (ret != 0 || node.empty())
     return ret;
 

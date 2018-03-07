@@ -15,8 +15,8 @@ class SearchMP4 {
   SearchMP4();
   ~SearchMP4();
 
-  int getMP4Path(const int64_t &start_point, const int64_t &len,
-                 std::vector<CutNode> &node);
+  int getMP4Path(const std::string &flag, const int64_t &start_point,
+                 const int64_t &len, std::vector<CutNode> &node);
   bool addSearchPath(std::string &path);  // 增加搜索路径
   bool delSearchPath(std::string &path);  // 删除搜索路径
   void showSearchPath();

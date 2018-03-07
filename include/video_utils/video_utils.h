@@ -8,6 +8,7 @@ extern "C" {
 typedef struct CutNode_ {
   double start_seconds;
   double end_seconds;
+  double delta_seconds;
   double start_seconds_refined;
   double end_seconds_refined;
   char filename[256];

@@ -115,6 +115,7 @@ int cut_merge_video(CutNode *node, int node_len, const char *out_filename) {
     node[j].end_seconds_refined = -1;
     printf("----- start: %f\n", start_seconds);
     printf("----- end: %f\n", end_seconds);
+    printf("----- delta: %f\n", node[j].delta_seconds);
     printf("----- file: %s\n", in_file);
     printf("----- last_dts: %lld\n", last_dts);
     printf("----- last_pts: %lld\n", last_pts);
@@ -147,6 +148,11 @@ int cut_merge_video(CutNode *node, int node_len, const char *out_filename) {
       ret = -1;
       break;
     }
+
+    last_duration =
+        av_q2d(av_inv_q(ifmt_ctx->streams[videostream_index]->time_base)) *
+        node[j].delta_seconds;
+    /* printf("last_duration: %d\n", last_duration); */
 
     if (start_seconds > 0) {
       ret = av_seek_frame(ifmt_ctx, -1, start_seconds * AV_TIME_BASE,
@@ -212,7 +218,6 @@ int cut_merge_video(CutNode *node, int node_len, const char *out_filename) {
         pkt.pos = -1;
         tmp_pts = pkt.pts;
         tmp_dts = pkt.dts;
-        last_duration = pkt.duration;
         /* log_packet(ofmt_ctx, &pkt, "out"); */
         /* printf("\n"); */
 

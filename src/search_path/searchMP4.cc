@@ -138,7 +138,7 @@ int SearchMP4::getMP4Path(const std::string &flag, const int64_t &start_point,
       reader->stopReader();
     }
     for (int i = 0; i < tmp_vector_data.size() - 1; ++i) {
-      int64_t delta = tmp_vector_data[i+1].first - tmp_vector_data[i].second;
+      int64_t delta = tmp_vector_data[i + 1].first - tmp_vector_data[i].second;
       node[i].delta_seconds = double(delta) / 1000;
       LOGW_T(MODULE_TAG) << "node[" << i << "] = " << node[i].delta_seconds;
     }
@@ -146,26 +146,26 @@ int SearchMP4::getMP4Path(const std::string &flag, const int64_t &start_point,
   return 0;
 };
 
-bool SearchMP4::addSearchPath(std::string &path) {
+int SearchMP4::addSearchPath(std::string &path) {
   std::vector<std::string>::iterator iter =
       find(m_search_path.begin(), m_search_path.end(), path);
   if (iter == m_search_path.end())  // 没有找到
   {
     this->m_search_path.push_back(path);
-    return true;
+    return 0;
   } else
-    return false;
+    return -1;
 };
 
-bool SearchMP4::delSearchPath(std::string &path) {
+int SearchMP4::delSearchPath(std::string &path) {
   std::vector<std::string>::iterator iter =
       find(m_search_path.begin(), m_search_path.end(), path);
   if (iter != m_search_path.end())  // 找到
   {
     this->m_search_path.erase(iter, iter + 1);
-    return true;
+    return 0;
   } else
-    return false;
+    return -1;
 };
 
 void SearchMP4::showSearchPath() {
@@ -174,7 +174,7 @@ void SearchMP4::showSearchPath() {
     LOGD_T(MODULE_TAG) << "path: " << *iter;
   }
 }
-bool SearchMP4::getFiles(std::string &path,
+int SearchMP4::getFiles(std::string &path,
                          std::vector<std::string> &v_mp4_path) {
   // 正则匹配
   std::regex re("_Nebula_1_5_\\d{8}-\\d{6}_\\d{3}.mp4");
@@ -183,7 +183,7 @@ bool SearchMP4::getFiles(std::string &path,
   struct dirent *dirp;
   if ((dp = opendir(path.c_str())) == NULL) {
     LOGD_T(MODULE_TAG) << "can not open" << opendir;
-    return false;
+    return -1;
   }
   while ((dirp = readdir(dp)) != NULL) {
     if (dirp->d_type == 8) {
@@ -196,22 +196,22 @@ bool SearchMP4::getFiles(std::string &path,
     }
   }
   closedir(dp);
-  return true;
+  return 0;
 }
 
-bool SearchMP4::create_path(const std::string &path) {
+int SearchMP4::create_path(const std::string &path) {
   int ret = access(path.c_str(), 0);
   if (ret != 0) {
     ret = mk_multi_dirs(path.c_str());
     if (ret != 0) {
       LOGW_T(MODULE_TAG) << "Path create failed: " << path << "\tret=" << ret;
-      return false;
+      return ret;
     } else {
-      return true;
+      return ret;
     }
 
   } else {
-    return true;
+    return 0;
   }
 }
 
@@ -227,6 +227,8 @@ int SearchMP4::mk_multi_dirs(std::string dst_dirs) {
       subdir = dst_dirs.substr(0, endpos);
     if (access(subdir.c_str(), F_OK) != 0) {
       int ret = mkdir(subdir.c_str(), 0777);
+      if (ret != 0)
+        return -1;
       chmod(subdir.c_str(), S_IRUSR | S_IWUSR | S_IXUSR | S_IRGRP | S_IWGRP |
                                 S_IXGRP | S_IROTH | S_IWOTH | S_IXOTH);
     }

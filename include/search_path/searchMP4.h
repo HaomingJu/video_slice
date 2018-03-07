@@ -17,11 +17,11 @@ class SearchMP4 {
 
   int getMP4Path(const std::string &flag, const int64_t &start_point,
                  const int64_t &len, std::vector<CutNode> &node);
-  bool addSearchPath(std::string &path);  // 增加搜索路径
-  bool delSearchPath(std::string &path);  // 删除搜索路径
+  int addSearchPath(std::string &path);  // 增加搜索路径
+  int delSearchPath(std::string &path);  // 删除搜索路径
   void showSearchPath();
-  bool getFiles(std::string &path, std::vector<std::string> &v_mp4_path);
-  bool create_path(const std::string &path);  // 创建路径
+  int getFiles(std::string &path, std::vector<std::string> &v_mp4_path);
+  int create_path(const std::string &path);  // 创建路径
 
  private:
   std::vector<std::string> m_search_path;  // 搜索路径集合

@@ -1,11 +1,13 @@
 #include "slice_video_proto.h"
+#include <cstdio>
 #include <iostream>
 #include <string>
+#include "logging/DMSLog.h"
 #include "protobuf_ops/protobuf_ops.h"
 #include "search_path/searchMP4.h"
 #include "time_utils/TimeUtils.h"
-#define MODULE_TAG "DMS_Slice"
-#include "logging/DMSLog.h"
+
+#define MODULE_TAG "Slice"
 
 namespace HobotNebula {
 
@@ -27,7 +29,8 @@ int DMS_Slice::Cut(int64_t start_ms, int64_t dur_ms,
   int ret = -1;
 
   // 尝试创建切片路径
-  search_mp4.create_path(slice_path);
+  if (search_mp4.create_path(slice_path))
+    return -1;
   // 添加搜索路径
   search_mp4.addSearchPath(search_path);
   // 搜索对应的文件路径
@@ -95,13 +98,15 @@ int ADAS_Slice::Cut(int64_t start_ms, int64_t dur_ms,
       "/storage/sdcard1/Android/data/com.hobot.adas/video/";
   std::string slice_path =
       "/storage/sdcard1/Android/data/com.hobot.adas/slice/";
+
   std::string mp4_name = slice_path + "tmp.mp4";
   std::string new_mp4_name;
 
   int ret = -1;
 
   // 尝试创建切片路径
-  search_mp4.create_path(slice_path);
+  if (search_mp4.create_path(slice_path))
+    return -1;
   // 添加搜索路径
   search_mp4.addSearchPath(search_path);
 

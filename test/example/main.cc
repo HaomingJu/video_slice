@@ -24,8 +24,8 @@ int main(int argc, char **argv) {
   std::istringstream iss2((std::string(argv[3])));
   iss2 >> dura_ms;
 
-  std::string result_file;
-  slice->Cut(start_ms, dura_ms, result_file);
+  char result_file[1024];
+  slice->Cut(start_ms, dura_ms, result_file, 1024);
   std::cout << "result: " << result_file << std::endl;
   return 0;
 }

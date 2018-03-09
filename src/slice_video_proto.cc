@@ -1,4 +1,5 @@
 #include "slice_video_proto.h"
+#include <cstring>
 #include <cstdio>
 #include <iostream>
 #include <string>
@@ -11,14 +12,14 @@
 
 namespace HobotNebula {
 
-int DMS_Slice::Cut(int64_t start_ms, int64_t dur_ms,
-                   std::string &result_path_name) {
+int DMS_Slice::Cut(int64_t start_ms, int64_t dur_ms, char *str, int str_size) {
   LOGI_T(MODULE_TAG) << "start: " << start_ms;
   LOGI_T(MODULE_TAG) << "dura : " << dur_ms;
-  LOGI_T(MODULE_TAG) << "out  : " << result_path_name;
+
   if (dur_ms <= 0)
     return -1;
   // 变量定义
+  memset(str, 0x00, str_size);
   SearchMP4 search_mp4;
   std::vector<CutNode> node;
   std::vector<CutNodeProto> node_proto;
@@ -35,13 +36,17 @@ int DMS_Slice::Cut(int64_t start_ms, int64_t dur_ms,
   search_mp4.addSearchPath(search_path);
   // 搜索对应的文件路径
   ret = search_mp4.getMP4Path("DMS", start_ms, dur_ms, node);
-  if (ret != 0 || node.empty())
+  if (ret != 0 || node.empty()) {
+    LOGD_T(MODULE_TAG) << "node size = " << node.size();
     return ret;
+  }
 
   // 切取mp4视频
   ret = cut_merge_video((CutNode *)(&(node[0])), node.size(), mp4_name.c_str());
-  if (ret != 0)
+  if (ret != 0) {
+    LOGD_T(MODULE_TAG) << "cut_merge_video fail";
     return ret;
+  }
 
   // 时间戳转换
   for (std::vector<CutNode>::iterator iter = node.begin(); iter != node.end();
@@ -67,7 +72,14 @@ int DMS_Slice::Cut(int64_t start_ms, int64_t dur_ms,
     if (iter == node.begin()) {
       std::string mv_mp4_name;
       TimeUtils::TimeMstoStringMs(tmp_node_proto.start_ts, mv_mp4_name);
-      result_path_name = slice_path + "/Slice_DMS_Nebula_1_5_" + mv_mp4_name;
+
+      std::string result_path_name =
+          slice_path + "/Slice_DMS_Nebula_1_5_" + mv_mp4_name;
+      if (str_size <= result_path_name.size()) {
+        LOGD_T(MODULE_TAG) << "size of char is not enough";
+        return -1;
+      }
+      strncpy(str, result_path_name.c_str(), result_path_name.size());
       new_mp4_name = result_path_name + ".mp4";
       LOGD_T(MODULE_TAG) << "mv_mp4_name: " << mv_mp4_name;
       if (rename(mp4_name.c_str(), new_mp4_name.c_str()) != 0) {
@@ -82,15 +94,14 @@ int DMS_Slice::Cut(int64_t start_ms, int64_t dur_ms,
   return DMS_cut_merge_proto(node_proto, proto_name);
 }
 
-int ADAS_Slice::Cut(int64_t start_ms, int64_t dur_ms,
-                    std::string &result_path_name) {
+int ADAS_Slice::Cut(int64_t start_ms, int64_t dur_ms, char *str, int str_size) {
   LOGI_T(MODULE_TAG) << "start: " << start_ms;
   LOGI_T(MODULE_TAG) << "dura : " << dur_ms;
-  LOGI_T(MODULE_TAG) << "out  : " << result_path_name;
   if (dur_ms <= 0)
     return -1;
   // 变量定义
 
+  memset(str, 0x00, str_size);
   SearchMP4 search_mp4;
   std::vector<CutNode> node;
   std::vector<CutNodeProto> node_proto;
@@ -112,13 +123,16 @@ int ADAS_Slice::Cut(int64_t start_ms, int64_t dur_ms,
 
   // 搜索对应的文件路径
   ret = search_mp4.getMP4Path("ADAS", start_ms, dur_ms, node);
-  if (ret != 0 || node.empty())
+  if (ret != 0 || node.empty()) {
+    LOGD_T(MODULE_TAG) << "node size = " << node.size();
     return ret;
+  }
 
   // 切取mp4视频
   ret = cut_merge_video((CutNode *)(&(node[0])), node.size(), mp4_name.c_str());
-  if (ret != 0)
+  if (ret != 0) {
     return ret;
+  }
 
   // 时间戳转换
   for (std::vector<CutNode>::iterator iter = node.begin(); iter != node.end();
@@ -143,7 +157,13 @@ int ADAS_Slice::Cut(int64_t start_ms, int64_t dur_ms,
     if (iter == node.begin()) {
       std::string mv_mp4_name;
       TimeUtils::TimeMstoStringMs(tmp_node_proto.start_ts, mv_mp4_name);
-      result_path_name = slice_path + "/Slice_ADAS_Nebula_1_5_" + mv_mp4_name;
+      std::string result_path_name =
+          slice_path + "/Slice_ADAS_Nebula_1_5_" + mv_mp4_name;
+      if (str_size <= result_path_name.size()) {
+        LOGD_T(MODULE_TAG) << "size of char is not enough";
+        return -1;
+      }
+      strncpy(str, result_path_name.c_str(), result_path_name.size());
       new_mp4_name = result_path_name + ".mp4";
       LOGD_T(MODULE_TAG) << "mv_mp4_name: " << mv_mp4_name;
       if (rename(mp4_name.c_str(), new_mp4_name.c_str()) != 0) {

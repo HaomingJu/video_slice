@@ -1,6 +1,6 @@
 #include "slice_video_proto.h"
-#include <cstring>
 #include <cstdio>
+#include <cstring>
 #include <iostream>
 #include <string>
 #include "logging/DMSLog.h"
@@ -12,7 +12,8 @@
 
 namespace HobotNebula {
 
-int DMS_Slice::Cut(int64_t start_ms, int64_t dur_ms, char *str, int str_size) {
+int64_t DMS_Slice::Cut(int64_t start_ms, int64_t dur_ms, char *str,
+                       int str_size) {
   LOGI_T(MODULE_TAG) << "start: " << start_ms;
   LOGI_T(MODULE_TAG) << "dura : " << dur_ms;
 
@@ -27,6 +28,7 @@ int DMS_Slice::Cut(int64_t start_ms, int64_t dur_ms, char *str, int str_size) {
   std::string slice_path = "/storage/sdcard1/com.hobot.dms.sample/slice/";
   std::string mp4_name = slice_path + "tmp.mp4";
   std::string new_mp4_name;
+  int64_t ret_timestamp = -1;
   int ret = -1;
 
   // 尝试创建切片路径
@@ -71,7 +73,8 @@ int DMS_Slice::Cut(int64_t start_ms, int64_t dur_ms, char *str, int str_size) {
     // 将生成的mp4结果重命名, 伟少那个JB真TM会提需求啊
     if (iter == node.begin()) {
       std::string mv_mp4_name;
-      TimeUtils::TimeMstoStringMs(tmp_node_proto.start_ts, mv_mp4_name);
+      ret_timestamp = tmp_node_proto.start_ts;
+      TimeUtils::TimeMstoStringMs(ret_timestamp, mv_mp4_name);
 
       std::string result_path_name =
           slice_path + "/Slice_DMS_Nebula_1_5_" + mv_mp4_name;
@@ -91,10 +94,14 @@ int DMS_Slice::Cut(int64_t start_ms, int64_t dur_ms, char *str, int str_size) {
   // 切取proto文件
   int index = new_mp4_name.find(".mp4");
   std::string proto_name = new_mp4_name.replace(index, 4, ".proto");
-  return DMS_cut_merge_proto(node_proto, proto_name);
+  ret = DMS_cut_merge_proto(node_proto, proto_name);
+  if (ret)
+    return ret;
+  return ret_timestamp;
 }
 
-int ADAS_Slice::Cut(int64_t start_ms, int64_t dur_ms, char *str, int str_size) {
+int64_t ADAS_Slice::Cut(int64_t start_ms, int64_t dur_ms, char *str,
+                        int str_size) {
   LOGI_T(MODULE_TAG) << "start: " << start_ms;
   LOGI_T(MODULE_TAG) << "dura : " << dur_ms;
   if (dur_ms <= 0)
@@ -112,6 +119,7 @@ int ADAS_Slice::Cut(int64_t start_ms, int64_t dur_ms, char *str, int str_size) {
 
   std::string mp4_name = slice_path + "tmp.mp4";
   std::string new_mp4_name;
+  int64_t ret_timestamp = -1;
 
   int ret = -1;
 
@@ -156,7 +164,8 @@ int ADAS_Slice::Cut(int64_t start_ms, int64_t dur_ms, char *str, int str_size) {
     node_proto.push_back(tmp_node_proto);
     if (iter == node.begin()) {
       std::string mv_mp4_name;
-      TimeUtils::TimeMstoStringMs(tmp_node_proto.start_ts, mv_mp4_name);
+      ret_timestamp = tmp_node_proto.start_ts;
+      TimeUtils::TimeMstoStringMs(ret_timestamp, mv_mp4_name);
       std::string result_path_name =
           slice_path + "/Slice_ADAS_Nebula_1_5_" + mv_mp4_name;
       if (str_size <= result_path_name.size()) {
@@ -175,6 +184,9 @@ int ADAS_Slice::Cut(int64_t start_ms, int64_t dur_ms, char *str, int str_size) {
   // 切取proto文件
   int index = new_mp4_name.find(".mp4");
   std::string proto_name = new_mp4_name.replace(index, 4, ".proto");
-  return ADAS_cut_merge_proto(node_proto, proto_name);
+  ret = ADAS_cut_merge_proto(node_proto, proto_name);
+  if (ret)
+    return ret;
+  return ret_timestamp;
 };
 }

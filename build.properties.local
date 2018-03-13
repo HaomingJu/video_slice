@@ -16,7 +16,7 @@
 ### android
 architecture arm
 platform android
-ANDROID_NDK /opt/NDK/android-ndk-r14b/
+ANDROID_NDK /self/android-ndk-r14b/
 # ANDROID_STANDALONE_TOOLCHAIN /tmp/android-toolchain-clang-gnustl/
 
 

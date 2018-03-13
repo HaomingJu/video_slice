@@ -24,6 +24,7 @@ include_directories(
         include/logging
         include/time_utils
         include/search_path
+        include/jsoncpp
 )
 
 set(SOURCE_FILES
@@ -35,6 +36,7 @@ set(SOURCE_FILES
         src/search_path/searchMP4.cc
         src/video_utils/cut_merge_video.c
         src/slice_video_proto.cc
+        src/jsoncpp/jsoncpp.cc
         )
 
 add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES})
@@ -61,3 +63,5 @@ install(TARGETS ${PROJECT_NAME}
 
 install(FILES "${PROJECT_SOURCE_DIR}/include/slice_video_proto.h"
     DESTINATION include)
+install(FILES "${PROJECT_SOURCE_DIR}/test/example/dataslice.json"
+    DESTINATION etc)

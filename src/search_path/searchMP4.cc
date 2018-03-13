@@ -26,10 +26,13 @@ int SearchMP4::getMP4Path(const std::string &flag, const int64_t &start_point,
   Slice_info info;
   std::vector<std::string> mp4_name_list;
   std::vector<Slice_info> v_slice_info;
-  bool result = false;
+  int result = -1;
   for (int i = 0; i < m_search_path.size(); ++i) {
-    result |= this->getFiles(m_search_path[i], mp4_name_list);
+    result &= this->getFiles(m_search_path[i], mp4_name_list);
+    // 至少要有一个成功
   }
+  if (result)
+    return -1;
 
   for (int i = 0; i < mp4_name_list.size(); i++) {
     info.mp4_path = mp4_name_list[i];
@@ -175,7 +178,7 @@ void SearchMP4::showSearchPath() {
   }
 }
 int SearchMP4::getFiles(std::string &path,
-                         std::vector<std::string> &v_mp4_path) {
+                        std::vector<std::string> &v_mp4_path) {
   // 正则匹配
   std::regex re("_Nebula_1_5_\\d{8}-\\d{6}_\\d{3}.mp4");
 
@@ -196,6 +199,8 @@ int SearchMP4::getFiles(std::string &path,
     }
   }
   closedir(dp);
+  if (v_mp4_path.size() == 0)
+    return -1;
   return 0;
 }
 

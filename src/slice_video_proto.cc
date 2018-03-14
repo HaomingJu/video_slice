@@ -3,6 +3,7 @@
 #include <cstring>
 #include <iostream>
 #include <string>
+#include "jsoncpp/json.h"
 #include "logging/DMSLog.h"
 #include "protobuf_ops/protobuf_ops.h"
 #include "search_path/searchMP4.h"
@@ -11,6 +12,150 @@
 #define MODULE_TAG "Slice"
 
 namespace HobotNebula {
+DMS_Slice::DMS_Slice()
+    : m_search_name(""), m_slice_name(""), m_search_mp4(nullptr) {}
+DMS_Slice::~DMS_Slice() {}
+
+ADAS_Slice::ADAS_Slice()
+    : m_search_name(""), m_slice_name(""), m_search_mp4(nullptr) {}
+ADAS_Slice::~ADAS_Slice() {}
+
+int DMS_Slice::Init(const std::string &json_path_name) {
+  m_search_mp4 = new SearchMP4();
+  if (!m_search_mp4)
+    return -1;
+  // 读取json文件流
+  Json::Reader reader;
+  Json::Value value;
+  std::ifstream ifs;
+  ifs.open(json_path_name.c_str());
+  if (ifs.is_open() == false)
+    return -1;
+  if (!reader.parse(ifs, value)) {
+    LOGD_T(MODULE_TAG) << "[ERROR]: parse json fail";
+    return -1;
+  }
+  ifs.close();
+
+  // 读取RootPath
+  Json::Value SearchRootPath = value["SearchRootPath"];
+  if (SearchRootPath.size() <= 0) {
+    LOGE_T(MODULE_TAG) << "json parse error: SearchRootPath";
+    return -1;
+  }
+  for (int i = 0; i < SearchRootPath.size(); ++i) {
+    this->m_root_path.push_back(SearchRootPath[i].asString());
+    LOGD_T(MODULE_TAG) << "read SearchRootPath " << i << " "
+                       << SearchRootPath[i].asString();
+  }
+
+  Json::Value conf_app = value["DMS"];
+  if (conf_app.size() <= 0) {
+    return -1;
+  }
+
+  // 读取搜索路径和文件名
+  Json::Value search_path_name = conf_app["search_path_name"];
+  if (search_path_name.empty()) {
+    LOGE_T(MODULE_TAG) << "json parse error slice_path_name";
+    return -1;
+  }
+  this->m_search_name = search_path_name.asString();
+  LOGD_T(MODULE_TAG) << "read search_path_name: " << this->m_search_name;
+
+  // 读取切片存放路径和名称
+  Json::Value slice_path_name = conf_app["slice_path_name"];
+  if (slice_path_name.empty()) {
+    LOGE_T(MODULE_TAG) << "json parse error slice_path_name";
+    return -1;
+  }
+  this->m_slice_name = slice_path_name.asString();
+  LOGD_T(MODULE_TAG) << "read slice_path_name: " << this->m_slice_name;
+
+  // 读取切片标志名称
+  Json::Value slice_data_flag = conf_app["slice_data_flag"];
+  if (slice_data_flag.empty()) {
+    LOGE_T(MODULE_TAG) << "json parse error slice_data_flag";
+    return -1;
+  }
+  this->m_slice_flag = slice_data_flag.asString();
+  LOGD_T(MODULE_TAG) << "read slice_path_name: " << this->m_slice_flag;
+
+  // 读取匹配正则表达式
+  Json::Value re_str = conf_app["re_str"];
+  if (re_str.empty()) {
+    LOGE_T(MODULE_TAG) << "json parse error re_str";
+    return -1;
+  }
+  this->m_search_mp4->setReg(re_str.asString());
+  LOGD_T(MODULE_TAG) << "read re_str: " << re_str.asString();
+
+  return -1;
+}
+
+int ADAS_Slice::Init(const std::string &json_path_name) {
+  m_search_mp4 = new SearchMP4();
+  if (!m_search_mp4)
+    return -1;
+
+  // 读取json文件流
+  Json::Reader reader;
+  Json::Value value;
+  std::ifstream ifs;
+  ifs.open(json_path_name.c_str());
+  if (ifs.is_open() == false)
+    return -1;
+  if (!reader.parse(ifs, value)) {
+    LOGD_T(MODULE_TAG) << "[ERROR]: parse json fail";
+    return -1;
+  }
+  ifs.close();
+
+  // 读取RootPath
+  Json::Value SearchRootPath = value["SearchRootPath"];
+  if (SearchRootPath.size() <= 0) {
+    LOGE_T(MODULE_TAG) << "json parse error: SearchRootPath";
+    return -1;
+  }
+  for (int i = 0; i < SearchRootPath.size(); ++i) {
+    this->m_root_path.push_back(SearchRootPath[i].asString());
+    LOGD_T(MODULE_TAG) << "read SearchRootPath " << i << " "
+                       << SearchRootPath[i].asString();
+  }
+
+  Json::Value conf_app = value["ADAS"];
+  if (conf_app.size() <= 0) {
+    return -1;
+  }
+
+  // 读取搜索路径和文件名
+  Json::Value search_path_name = conf_app["search_path_name"];
+  if (search_path_name.empty()) {
+    LOGE_T(MODULE_TAG) << "json parse error search_path_name";
+    return -1;
+  }
+  this->m_search_name = search_path_name.asString();
+  LOGD_T(MODULE_TAG) << "read search_path_name: " << this->m_search_name;
+  // 读取切片存放路径和名称
+  Json::Value slice_path_name = conf_app["slice_path_name"];
+  if (slice_path_name.empty()) {
+    LOGE_T(MODULE_TAG) << "json parse error slice_path_name";
+    return -1;
+  }
+  this->m_slice_name = slice_path_name.asString();
+  LOGD_T(MODULE_TAG) << "read slice_path_name: " << this->m_slice_name;
+
+  // 读取切片标志名称
+  Json::Value slice_data_flag = conf_app["slice_data_flag"];
+  if (slice_data_flag.empty()) {
+    LOGE_T(MODULE_TAG) << "json parse error slice_data_flag";
+    return -1;
+  }
+  this->m_slice_flag = slice_data_flag.asString();
+  LOGD_T(MODULE_TAG) << "read slice_path_name: " << this->m_slice_flag;
+
+  return -1;
+}
 
 int64_t DMS_Slice::Cut(int64_t start_ms, int64_t dur_ms, char *str,
                        int str_size) {
@@ -21,30 +166,43 @@ int64_t DMS_Slice::Cut(int64_t start_ms, int64_t dur_ms, char *str,
     return -1;
   // 变量定义
   memset(str, 0x00, str_size);
-  SearchMP4 search_mp4;
   std::vector<CutNode> node;
   std::vector<CutNodeProto> node_proto;
-  std::string search_path = "/storage/sdcard1/com.hobot.dms.sample/video/";
-  std::string slice_path = "/storage/sdcard1/com.hobot.dms.sample/slice/";
-  std::string mp4_name = slice_path + "tmp.mp4";
   std::string new_mp4_name;
   int64_t ret_timestamp = -1;
   int ret = -1;
 
-  // 尝试创建切片路径
-  if (search_mp4.create_path(slice_path))
-    return -1;
-  // 添加搜索路径
-  search_mp4.addSearchPath(search_path);
+  for (int i = 0; i < this->m_root_path.size(); ++i) {
+    // 尝试创建切片路径
+    ret &= this->m_search_mp4->create_path(this->m_root_path[i] + "/" +
+                                           this->m_slice_name);
+    // 添加搜索路径
+    ret &= this->m_search_mp4->addSearchPath(this->m_root_path[i] + "/" +
+                                             this->m_search_name);
+  }
+  if (ret)
+    return ret;
+
   // 搜索对应的文件路径
-  ret = search_mp4.getMP4Path("DMS", start_ms, dur_ms, node);
+  ret = this->m_search_mp4->getMP4Path("DMS", start_ms, dur_ms, node);
   if (ret != 0 || node.empty()) {
     LOGD_T(MODULE_TAG) << "node size = " << node.size();
     return ret;
   }
 
   // 切取mp4视频
-  ret = cut_merge_video((CutNode *)(&(node[0])), node.size(), mp4_name.c_str());
+  std::string mp4_path = "";
+  std::string mp4_path_tmp_name = "";
+  mp4_path = std::string(node[0].filename);
+  int rfind_index = mp4_path.rfind(this->m_search_name);
+  if (rfind_index == std::string::npos)
+    return -1;
+  mp4_path.replace(rfind_index, mp4_path.size() - rfind_index,
+                   this->m_slice_name);
+  mp4_path_tmp_name = mp4_path + "/tmp.mp4";
+  LOGD_T(MODULE_TAG) << "tmp mp4 path name : " << mp4_path_tmp_name;
+  ret = cut_merge_video((CutNode *)(&(node[0])), node.size(),
+                        mp4_path_tmp_name.c_str());
   if (ret != 0) {
     LOGD_T(MODULE_TAG) << "cut_merge_video fail";
     return ret;
@@ -55,14 +213,13 @@ int64_t DMS_Slice::Cut(int64_t start_ms, int64_t dur_ms, char *str,
        ++iter) {
     CutNodeProto tmp_node_proto;
     tmp_node_proto.filename = std::string(iter->filename);
-    int find_index = tmp_node_proto.filename.find("_Nebula_1_5_");
+    int find_index = tmp_node_proto.filename.rfind(".mp4");
     if (find_index == std::string::npos)
       return -1;
-    std::string result = tmp_node_proto.filename.substr(find_index + 12, 19);
-    find_index = tmp_node_proto.filename.find(".mp4");
-    if (find_index == std::string::npos)
-      return -1;
-    tmp_node_proto.filename.replace(find_index, 4, ".proto");
+    std::string result = tmp_node_proto.filename.substr(find_index - 19, 19);
+    LOGD_T(MODULE_TAG) << "the data: " << result;
+    tmp_node_proto.filename.replace(
+        find_index, tmp_node_proto.filename.size() - find_index, ".proto");
     int64_t time_base = 0;
     TimeUtils::StringMstoTimMs(result, time_base);
     if (time_base == -1)
@@ -70,14 +227,14 @@ int64_t DMS_Slice::Cut(int64_t start_ms, int64_t dur_ms, char *str,
     tmp_node_proto.start_ts = iter->start_seconds_refined * 1000 + time_base;
     tmp_node_proto.end_ts = iter->end_seconds_refined * 1000 + time_base;
     node_proto.push_back(tmp_node_proto);
-    // 将生成的mp4结果重命名, 伟少那个JB真TM会提需求啊
+    // 将生成的mp4结果重命名.
     if (iter == node.begin()) {
       std::string mv_mp4_name;
       ret_timestamp = tmp_node_proto.start_ts;
       TimeUtils::TimeMstoStringMs(ret_timestamp, mv_mp4_name);
 
       std::string result_path_name =
-          slice_path + "/Slice_DMS_Nebula_1_5_" + mv_mp4_name;
+          mp4_path + "/" + this->m_slice_flag + mv_mp4_name;
       if (str_size <= result_path_name.size()) {
         LOGD_T(MODULE_TAG) << "size of char is not enough";
         return -1;
@@ -85,15 +242,16 @@ int64_t DMS_Slice::Cut(int64_t start_ms, int64_t dur_ms, char *str,
       strncpy(str, result_path_name.c_str(), result_path_name.size());
       new_mp4_name = result_path_name + ".mp4";
       LOGD_T(MODULE_TAG) << "mv_mp4_name: " << mv_mp4_name;
-      if (rename(mp4_name.c_str(), new_mp4_name.c_str()) != 0) {
+      if (rename(mp4_path_tmp_name.c_str(), new_mp4_name.c_str()) != 0) {
         LOGD_T(MODULE_TAG) << "rename fail";
         return -1;
       }
     }
   }
   // 切取proto文件
-  int index = new_mp4_name.find(".mp4");
-  std::string proto_name = new_mp4_name.replace(index, 4, ".proto");
+  int index = new_mp4_name.rfind(".mp4");
+  std::string proto_name =
+      new_mp4_name.replace(index, new_mp4_name.size() - index, ".proto");
   ret = DMS_cut_merge_proto(node_proto, proto_name);
   if (ret)
     return ret;
@@ -104,41 +262,50 @@ int64_t ADAS_Slice::Cut(int64_t start_ms, int64_t dur_ms, char *str,
                         int str_size) {
   LOGI_T(MODULE_TAG) << "start: " << start_ms;
   LOGI_T(MODULE_TAG) << "dura : " << dur_ms;
+
   if (dur_ms <= 0)
     return -1;
   // 变量定义
-
   memset(str, 0x00, str_size);
-  SearchMP4 search_mp4;
   std::vector<CutNode> node;
   std::vector<CutNodeProto> node_proto;
-  std::string search_path =
-      "/storage/sdcard1/Android/data/com.hobot.adas/video/";
-  std::string slice_path =
-      "/storage/sdcard1/Android/data/com.hobot.adas/slice/";
-
-  std::string mp4_name = slice_path + "tmp.mp4";
   std::string new_mp4_name;
   int64_t ret_timestamp = -1;
-
   int ret = -1;
 
-  // 尝试创建切片路径
-  if (search_mp4.create_path(slice_path))
-    return -1;
-  // 添加搜索路径
-  search_mp4.addSearchPath(search_path);
+  for (int i = 0; i < this->m_root_path.size(); ++i) {
+    // 尝试创建切片路径
+    ret &= this->m_search_mp4->create_path(this->m_root_path[i] + "/" +
+                                           this->m_slice_name);
+    // 添加搜索路径
+    ret &= this->m_search_mp4->addSearchPath(this->m_root_path[i] + "/" +
+                                             this->m_search_name);
+  }
+  if (ret)
+    return ret;
 
   // 搜索对应的文件路径
-  ret = search_mp4.getMP4Path("ADAS", start_ms, dur_ms, node);
+  ret = this->m_search_mp4->getMP4Path("ADAS", start_ms, dur_ms, node);
   if (ret != 0 || node.empty()) {
     LOGD_T(MODULE_TAG) << "node size = " << node.size();
     return ret;
   }
 
   // 切取mp4视频
-  ret = cut_merge_video((CutNode *)(&(node[0])), node.size(), mp4_name.c_str());
+  std::string mp4_path = "";
+  std::string mp4_path_tmp_name = "";
+  mp4_path = std::string(node[0].filename);
+  int rfind_index = mp4_path.rfind(this->m_search_name);
+  if (rfind_index == std::string::npos)
+    return -1;
+  mp4_path.replace(rfind_index, mp4_path.size() - rfind_index,
+                   this->m_slice_name);
+  mp4_path_tmp_name = mp4_path + "/tmp.mp4";
+  LOGD_T(MODULE_TAG) << "tmp mp4 path name : " << mp4_path_tmp_name;
+  ret = cut_merge_video((CutNode *)(&(node[0])), node.size(),
+                        mp4_path_tmp_name.c_str());
   if (ret != 0) {
+    LOGD_T(MODULE_TAG) << "cut_merge_video fail";
     return ret;
   }
 
@@ -147,14 +314,13 @@ int64_t ADAS_Slice::Cut(int64_t start_ms, int64_t dur_ms, char *str,
        ++iter) {
     CutNodeProto tmp_node_proto;
     tmp_node_proto.filename = std::string(iter->filename);
-    int find_index = tmp_node_proto.filename.find("_Nebula_1_5_");
+    int find_index = tmp_node_proto.filename.rfind(".mp4");
     if (find_index == std::string::npos)
       return -1;
-    std::string result = tmp_node_proto.filename.substr(find_index + 12, 19);
-    find_index = tmp_node_proto.filename.find(".mp4");
-    if (find_index == std::string::npos)
-      return -1;
-    tmp_node_proto.filename.replace(find_index, 4, ".proto");
+    std::string result = tmp_node_proto.filename.substr(find_index - 19, 19);
+    LOGD_T(MODULE_TAG) << "the data: " << result;
+    tmp_node_proto.filename.replace(
+        find_index, tmp_node_proto.filename.size() - find_index, ".proto");
     int64_t time_base = 0;
     TimeUtils::StringMstoTimMs(result, time_base);
     if (time_base == -1)
@@ -162,12 +328,14 @@ int64_t ADAS_Slice::Cut(int64_t start_ms, int64_t dur_ms, char *str,
     tmp_node_proto.start_ts = iter->start_seconds_refined * 1000 + time_base;
     tmp_node_proto.end_ts = iter->end_seconds_refined * 1000 + time_base;
     node_proto.push_back(tmp_node_proto);
+    // 将生成的mp4结果重命名.
     if (iter == node.begin()) {
       std::string mv_mp4_name;
       ret_timestamp = tmp_node_proto.start_ts;
       TimeUtils::TimeMstoStringMs(ret_timestamp, mv_mp4_name);
+
       std::string result_path_name =
-          slice_path + "/Slice_ADAS_Nebula_1_5_" + mv_mp4_name;
+          mp4_path + "/" + this->m_slice_flag + mv_mp4_name;
       if (str_size <= result_path_name.size()) {
         LOGD_T(MODULE_TAG) << "size of char is not enough";
         return -1;
@@ -175,15 +343,16 @@ int64_t ADAS_Slice::Cut(int64_t start_ms, int64_t dur_ms, char *str,
       strncpy(str, result_path_name.c_str(), result_path_name.size());
       new_mp4_name = result_path_name + ".mp4";
       LOGD_T(MODULE_TAG) << "mv_mp4_name: " << mv_mp4_name;
-      if (rename(mp4_name.c_str(), new_mp4_name.c_str()) != 0) {
+      if (rename(mp4_path_tmp_name.c_str(), new_mp4_name.c_str()) != 0) {
         LOGD_T(MODULE_TAG) << "rename fail";
         return -1;
       }
     }
   }
   // 切取proto文件
-  int index = new_mp4_name.find(".mp4");
-  std::string proto_name = new_mp4_name.replace(index, 4, ".proto");
+  int index = new_mp4_name.rfind(".mp4");
+  std::string proto_name =
+      new_mp4_name.replace(index, new_mp4_name.size() - index, ".proto");
   ret = ADAS_cut_merge_proto(node_proto, proto_name);
   if (ret)
     return ret;

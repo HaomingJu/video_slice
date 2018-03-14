@@ -17,7 +17,7 @@
 #endif
 #define MODULE_TAG "SearchMP4"
 namespace HobotNebula {
-SearchMP4::SearchMP4(){};
+SearchMP4::SearchMP4() : m_reg(""){};
 
 SearchMP4::~SearchMP4(){};
 
@@ -149,7 +149,7 @@ int SearchMP4::getMP4Path(const std::string &flag, const int64_t &start_point,
   return 0;
 };
 
-int SearchMP4::addSearchPath(std::string &path) {
+int SearchMP4::addSearchPath(const std::string &path) {
   std::vector<std::string>::iterator iter =
       find(m_search_path.begin(), m_search_path.end(), path);
   if (iter == m_search_path.end())  // 没有找到
@@ -160,7 +160,7 @@ int SearchMP4::addSearchPath(std::string &path) {
     return -1;
 };
 
-int SearchMP4::delSearchPath(std::string &path) {
+int SearchMP4::delSearchPath(const std::string &path) {
   std::vector<std::string>::iterator iter =
       find(m_search_path.begin(), m_search_path.end(), path);
   if (iter != m_search_path.end())  // 找到
@@ -177,10 +177,16 @@ void SearchMP4::showSearchPath() {
     LOGD_T(MODULE_TAG) << "path: " << *iter;
   }
 }
+void SearchMP4::setReg(const std::string &reg_) { this->m_reg = reg_; }
 int SearchMP4::getFiles(std::string &path,
                         std::vector<std::string> &v_mp4_path) {
   // 正则匹配
-  std::regex re("_Nebula_1_5_\\d{8}-\\d{6}_\\d{3}.mp4");
+  std::regex re;
+  if (this->m_reg.empty()) {
+    re.assign("_Nebula_1_5_\\d{8}-\\d{6}_\\d{3}.mp4");
+  } else {
+    re.assign(this->m_reg);
+  }
 
   DIR *dp;
   struct dirent *dirp;

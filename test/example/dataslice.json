@@ -2,15 +2,15 @@
   "SearchRootPath" : ["/storage/sdcard1", "/sdcard"],
 
   "DMS" : {
-      "search_path" : "com.hobot.dms.sample/video/",
-      "slice_path" : "com.hobot.dms.sample/slice/",
+      "search_path_name" : "com.hobot.dms.sample/video/",
+      "slice_path_name" : "com.hobot.dms.sample/slice/",
       "re_str" : "DMS_Nebula_1_5_\\d{8}-\\d{6}_\\d{3}.mp4",
       "slice_data_flag" : "Slice_DMS_Nebula_1_5_"
   },
 
   "ADAS" : {
-      "search_path" : "com.hobot.adas/video/",
-      "slice_path" : "com.hobot.adas/slice/",
+      "search_path_name" : "com.hobot.adas/video/",
+      "slice_path_name" : "com.hobot.adas/slice/",
       "re_str" : "ADAS_Nebula_1_5_\\d{8}-\\d{6}_\\d{3}.mp4",
       "slice_data_flag" : "Slice_ADAS_Nebula_1_5_"
   }

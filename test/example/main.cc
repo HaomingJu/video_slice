@@ -5,6 +5,7 @@
 #include "slice_video_proto.h"
 
 int main(int argc, char **argv) {
+  std::cout << "argc = " << argc << std::endl;
   SetLogLevel(HOBOT_LOG_DEBUG);
   if (argc != 4)
     return -1;
@@ -15,21 +16,27 @@ int main(int argc, char **argv) {
   std::istringstream iss2((std::string(argv[3])));
   iss2 >> dura_ms;
   char result_file[1024];
+  int64_t ret_time = -1;
+  int ret = 0;
 
-  int ret_time = -1;
+  std::cout << "begin." << std::endl;
+  HobotNebula::Slice *slice = nullptr;
   if (flag == "DMS") {
-    HobotNebula::DMS_Slice *slice = new HobotNebula::DMS_Slice();
-    slice->Init("../etc/dataslice.json");
+    slice = new HobotNebula::DMS_Slice();
+    ret = slice->Init("DMS", "../etc/dataslice.json");
+    std::cout << "ret = " << std::endl;
     ret_time = slice->Cut(start_ms, dura_ms, result_file, 1024);
   } else if (flag == "ADAS") {
-    HobotNebula::ADAS_Slice *slice = new HobotNebula::ADAS_Slice();
-    slice->Init("../etc/dataslice.json");
+    slice = new HobotNebula::ADAS_Slice();
+    ret = slice->Init("ADAS", "../etc/dataslice.json");
+    std::cout << "ret = " << std::endl;
     ret_time = slice->Cut(start_ms, dura_ms, result_file, 1024);
   } else {
     return -1;
   }
   std::cout << "result: " << result_file << std::endl;
   std::cout << "ret_time: " << ret_time << std::endl;
+  std::cout << "end." << std::endl;
 
   return 0;
 }

@@ -9,18 +9,21 @@
 #include "search_path/searchMP4.h"
 #include "time_utils/TimeUtils.h"
 
+#ifdef MODULE_TAG
+#undef MODULE_TAG
+#endif
 #define MODULE_TAG "Slice"
 
 namespace HobotNebula {
-DMS_Slice::DMS_Slice()
-    : m_search_name(""), m_slice_name(""), m_search_mp4(nullptr) {}
+// Slice::Slice() : m_slice_name(""), m_slice_flag(""), m_search_mp4(nullptr) {}
+// Slice::~Slice() {}
+DMS_Slice::DMS_Slice() {}
 DMS_Slice::~DMS_Slice() {}
-
-ADAS_Slice::ADAS_Slice()
-    : m_search_name(""), m_slice_name(""), m_search_mp4(nullptr) {}
+ADAS_Slice::ADAS_Slice() {}
 ADAS_Slice::~ADAS_Slice() {}
 
-int DMS_Slice::Init(const std::string &json_path_name) {
+int Slice::Init(const std::string &app_flag,
+                const std::string &config_path_name) {
   m_search_mp4 = new SearchMP4();
   if (!m_search_mp4)
     return -1;
@@ -28,7 +31,7 @@ int DMS_Slice::Init(const std::string &json_path_name) {
   Json::Reader reader;
   Json::Value value;
   std::ifstream ifs;
-  ifs.open(json_path_name.c_str());
+  ifs.open(config_path_name.c_str());
   if (ifs.is_open() == false)
     return -1;
   if (!reader.parse(ifs, value)) {
@@ -37,79 +40,43 @@ int DMS_Slice::Init(const std::string &json_path_name) {
   }
   ifs.close();
 
-  // 读取RootPath
-  Json::Value SearchRootPath = value["SearchRootPath"];
-  if (SearchRootPath.size() <= 0) {
-    LOGE_T(MODULE_TAG) << "json parse error: SearchRootPath";
-    return -1;
-  }
-  for (int i = 0; i < SearchRootPath.size(); ++i) {
-    this->m_root_path.push_back(SearchRootPath[i].asString());
-    LOGD_T(MODULE_TAG) << "read SearchRootPath " << i << " "
-                       << SearchRootPath[i].asString();
-  }
-
-  Json::Value conf_app = value["DMS"];
-  if (conf_app.size() <= 0) {
+  Json::Value conf_app = value[app_flag];
+  if (conf_app.empty()) {
     return -1;
   }
 
   // 读取搜索路径和文件名
-  Json::Value search_path_name = conf_app["search_path_name"];
-  if (search_path_name.empty()) {
+  this->m_search_name = conf_app.get("search_path_name", "").asString();
+  if (this->m_search_name.empty()) {
     LOGE_T(MODULE_TAG) << "json parse error slice_path_name";
     return -1;
   }
-  this->m_search_name = search_path_name.asString();
   LOGD_T(MODULE_TAG) << "read search_path_name: " << this->m_search_name;
 
   // 读取切片存放路径和名称
-  Json::Value slice_path_name = conf_app["slice_path_name"];
-  if (slice_path_name.empty()) {
+  this->m_slice_name = conf_app.get("slice_path_name", "").asString();
+  if (this->m_slice_name.empty()) {
     LOGE_T(MODULE_TAG) << "json parse error slice_path_name";
     return -1;
   }
-  this->m_slice_name = slice_path_name.asString();
   LOGD_T(MODULE_TAG) << "read slice_path_name: " << this->m_slice_name;
 
   // 读取切片标志名称
-  Json::Value slice_data_flag = conf_app["slice_data_flag"];
-  if (slice_data_flag.empty()) {
+  this->m_slice_flag = conf_app.get("slice_data_flag", "").asString();
+  if (this->m_slice_flag.empty()) {
     LOGE_T(MODULE_TAG) << "json parse error slice_data_flag";
     return -1;
   }
-  this->m_slice_flag = slice_data_flag.asString();
-  LOGD_T(MODULE_TAG) << "read slice_path_name: " << this->m_slice_flag;
+  LOGD_T(MODULE_TAG) << "read slice_flag: " << this->m_slice_flag;
 
   // 读取匹配正则表达式
-  Json::Value re_str = conf_app["re_str"];
-  if (re_str.empty()) {
+  std::string tmp_re_str = conf_app.get("re_str", "").asString();
+  if (tmp_re_str.empty()) {
     LOGE_T(MODULE_TAG) << "json parse error re_str";
     return -1;
   }
-  this->m_search_mp4->setReg(re_str.asString());
-  LOGD_T(MODULE_TAG) << "read re_str: " << re_str.asString();
-
-  return -1;
-}
-
-int ADAS_Slice::Init(const std::string &json_path_name) {
-  m_search_mp4 = new SearchMP4();
-  if (!m_search_mp4)
-    return -1;
-
-  // 读取json文件流
-  Json::Reader reader;
-  Json::Value value;
-  std::ifstream ifs;
-  ifs.open(json_path_name.c_str());
-  if (ifs.is_open() == false)
-    return -1;
-  if (!reader.parse(ifs, value)) {
-    LOGD_T(MODULE_TAG) << "[ERROR]: parse json fail";
-    return -1;
-  }
-  ifs.close();
+  this->m_search_mp4->setReg(tmp_re_str);
+  LOGD_T(MODULE_TAG) << "read re_str: " << tmp_re_str;
 
   // 读取RootPath
   Json::Value SearchRootPath = value["SearchRootPath"];
@@ -117,44 +84,20 @@ int ADAS_Slice::Init(const std::string &json_path_name) {
     LOGE_T(MODULE_TAG) << "json parse error: SearchRootPath";
     return -1;
   }
+
+  int ret = -1;
   for (int i = 0; i < SearchRootPath.size(); ++i) {
-    this->m_root_path.push_back(SearchRootPath[i].asString());
-    LOGD_T(MODULE_TAG) << "read SearchRootPath " << i << " "
-                       << SearchRootPath[i].asString();
+    std::string tmp_root_path = SearchRootPath[i].asString();
+    ret &= this->m_search_mp4->create_path(tmp_root_path + "/" +
+                                           this->m_slice_name);
+    if (!ret) {
+      this->m_search_mp4->addSearchPath(tmp_root_path + "/" +
+                                        this->m_search_name);
+      this->m_root_path.push_back(tmp_root_path);
+      LOGD_T(MODULE_TAG) << "read SearchRootPath " << i << " " << tmp_root_path;
+    }
   }
-
-  Json::Value conf_app = value["ADAS"];
-  if (conf_app.size() <= 0) {
-    return -1;
-  }
-
-  // 读取搜索路径和文件名
-  Json::Value search_path_name = conf_app["search_path_name"];
-  if (search_path_name.empty()) {
-    LOGE_T(MODULE_TAG) << "json parse error search_path_name";
-    return -1;
-  }
-  this->m_search_name = search_path_name.asString();
-  LOGD_T(MODULE_TAG) << "read search_path_name: " << this->m_search_name;
-  // 读取切片存放路径和名称
-  Json::Value slice_path_name = conf_app["slice_path_name"];
-  if (slice_path_name.empty()) {
-    LOGE_T(MODULE_TAG) << "json parse error slice_path_name";
-    return -1;
-  }
-  this->m_slice_name = slice_path_name.asString();
-  LOGD_T(MODULE_TAG) << "read slice_path_name: " << this->m_slice_name;
-
-  // 读取切片标志名称
-  Json::Value slice_data_flag = conf_app["slice_data_flag"];
-  if (slice_data_flag.empty()) {
-    LOGE_T(MODULE_TAG) << "json parse error slice_data_flag";
-    return -1;
-  }
-  this->m_slice_flag = slice_data_flag.asString();
-  LOGD_T(MODULE_TAG) << "read slice_path_name: " << this->m_slice_flag;
-
-  return -1;
+  return ret;
 }
 
 int64_t DMS_Slice::Cut(int64_t start_ms, int64_t dur_ms, char *str,
@@ -170,20 +113,8 @@ int64_t DMS_Slice::Cut(int64_t start_ms, int64_t dur_ms, char *str,
   std::vector<CutNodeProto> node_proto;
   std::string new_mp4_name;
   int64_t ret_timestamp = -1;
-  int ret = -1;
-
-  for (int i = 0; i < this->m_root_path.size(); ++i) {
-    // 尝试创建切片路径
-    ret &= this->m_search_mp4->create_path(this->m_root_path[i] + "/" +
-                                           this->m_slice_name);
-    // 添加搜索路径
-    ret &= this->m_search_mp4->addSearchPath(this->m_root_path[i] + "/" +
-                                             this->m_search_name);
-  }
-  if (ret)
-    return ret;
-
   // 搜索对应的文件路径
+  int ret = -1;
   ret = this->m_search_mp4->getMP4Path("DMS", start_ms, dur_ms, node);
   if (ret != 0 || node.empty()) {
     LOGD_T(MODULE_TAG) << "node size = " << node.size();
@@ -272,17 +203,6 @@ int64_t ADAS_Slice::Cut(int64_t start_ms, int64_t dur_ms, char *str,
   std::string new_mp4_name;
   int64_t ret_timestamp = -1;
   int ret = -1;
-
-  for (int i = 0; i < this->m_root_path.size(); ++i) {
-    // 尝试创建切片路径
-    ret &= this->m_search_mp4->create_path(this->m_root_path[i] + "/" +
-                                           this->m_slice_name);
-    // 添加搜索路径
-    ret &= this->m_search_mp4->addSearchPath(this->m_root_path[i] + "/" +
-                                             this->m_search_name);
-  }
-  if (ret)
-    return ret;
 
   // 搜索对应的文件路径
   ret = this->m_search_mp4->getMP4Path("ADAS", start_ms, dur_ms, node);

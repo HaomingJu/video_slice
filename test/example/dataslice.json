@@ -4,14 +4,14 @@
   "DMS" : {
       "search_path_name" : "hobot/media/dms/video/",
       "slice_path_name" : "hobot/media/dms/slice/",
-      "re_str" : "DMS_Nebula_1_5_\\d{8}-\\d{6}_\\d{3}.mp4",
-      "slice_data_flag" : "Slice_DMS_Nebula_1_5_"
+      "re_str" : "DMS_RAW_Nebula_\\d{8}-\\d{6}_\\d{3}.mp4",
+      "slice_data_flag" : "DMS_SLICE_Nebula_"
   },
 
   "ADAS" : {
       "search_path_name" : "hobot/media/adas/video/",
       "slice_path_name" : "hobot/media/adas/slice/",
-      "re_str" : "ADAS_Nebula_1_5_\\d{8}-\\d{6}_\\d{3}.mp4",
-      "slice_data_flag" : "Slice_ADAS_Nebula_1_5_"
+      "re_str" : "ADAS_RAW_Nebula_\\d{8}-\\d{6}_\\d{3}.mp4",
+      "slice_data_flag" : "ADAS_SLICE_Nebula_"
   }
 }

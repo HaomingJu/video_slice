@@ -27,17 +27,19 @@ int SearchMP4::getMP4Path(const std::string &flag, const int64_t &start_point,
   std::vector<std::string> mp4_name_list;
   std::vector<Slice_info> v_slice_info;
   int result = -1;
+
   for (int i = 0; i < m_search_path.size(); ++i) {
     result &= this->getFiles(m_search_path[i], mp4_name_list);
     // 至少要有一个成功
   }
-  if (result)
+  if (result) {
     return -1;
+  }
 
   for (int i = 0; i < mp4_name_list.size(); i++) {
     info.mp4_path = mp4_name_list[i];
-    int find_index = info.mp4_path.find("_Nebula_1_5_");
-    std::string result = info.mp4_path.substr(find_index + 12, 19);
+    int index = info.mp4_path.rfind(".mp4");
+    std::string result = info.mp4_path.substr(index - 19, 19);
     int64_t time_point = 0;
     TimeUtils::StringMstoTimMs(result, time_point);
     info.start_timestamp = time_point;
@@ -152,6 +154,7 @@ int SearchMP4::getMP4Path(const std::string &flag, const int64_t &start_point,
 int SearchMP4::addSearchPath(const std::string &path) {
   std::vector<std::string>::iterator iter =
       find(m_search_path.begin(), m_search_path.end(), path);
+
   if (iter == m_search_path.end())  // 没有找到
   {
     this->m_search_path.push_back(path);
@@ -205,8 +208,9 @@ int SearchMP4::getFiles(std::string &path,
     }
   }
   closedir(dp);
-  if (v_mp4_path.size() == 0)
+  if (v_mp4_path.size() == 0) {
     return -1;
+  }
   return 0;
 }
 

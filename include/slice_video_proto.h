@@ -8,11 +8,11 @@ class SearchMP4;
 
 class Slice {
  public:
-  //Slice();
-  //virtual ~Slice();
+  // Slice();
+  // virtual ~Slice();
   int Init(const std::string &, const std::string &);
-  virtual int64_t Cut(int64_t start_ms, int64_t dur_ms, char *str,
-                      int str_size) = 0;
+  virtual int64_t Cut(int64_t start_ms, int64_t dur_ms, char *str, int str_size,
+                      const std::string & = "") = 0;
 
  protected:
   std::vector<std::string> m_root_path;
@@ -26,14 +26,16 @@ class DMS_Slice : public Slice {
  public:
   DMS_Slice();
   ~DMS_Slice();
-  int64_t Cut(int64_t start_ms, int64_t dur_ms, char *str, int str_size);
+  int64_t Cut(int64_t start_ms, int64_t dur_ms, char *str, int str_size,
+              const std::string & = "");
 };
 
 class ADAS_Slice : public Slice {
  public:
   ADAS_Slice();
   ~ADAS_Slice();
-  int64_t Cut(int64_t start_ms, int64_t dur_ms, char *str, int str_size);
+  int64_t Cut(int64_t start_ms, int64_t dur_ms, char *str, int str_size,
+              const std::string & = "");
 };
 }
 

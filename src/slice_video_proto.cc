@@ -101,7 +101,7 @@ int Slice::Init(const std::string &app_flag,
 }
 
 int64_t DMS_Slice::Cut(int64_t start_ms, int64_t dur_ms, char *str,
-                       int str_size) {
+                       int str_size, const std::string &user_flag) {
   LOGI_T(MODULE_TAG) << "start: " << start_ms;
   LOGI_T(MODULE_TAG) << "dura : " << dur_ms;
 
@@ -164,8 +164,17 @@ int64_t DMS_Slice::Cut(int64_t start_ms, int64_t dur_ms, char *str,
       ret_timestamp = tmp_node_proto.start_ts;
       TimeUtils::TimeMstoStringMs(ret_timestamp, mv_mp4_name);
 
-      std::string result_path_name =
-          mp4_path + "/" + this->m_slice_flag + mv_mp4_name;
+      std::string result_path_name;
+      result_path_name.append(mp4_path);
+      result_path_name.append("/");
+      result_path_name.append(this->m_slice_flag);
+
+      if (user_flag.size()) {
+        result_path_name.append(user_flag);
+        result_path_name.append("_");
+      }
+      result_path_name.append(mv_mp4_name);
+
       if (str_size <= result_path_name.size()) {
         LOGD_T(MODULE_TAG) << "size of char is not enough";
         return -1;
@@ -190,7 +199,7 @@ int64_t DMS_Slice::Cut(int64_t start_ms, int64_t dur_ms, char *str,
 }
 
 int64_t ADAS_Slice::Cut(int64_t start_ms, int64_t dur_ms, char *str,
-                        int str_size) {
+                        int str_size, const std::string &user_flag) {
   LOGI_T(MODULE_TAG) << "start: " << start_ms;
   LOGI_T(MODULE_TAG) << "dura : " << dur_ms;
 
@@ -254,8 +263,17 @@ int64_t ADAS_Slice::Cut(int64_t start_ms, int64_t dur_ms, char *str,
       ret_timestamp = tmp_node_proto.start_ts;
       TimeUtils::TimeMstoStringMs(ret_timestamp, mv_mp4_name);
 
-      std::string result_path_name =
-          mp4_path + "/" + this->m_slice_flag + mv_mp4_name;
+      std::string result_path_name;
+      result_path_name.append(mp4_path);
+      result_path_name.append("/");
+      result_path_name.append(this->m_slice_flag);
+
+      if (user_flag.size()) {
+        result_path_name.append(user_flag);
+        result_path_name.append("_");
+      }
+      result_path_name.append(mv_mp4_name);
+
       if (str_size <= result_path_name.size()) {
         LOGD_T(MODULE_TAG) << "size of char is not enough";
         return -1;

@@ -25,12 +25,12 @@ int main(int argc, char **argv) {
     slice = new HobotNebula::DMS_Slice();
     ret = slice->Init("DMS", "../etc/dataslice.json");
     std::cout << "ret = " << std::endl;
-    ret_time = slice->Cut(start_ms, dura_ms, result_file, 1024);
+    ret_time = slice->Cut(start_ms, dura_ms, result_file, 1024, "FUCK");
   } else if (flag == "ADAS") {
     slice = new HobotNebula::ADAS_Slice();
     ret = slice->Init("ADAS", "../etc/dataslice.json");
     std::cout << "ret = " << std::endl;
-    ret_time = slice->Cut(start_ms, dura_ms, result_file, 1024);
+    ret_time = slice->Cut(start_ms, dura_ms, result_file, 1024, "FUCK");
   } else {
     return -1;
   }

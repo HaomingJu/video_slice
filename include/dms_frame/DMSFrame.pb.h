@@ -19,127 +19,284 @@
 #error regenerate this file with a newer version of protoc.
 #endif
 
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/generated_message_util.h>
 #include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>
+#include <google/protobuf/extension_set.h>
+#include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
 
 namespace DMSFrameProtocol {
 
 // Internal implementation detail -- do not call these.
-void protobuf_AddDesc_DMSFrame_2eproto();
+void  protobuf_AddDesc_DMSFrame_2eproto();
 void protobuf_AssignDesc_DMSFrame_2eproto();
 void protobuf_ShutdownFile_DMSFrame_2eproto();
 
-class Rect;
+class Rect_f;
 class Rect_i;
-class Point;
+class Point_f;
 class Face;
+class FaceDetectResult;
+class FaceDetectPost;
 class LandMark21;
+class LandmarkPost;
 class Eye;
 class Eyes;
-class AlgoResult;
-class PolicyParams;
-class MonitorResult;
+class EyesPost;
+class Phone;
+class PhoneDetectResult;
+class PhoneDetectPost;
+class SmokeClsfResult;
+class SmokeClsfPost;
 class FaceRecogResult;
+class FaceRecogPost;
+class AlgoResult;
+class DFWPolicyParams;
+class DFWPolicyResult;
+class DDWPolicyParams;
+class DDWPolicyResult;
+class DCAPolicyParams;
+class DCAPolicyResult;
+class DSAPolicyParams;
+class DSAPolicyResult;
+class FaceDirParams;
+class FaceDirResult;
+class DIRPolicyParams;
+class DIRPolicyResult;
+class PolicyResult;
+class EventResult;
 class CANInfo;
+class VehicleInfo;
 class ImageInfo;
 class DMSFrame;
 
-enum WarnState {
-  NONE = 0,
-  W_NOFACE = 1,
-  E_NOFACE = 2,
-  W_DISTRACT = 3,
-  E_DISTRACT = 4,
-  W_FATIGUE = 5,
-  E_FATIGUE = 6,
-  DANGER = 7,
-  SIZE = 8
+enum FaceStateEnum {
+  FACE_ST_NOFACE = 0,
+  FACE_ST_NORMAL = 1,
+  FACE_ST_ABNORMAL = 2
 };
-bool WarnState_IsValid(int value);
-const WarnState WarnState_MIN = NONE;
-const WarnState WarnState_MAX = SIZE;
-const int WarnState_ARRAYSIZE = WarnState_MAX + 1;
+bool FaceStateEnum_IsValid(int value);
+const FaceStateEnum FaceStateEnum_MIN = FACE_ST_NOFACE;
+const FaceStateEnum FaceStateEnum_MAX = FACE_ST_ABNORMAL;
+const int FaceStateEnum_ARRAYSIZE = FaceStateEnum_MAX + 1;
 
-const ::google::protobuf::EnumDescriptor *WarnState_descriptor();
-inline const ::std::string &WarnState_Name(WarnState value) {
-  return ::google::protobuf::internal::NameOfEnum(WarnState_descriptor(),
-                                                  value);
+const ::google::protobuf::EnumDescriptor* FaceStateEnum_descriptor();
+inline const ::std::string& FaceStateEnum_Name(FaceStateEnum value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    FaceStateEnum_descriptor(), value);
 }
-inline bool WarnState_Parse(const ::std::string &name, WarnState *value) {
-  return ::google::protobuf::internal::ParseNamedEnum<WarnState>(
-      WarnState_descriptor(), name, value);
+inline bool FaceStateEnum_Parse(
+    const ::std::string& name, FaceStateEnum* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<FaceStateEnum>(
+    FaceStateEnum_descriptor(), name, value);
 }
-enum FaceDir { FRONT = 0, LEFT = 1, RIGHT = 2, UP = 3, DOWN = 4 };
-bool FaceDir_IsValid(int value);
-const FaceDir FaceDir_MIN = FRONT;
-const FaceDir FaceDir_MAX = DOWN;
-const int FaceDir_ARRAYSIZE = FaceDir_MAX + 1;
+enum EyeStateEnum {
+  EYE_ST_OPEN = 0,
+  EYE_ST_CLOSE = 1,
+  EYE_ST_UNKNOW = 2,
+  EYE_ST_SIZE = 3
+};
+bool EyeStateEnum_IsValid(int value);
+const EyeStateEnum EyeStateEnum_MIN = EYE_ST_OPEN;
+const EyeStateEnum EyeStateEnum_MAX = EYE_ST_SIZE;
+const int EyeStateEnum_ARRAYSIZE = EyeStateEnum_MAX + 1;
 
-const ::google::protobuf::EnumDescriptor *FaceDir_descriptor();
-inline const ::std::string &FaceDir_Name(FaceDir value) {
-  return ::google::protobuf::internal::NameOfEnum(FaceDir_descriptor(), value);
+const ::google::protobuf::EnumDescriptor* EyeStateEnum_descriptor();
+inline const ::std::string& EyeStateEnum_Name(EyeStateEnum value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    EyeStateEnum_descriptor(), value);
 }
-inline bool FaceDir_Parse(const ::std::string &name, FaceDir *value) {
-  return ::google::protobuf::internal::ParseNamedEnum<FaceDir>(
-      FaceDir_descriptor(), name, value);
+inline bool EyeStateEnum_Parse(
+    const ::std::string& name, EyeStateEnum* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<EyeStateEnum>(
+    EyeStateEnum_descriptor(), name, value);
+}
+enum SmokeStateEnum {
+  SMOKE_ST_EXIST = 0,
+  SMOKE_ST_NOEXIST = 1,
+  SMOKE_ST_UNKNOW = 2,
+  SMOKE_ST_SIZE = 3
+};
+bool SmokeStateEnum_IsValid(int value);
+const SmokeStateEnum SmokeStateEnum_MIN = SMOKE_ST_EXIST;
+const SmokeStateEnum SmokeStateEnum_MAX = SMOKE_ST_SIZE;
+const int SmokeStateEnum_ARRAYSIZE = SmokeStateEnum_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* SmokeStateEnum_descriptor();
+inline const ::std::string& SmokeStateEnum_Name(SmokeStateEnum value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    SmokeStateEnum_descriptor(), value);
+}
+inline bool SmokeStateEnum_Parse(
+    const ::std::string& name, SmokeStateEnum* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<SmokeStateEnum>(
+    SmokeStateEnum_descriptor(), name, value);
+}
+enum WarnStateEnum {
+  WARN_ST_STAY_CUR = 0,
+  WARN_ST_NORMAL = 1,
+  WARN_ST_LV1 = 2,
+  WARN_ST_LV2 = 3,
+  WARN_ST_SIZE = 4
+};
+bool WarnStateEnum_IsValid(int value);
+const WarnStateEnum WarnStateEnum_MIN = WARN_ST_STAY_CUR;
+const WarnStateEnum WarnStateEnum_MAX = WARN_ST_SIZE;
+const int WarnStateEnum_ARRAYSIZE = WarnStateEnum_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* WarnStateEnum_descriptor();
+inline const ::std::string& WarnStateEnum_Name(WarnStateEnum value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    WarnStateEnum_descriptor(), value);
+}
+inline bool WarnStateEnum_Parse(
+    const ::std::string& name, WarnStateEnum* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<WarnStateEnum>(
+    WarnStateEnum_descriptor(), name, value);
+}
+enum FaceDirEnum {
+  FACE_DIR_FRONT = 0,
+  FACE_DIR_LEFT = 1,
+  FACE_DIR_RIGHT = 2,
+  FACE_DIR_UP = 3,
+  FACE_DIR_DOWN = 4,
+  FACE_DIR_SIZE = 5
+};
+bool FaceDirEnum_IsValid(int value);
+const FaceDirEnum FaceDirEnum_MIN = FACE_DIR_FRONT;
+const FaceDirEnum FaceDirEnum_MAX = FACE_DIR_SIZE;
+const int FaceDirEnum_ARRAYSIZE = FaceDirEnum_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* FaceDirEnum_descriptor();
+inline const ::std::string& FaceDirEnum_Name(FaceDirEnum value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    FaceDirEnum_descriptor(), value);
+}
+inline bool FaceDirEnum_Parse(
+    const ::std::string& name, FaceDirEnum* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<FaceDirEnum>(
+    FaceDirEnum_descriptor(), name, value);
+}
+enum EventEnum {
+  EVENT_NONE = 0,
+  EVENT_DDW = 1,
+  EVENT_DFW = 2,
+  EVENT_DCA = 3,
+  EVENT_DSA = 4,
+  EVENT_LDR = 5,
+  EVENT_SIZE = 6
+};
+bool EventEnum_IsValid(int value);
+const EventEnum EventEnum_MIN = EVENT_NONE;
+const EventEnum EventEnum_MAX = EVENT_SIZE;
+const int EventEnum_ARRAYSIZE = EventEnum_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* EventEnum_descriptor();
+inline const ::std::string& EventEnum_Name(EventEnum value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    EventEnum_descriptor(), value);
+}
+inline bool EventEnum_Parse(
+    const ::std::string& name, EventEnum* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<EventEnum>(
+    EventEnum_descriptor(), name, value);
+}
+enum TurnLightStateEnum {
+  LIGHT_ST_INVALID = 0,
+  LIGHT_ST_OFF = 1,
+  LIGHT_ST_LEFT = 2,
+  LIGHT_ST_RIGHT = 3,
+  LIGHT_ST_LEFT_RIGHT = 4,
+  LIGHT_ST_SIZE = 5
+};
+bool TurnLightStateEnum_IsValid(int value);
+const TurnLightStateEnum TurnLightStateEnum_MIN = LIGHT_ST_INVALID;
+const TurnLightStateEnum TurnLightStateEnum_MAX = LIGHT_ST_SIZE;
+const int TurnLightStateEnum_ARRAYSIZE = TurnLightStateEnum_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* TurnLightStateEnum_descriptor();
+inline const ::std::string& TurnLightStateEnum_Name(TurnLightStateEnum value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    TurnLightStateEnum_descriptor(), value);
+}
+inline bool TurnLightStateEnum_Parse(
+    const ::std::string& name, TurnLightStateEnum* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<TurnLightStateEnum>(
+    TurnLightStateEnum_descriptor(), name, value);
+}
+enum GearsStateEnum {
+  GEARS_ST_INVALID = 0,
+  GEARS_ST_NP = 1,
+  GEARS_ST_F = 2,
+  GEARS_ST_R = 3,
+  GEARS_ST_SIZE = 4
+};
+bool GearsStateEnum_IsValid(int value);
+const GearsStateEnum GearsStateEnum_MIN = GEARS_ST_INVALID;
+const GearsStateEnum GearsStateEnum_MAX = GEARS_ST_SIZE;
+const int GearsStateEnum_ARRAYSIZE = GearsStateEnum_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* GearsStateEnum_descriptor();
+inline const ::std::string& GearsStateEnum_Name(GearsStateEnum value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    GearsStateEnum_descriptor(), value);
+}
+inline bool GearsStateEnum_Parse(
+    const ::std::string& name, GearsStateEnum* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<GearsStateEnum>(
+    GearsStateEnum_descriptor(), name, value);
 }
 // ===================================================================
 
-class Rect : public ::google::protobuf::Message {
+class Rect_f : public ::google::protobuf::Message {
  public:
-  Rect();
-  virtual ~Rect();
+  Rect_f();
+  virtual ~Rect_f();
 
-  Rect(const Rect &from);
+  Rect_f(const Rect_f& from);
 
-  inline Rect &operator=(const Rect &from) {
+  inline Rect_f& operator=(const Rect_f& from) {
     CopyFrom(from);
     return *this;
   }
 
-  inline const ::google::protobuf::UnknownFieldSet &unknown_fields() const {
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
     return _unknown_fields_;
   }
 
-  inline ::google::protobuf::UnknownFieldSet *mutable_unknown_fields() {
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
     return &_unknown_fields_;
   }
 
-  static const ::google::protobuf::Descriptor *descriptor();
-  static const Rect &default_instance();
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const Rect_f& default_instance();
 
-  void Swap(Rect *other);
+  void Swap(Rect_f* other);
 
   // implements Message ----------------------------------------------
 
-  Rect *New() const;
-  void CopyFrom(const ::google::protobuf::Message &from);
-  void MergeFrom(const ::google::protobuf::Message &from);
-  void CopyFrom(const Rect &from);
-  void MergeFrom(const Rect &from);
+  Rect_f* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const Rect_f& from);
+  void MergeFrom(const Rect_f& from);
   void Clear();
   bool IsInitialized() const;
 
   int ByteSize() const;
   bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream *input);
+      ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream *output) const;
-  ::google::protobuf::uint8 *SerializeWithCachedSizesToArray(
-      ::google::protobuf::uint8 *output) const;
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
-
- private:
+  private:
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-
- public:
+  public:
   ::google::protobuf::Metadata GetMetadata() const;
 
   // nested types ----------------------------------------------------
@@ -174,7 +331,7 @@ class Rect : public ::google::protobuf::Message {
   inline float bottom() const;
   inline void set_bottom(float value);
 
-  // @@protoc_insertion_point(class_scope:DMSFrameProtocol.Rect)
+  // @@protoc_insertion_point(class_scope:DMSFrameProtocol.Rect_f)
  private:
   inline void set_has_left();
   inline void clear_has_left();
@@ -193,12 +350,12 @@ class Rect : public ::google::protobuf::Message {
   float right_;
   float top_;
   float bottom_;
-  friend void protobuf_AddDesc_DMSFrame_2eproto();
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
   friend void protobuf_AssignDesc_DMSFrame_2eproto();
   friend void protobuf_ShutdownFile_DMSFrame_2eproto();
 
   void InitAsDefaultInstance();
-  static Rect *default_instance_;
+  static Rect_f* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -207,51 +364,48 @@ class Rect_i : public ::google::protobuf::Message {
   Rect_i();
   virtual ~Rect_i();
 
-  Rect_i(const Rect_i &from);
+  Rect_i(const Rect_i& from);
 
-  inline Rect_i &operator=(const Rect_i &from) {
+  inline Rect_i& operator=(const Rect_i& from) {
     CopyFrom(from);
     return *this;
   }
 
-  inline const ::google::protobuf::UnknownFieldSet &unknown_fields() const {
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
     return _unknown_fields_;
   }
 
-  inline ::google::protobuf::UnknownFieldSet *mutable_unknown_fields() {
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
     return &_unknown_fields_;
   }
 
-  static const ::google::protobuf::Descriptor *descriptor();
-  static const Rect_i &default_instance();
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const Rect_i& default_instance();
 
-  void Swap(Rect_i *other);
+  void Swap(Rect_i* other);
 
   // implements Message ----------------------------------------------
 
-  Rect_i *New() const;
-  void CopyFrom(const ::google::protobuf::Message &from);
-  void MergeFrom(const ::google::protobuf::Message &from);
-  void CopyFrom(const Rect_i &from);
-  void MergeFrom(const Rect_i &from);
+  Rect_i* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const Rect_i& from);
+  void MergeFrom(const Rect_i& from);
   void Clear();
   bool IsInitialized() const;
 
   int ByteSize() const;
   bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream *input);
+      ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream *output) const;
-  ::google::protobuf::uint8 *SerializeWithCachedSizesToArray(
-      ::google::protobuf::uint8 *output) const;
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
-
- private:
+  private:
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-
- public:
+  public:
   ::google::protobuf::Metadata GetMetadata() const;
 
   // nested types ----------------------------------------------------
@@ -305,65 +459,62 @@ class Rect_i : public ::google::protobuf::Message {
   ::google::protobuf::int32 right_;
   ::google::protobuf::int32 top_;
   ::google::protobuf::int32 bottom_;
-  friend void protobuf_AddDesc_DMSFrame_2eproto();
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
   friend void protobuf_AssignDesc_DMSFrame_2eproto();
   friend void protobuf_ShutdownFile_DMSFrame_2eproto();
 
   void InitAsDefaultInstance();
-  static Rect_i *default_instance_;
+  static Rect_i* default_instance_;
 };
 // -------------------------------------------------------------------
 
-class Point : public ::google::protobuf::Message {
+class Point_f : public ::google::protobuf::Message {
  public:
-  Point();
-  virtual ~Point();
+  Point_f();
+  virtual ~Point_f();
 
-  Point(const Point &from);
+  Point_f(const Point_f& from);
 
-  inline Point &operator=(const Point &from) {
+  inline Point_f& operator=(const Point_f& from) {
     CopyFrom(from);
     return *this;
   }
 
-  inline const ::google::protobuf::UnknownFieldSet &unknown_fields() const {
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
     return _unknown_fields_;
   }
 
-  inline ::google::protobuf::UnknownFieldSet *mutable_unknown_fields() {
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
     return &_unknown_fields_;
   }
 
-  static const ::google::protobuf::Descriptor *descriptor();
-  static const Point &default_instance();
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const Point_f& default_instance();
 
-  void Swap(Point *other);
+  void Swap(Point_f* other);
 
   // implements Message ----------------------------------------------
 
-  Point *New() const;
-  void CopyFrom(const ::google::protobuf::Message &from);
-  void MergeFrom(const ::google::protobuf::Message &from);
-  void CopyFrom(const Point &from);
-  void MergeFrom(const Point &from);
+  Point_f* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const Point_f& from);
+  void MergeFrom(const Point_f& from);
   void Clear();
   bool IsInitialized() const;
 
   int ByteSize() const;
   bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream *input);
+      ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream *output) const;
-  ::google::protobuf::uint8 *SerializeWithCachedSizesToArray(
-      ::google::protobuf::uint8 *output) const;
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
-
- private:
+  private:
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-
- public:
+  public:
   ::google::protobuf::Metadata GetMetadata() const;
 
   // nested types ----------------------------------------------------
@@ -384,7 +535,7 @@ class Point : public ::google::protobuf::Message {
   inline float y() const;
   inline void set_y(float value);
 
-  // @@protoc_insertion_point(class_scope:DMSFrameProtocol.Point)
+  // @@protoc_insertion_point(class_scope:DMSFrameProtocol.Point_f)
  private:
   inline void set_has_x();
   inline void clear_has_x();
@@ -397,12 +548,12 @@ class Point : public ::google::protobuf::Message {
   mutable int _cached_size_;
   float x_;
   float y_;
-  friend void protobuf_AddDesc_DMSFrame_2eproto();
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
   friend void protobuf_AssignDesc_DMSFrame_2eproto();
   friend void protobuf_ShutdownFile_DMSFrame_2eproto();
 
   void InitAsDefaultInstance();
-  static Point *default_instance_;
+  static Point_f* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -411,65 +562,62 @@ class Face : public ::google::protobuf::Message {
   Face();
   virtual ~Face();
 
-  Face(const Face &from);
+  Face(const Face& from);
 
-  inline Face &operator=(const Face &from) {
+  inline Face& operator=(const Face& from) {
     CopyFrom(from);
     return *this;
   }
 
-  inline const ::google::protobuf::UnknownFieldSet &unknown_fields() const {
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
     return _unknown_fields_;
   }
 
-  inline ::google::protobuf::UnknownFieldSet *mutable_unknown_fields() {
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
     return &_unknown_fields_;
   }
 
-  static const ::google::protobuf::Descriptor *descriptor();
-  static const Face &default_instance();
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const Face& default_instance();
 
-  void Swap(Face *other);
+  void Swap(Face* other);
 
   // implements Message ----------------------------------------------
 
-  Face *New() const;
-  void CopyFrom(const ::google::protobuf::Message &from);
-  void MergeFrom(const ::google::protobuf::Message &from);
-  void CopyFrom(const Face &from);
-  void MergeFrom(const Face &from);
+  Face* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const Face& from);
+  void MergeFrom(const Face& from);
   void Clear();
   bool IsInitialized() const;
 
   int ByteSize() const;
   bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream *input);
+      ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream *output) const;
-  ::google::protobuf::uint8 *SerializeWithCachedSizesToArray(
-      ::google::protobuf::uint8 *output) const;
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
-
- private:
+  private:
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-
- public:
+  public:
   ::google::protobuf::Metadata GetMetadata() const;
 
   // nested types ----------------------------------------------------
 
   // accessors -------------------------------------------------------
 
-  // required .DMSFrameProtocol.Rect ROI = 1;
+  // required .DMSFrameProtocol.Rect_f ROI = 1;
   inline bool has_roi() const;
   inline void clear_roi();
   static const int kROIFieldNumber = 1;
-  inline const ::DMSFrameProtocol::Rect &roi() const;
-  inline ::DMSFrameProtocol::Rect *mutable_roi();
-  inline ::DMSFrameProtocol::Rect *release_roi();
-  inline void set_allocated_roi(::DMSFrameProtocol::Rect *roi);
+  inline const ::DMSFrameProtocol::Rect_f& roi() const;
+  inline ::DMSFrameProtocol::Rect_f* mutable_roi();
+  inline ::DMSFrameProtocol::Rect_f* release_roi();
+  inline void set_allocated_roi(::DMSFrameProtocol::Rect_f* roi);
 
   // required float score = 2;
   inline bool has_score() const;
@@ -489,14 +637,249 @@ class Face : public ::google::protobuf::Message {
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::DMSFrameProtocol::Rect *roi_;
+  ::DMSFrameProtocol::Rect_f* roi_;
   float score_;
-  friend void protobuf_AddDesc_DMSFrame_2eproto();
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
   friend void protobuf_AssignDesc_DMSFrame_2eproto();
   friend void protobuf_ShutdownFile_DMSFrame_2eproto();
 
   void InitAsDefaultInstance();
-  static Face *default_instance_;
+  static Face* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class FaceDetectResult : public ::google::protobuf::Message {
+ public:
+  FaceDetectResult();
+  virtual ~FaceDetectResult();
+
+  FaceDetectResult(const FaceDetectResult& from);
+
+  inline FaceDetectResult& operator=(const FaceDetectResult& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const FaceDetectResult& default_instance();
+
+  void Swap(FaceDetectResult* other);
+
+  // implements Message ----------------------------------------------
+
+  FaceDetectResult* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const FaceDetectResult& from);
+  void MergeFrom(const FaceDetectResult& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .DMSFrameProtocol.Face face_original_ROIs = 1;
+  inline int face_original_rois_size() const;
+  inline void clear_face_original_rois();
+  static const int kFaceOriginalROIsFieldNumber = 1;
+  inline const ::DMSFrameProtocol::Face& face_original_rois(int index) const;
+  inline ::DMSFrameProtocol::Face* mutable_face_original_rois(int index);
+  inline ::DMSFrameProtocol::Face* add_face_original_rois();
+  inline const ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::Face >&
+      face_original_rois() const;
+  inline ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::Face >*
+      mutable_face_original_rois();
+
+  // optional .DMSFrameProtocol.Face face_filtered_ROIs = 2;
+  inline bool has_face_filtered_rois() const;
+  inline void clear_face_filtered_rois();
+  static const int kFaceFilteredROIsFieldNumber = 2;
+  inline const ::DMSFrameProtocol::Face& face_filtered_rois() const;
+  inline ::DMSFrameProtocol::Face* mutable_face_filtered_rois();
+  inline ::DMSFrameProtocol::Face* release_face_filtered_rois();
+  inline void set_allocated_face_filtered_rois(::DMSFrameProtocol::Face* face_filtered_rois);
+
+  // optional .DMSFrameProtocol.Rect_i face_detect_ROI = 3;
+  inline bool has_face_detect_roi() const;
+  inline void clear_face_detect_roi();
+  static const int kFaceDetectROIFieldNumber = 3;
+  inline const ::DMSFrameProtocol::Rect_i& face_detect_roi() const;
+  inline ::DMSFrameProtocol::Rect_i* mutable_face_detect_roi();
+  inline ::DMSFrameProtocol::Rect_i* release_face_detect_roi();
+  inline void set_allocated_face_detect_roi(::DMSFrameProtocol::Rect_i* face_detect_roi);
+
+  // @@protoc_insertion_point(class_scope:DMSFrameProtocol.FaceDetectResult)
+ private:
+  inline void set_has_face_filtered_rois();
+  inline void clear_has_face_filtered_rois();
+  inline void set_has_face_detect_roi();
+  inline void clear_has_face_detect_roi();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::Face > face_original_rois_;
+  ::DMSFrameProtocol::Face* face_filtered_rois_;
+  ::DMSFrameProtocol::Rect_i* face_detect_roi_;
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
+  friend void protobuf_AssignDesc_DMSFrame_2eproto();
+  friend void protobuf_ShutdownFile_DMSFrame_2eproto();
+
+  void InitAsDefaultInstance();
+  static FaceDetectResult* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class FaceDetectPost : public ::google::protobuf::Message {
+ public:
+  FaceDetectPost();
+  virtual ~FaceDetectPost();
+
+  FaceDetectPost(const FaceDetectPost& from);
+
+  inline FaceDetectPost& operator=(const FaceDetectPost& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const FaceDetectPost& default_instance();
+
+  void Swap(FaceDetectPost* other);
+
+  // implements Message ----------------------------------------------
+
+  FaceDetectPost* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const FaceDetectPost& from);
+  void MergeFrom(const FaceDetectPost& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional .DMSFrameProtocol.FaceStateEnum face_state = 1;
+  inline bool has_face_state() const;
+  inline void clear_face_state();
+  static const int kFaceStateFieldNumber = 1;
+  inline ::DMSFrameProtocol::FaceStateEnum face_state() const;
+  inline void set_face_state(::DMSFrameProtocol::FaceStateEnum value);
+
+  // optional float ab_sum_face_width = 2;
+  inline bool has_ab_sum_face_width() const;
+  inline void clear_ab_sum_face_width();
+  static const int kAbSumFaceWidthFieldNumber = 2;
+  inline float ab_sum_face_width() const;
+  inline void set_ab_sum_face_width(float value);
+
+  // optional float ab_avr_face_width = 3;
+  inline bool has_ab_avr_face_width() const;
+  inline void clear_ab_avr_face_width();
+  static const int kAbAvrFaceWidthFieldNumber = 3;
+  inline float ab_avr_face_width() const;
+  inline void set_ab_avr_face_width(float value);
+
+  // optional float ab_sum_sqr_face_width = 4;
+  inline bool has_ab_sum_sqr_face_width() const;
+  inline void clear_ab_sum_sqr_face_width();
+  static const int kAbSumSqrFaceWidthFieldNumber = 4;
+  inline float ab_sum_sqr_face_width() const;
+  inline void set_ab_sum_sqr_face_width(float value);
+
+  // optional float sum_face_width = 5;
+  inline bool has_sum_face_width() const;
+  inline void clear_sum_face_width();
+  static const int kSumFaceWidthFieldNumber = 5;
+  inline float sum_face_width() const;
+  inline void set_sum_face_width(float value);
+
+  // optional float avr_face_width = 6;
+  inline bool has_avr_face_width() const;
+  inline void clear_avr_face_width();
+  static const int kAvrFaceWidthFieldNumber = 6;
+  inline float avr_face_width() const;
+  inline void set_avr_face_width(float value);
+
+  // @@protoc_insertion_point(class_scope:DMSFrameProtocol.FaceDetectPost)
+ private:
+  inline void set_has_face_state();
+  inline void clear_has_face_state();
+  inline void set_has_ab_sum_face_width();
+  inline void clear_has_ab_sum_face_width();
+  inline void set_has_ab_avr_face_width();
+  inline void clear_has_ab_avr_face_width();
+  inline void set_has_ab_sum_sqr_face_width();
+  inline void clear_has_ab_sum_sqr_face_width();
+  inline void set_has_sum_face_width();
+  inline void clear_has_sum_face_width();
+  inline void set_has_avr_face_width();
+  inline void clear_has_avr_face_width();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  int face_state_;
+  float ab_sum_face_width_;
+  float ab_avr_face_width_;
+  float ab_sum_sqr_face_width_;
+  float sum_face_width_;
+  float avr_face_width_;
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
+  friend void protobuf_AssignDesc_DMSFrame_2eproto();
+  friend void protobuf_ShutdownFile_DMSFrame_2eproto();
+
+  void InitAsDefaultInstance();
+  static FaceDetectPost* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -505,93 +888,415 @@ class LandMark21 : public ::google::protobuf::Message {
   LandMark21();
   virtual ~LandMark21();
 
-  LandMark21(const LandMark21 &from);
+  LandMark21(const LandMark21& from);
 
-  inline LandMark21 &operator=(const LandMark21 &from) {
+  inline LandMark21& operator=(const LandMark21& from) {
     CopyFrom(from);
     return *this;
   }
 
-  inline const ::google::protobuf::UnknownFieldSet &unknown_fields() const {
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
     return _unknown_fields_;
   }
 
-  inline ::google::protobuf::UnknownFieldSet *mutable_unknown_fields() {
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
     return &_unknown_fields_;
   }
 
-  static const ::google::protobuf::Descriptor *descriptor();
-  static const LandMark21 &default_instance();
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const LandMark21& default_instance();
 
-  void Swap(LandMark21 *other);
+  void Swap(LandMark21* other);
 
   // implements Message ----------------------------------------------
 
-  LandMark21 *New() const;
-  void CopyFrom(const ::google::protobuf::Message &from);
-  void MergeFrom(const ::google::protobuf::Message &from);
-  void CopyFrom(const LandMark21 &from);
-  void MergeFrom(const LandMark21 &from);
+  LandMark21* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const LandMark21& from);
+  void MergeFrom(const LandMark21& from);
   void Clear();
   bool IsInitialized() const;
 
   int ByteSize() const;
   bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream *input);
+      ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream *output) const;
-  ::google::protobuf::uint8 *SerializeWithCachedSizesToArray(
-      ::google::protobuf::uint8 *output) const;
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
-
- private:
+  private:
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-
- public:
+  public:
   ::google::protobuf::Metadata GetMetadata() const;
 
   // nested types ----------------------------------------------------
 
   // accessors -------------------------------------------------------
 
-  // repeated .DMSFrameProtocol.Point LDMK = 1;
+  // repeated .DMSFrameProtocol.Point_f LDMK = 1;
   inline int ldmk_size() const;
   inline void clear_ldmk();
   static const int kLDMKFieldNumber = 1;
-  inline const ::DMSFrameProtocol::Point &ldmk(int index) const;
-  inline ::DMSFrameProtocol::Point *mutable_ldmk(int index);
-  inline ::DMSFrameProtocol::Point *add_ldmk();
-  inline const ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::Point>
-      &ldmk() const;
-  inline ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::Point>
-      *mutable_ldmk();
+  inline const ::DMSFrameProtocol::Point_f& ldmk(int index) const;
+  inline ::DMSFrameProtocol::Point_f* mutable_ldmk(int index);
+  inline ::DMSFrameProtocol::Point_f* add_ldmk();
+  inline const ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::Point_f >&
+      ldmk() const;
+  inline ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::Point_f >*
+      mutable_ldmk();
 
-  // repeated float score = 2;
-  inline int score_size() const;
+  // optional float score = 2;
+  inline bool has_score() const;
   inline void clear_score();
   static const int kScoreFieldNumber = 2;
-  inline float score(int index) const;
-  inline void set_score(int index, float value);
-  inline void add_score(float value);
-  inline const ::google::protobuf::RepeatedField<float> &score() const;
-  inline ::google::protobuf::RepeatedField<float> *mutable_score();
+  inline float score() const;
+  inline void set_score(float value);
 
   // @@protoc_insertion_point(class_scope:DMSFrameProtocol.LandMark21)
  private:
+  inline void set_has_score();
+  inline void clear_has_score();
+
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::Point> ldmk_;
-  ::google::protobuf::RepeatedField<float> score_;
-  friend void protobuf_AddDesc_DMSFrame_2eproto();
+  ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::Point_f > ldmk_;
+  float score_;
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
   friend void protobuf_AssignDesc_DMSFrame_2eproto();
   friend void protobuf_ShutdownFile_DMSFrame_2eproto();
 
   void InitAsDefaultInstance();
-  static LandMark21 *default_instance_;
+  static LandMark21* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class LandmarkPost : public ::google::protobuf::Message {
+ public:
+  LandmarkPost();
+  virtual ~LandmarkPost();
+
+  LandmarkPost(const LandmarkPost& from);
+
+  inline LandmarkPost& operator=(const LandmarkPost& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const LandmarkPost& default_instance();
+
+  void Swap(LandmarkPost* other);
+
+  // implements Message ----------------------------------------------
+
+  LandmarkPost* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const LandmarkPost& from);
+  void MergeFrom(const LandmarkPost& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional int32 deque_size = 1;
+  inline bool has_deque_size() const;
+  inline void clear_deque_size();
+  static const int kDequeSizeFieldNumber = 1;
+  inline ::google::protobuf::int32 deque_size() const;
+  inline void set_deque_size(::google::protobuf::int32 value);
+
+  // optional .DMSFrameProtocol.Point_f sum_r_eye_point = 2;
+  inline bool has_sum_r_eye_point() const;
+  inline void clear_sum_r_eye_point();
+  static const int kSumREyePointFieldNumber = 2;
+  inline const ::DMSFrameProtocol::Point_f& sum_r_eye_point() const;
+  inline ::DMSFrameProtocol::Point_f* mutable_sum_r_eye_point();
+  inline ::DMSFrameProtocol::Point_f* release_sum_r_eye_point();
+  inline void set_allocated_sum_r_eye_point(::DMSFrameProtocol::Point_f* sum_r_eye_point);
+
+  // optional .DMSFrameProtocol.Point_f sum_l_eye_point = 3;
+  inline bool has_sum_l_eye_point() const;
+  inline void clear_sum_l_eye_point();
+  static const int kSumLEyePointFieldNumber = 3;
+  inline const ::DMSFrameProtocol::Point_f& sum_l_eye_point() const;
+  inline ::DMSFrameProtocol::Point_f* mutable_sum_l_eye_point();
+  inline ::DMSFrameProtocol::Point_f* release_sum_l_eye_point();
+  inline void set_allocated_sum_l_eye_point(::DMSFrameProtocol::Point_f* sum_l_eye_point);
+
+  // optional .DMSFrameProtocol.Point_f sum_nose_point = 4;
+  inline bool has_sum_nose_point() const;
+  inline void clear_sum_nose_point();
+  static const int kSumNosePointFieldNumber = 4;
+  inline const ::DMSFrameProtocol::Point_f& sum_nose_point() const;
+  inline ::DMSFrameProtocol::Point_f* mutable_sum_nose_point();
+  inline ::DMSFrameProtocol::Point_f* release_sum_nose_point();
+  inline void set_allocated_sum_nose_point(::DMSFrameProtocol::Point_f* sum_nose_point);
+
+  // optional .DMSFrameProtocol.Point_f avr_r_eye_point = 5;
+  inline bool has_avr_r_eye_point() const;
+  inline void clear_avr_r_eye_point();
+  static const int kAvrREyePointFieldNumber = 5;
+  inline const ::DMSFrameProtocol::Point_f& avr_r_eye_point() const;
+  inline ::DMSFrameProtocol::Point_f* mutable_avr_r_eye_point();
+  inline ::DMSFrameProtocol::Point_f* release_avr_r_eye_point();
+  inline void set_allocated_avr_r_eye_point(::DMSFrameProtocol::Point_f* avr_r_eye_point);
+
+  // optional .DMSFrameProtocol.Point_f avr_l_eye_point = 6;
+  inline bool has_avr_l_eye_point() const;
+  inline void clear_avr_l_eye_point();
+  static const int kAvrLEyePointFieldNumber = 6;
+  inline const ::DMSFrameProtocol::Point_f& avr_l_eye_point() const;
+  inline ::DMSFrameProtocol::Point_f* mutable_avr_l_eye_point();
+  inline ::DMSFrameProtocol::Point_f* release_avr_l_eye_point();
+  inline void set_allocated_avr_l_eye_point(::DMSFrameProtocol::Point_f* avr_l_eye_point);
+
+  // optional .DMSFrameProtocol.Point_f avr_nose_point = 7;
+  inline bool has_avr_nose_point() const;
+  inline void clear_avr_nose_point();
+  static const int kAvrNosePointFieldNumber = 7;
+  inline const ::DMSFrameProtocol::Point_f& avr_nose_point() const;
+  inline ::DMSFrameProtocol::Point_f* mutable_avr_nose_point();
+  inline ::DMSFrameProtocol::Point_f* release_avr_nose_point();
+  inline void set_allocated_avr_nose_point(::DMSFrameProtocol::Point_f* avr_nose_point);
+
+  // optional float avr_eyes_dist = 8;
+  inline bool has_avr_eyes_dist() const;
+  inline void clear_avr_eyes_dist();
+  static const int kAvrEyesDistFieldNumber = 8;
+  inline float avr_eyes_dist() const;
+  inline void set_avr_eyes_dist(float value);
+
+  // optional float avr_nose_leye_dist = 9;
+  inline bool has_avr_nose_leye_dist() const;
+  inline void clear_avr_nose_leye_dist();
+  static const int kAvrNoseLeyeDistFieldNumber = 9;
+  inline float avr_nose_leye_dist() const;
+  inline void set_avr_nose_leye_dist(float value);
+
+  // optional float avr_nose_reye_dist = 10;
+  inline bool has_avr_nose_reye_dist() const;
+  inline void clear_avr_nose_reye_dist();
+  static const int kAvrNoseReyeDistFieldNumber = 10;
+  inline float avr_nose_reye_dist() const;
+  inline void set_avr_nose_reye_dist(float value);
+
+  // optional float cur_nose_leye_dist = 11;
+  inline bool has_cur_nose_leye_dist() const;
+  inline void clear_cur_nose_leye_dist();
+  static const int kCurNoseLeyeDistFieldNumber = 11;
+  inline float cur_nose_leye_dist() const;
+  inline void set_cur_nose_leye_dist(float value);
+
+  // optional float cur_nose_reye_dist = 12;
+  inline bool has_cur_nose_reye_dist() const;
+  inline void clear_cur_nose_reye_dist();
+  static const int kCurNoseReyeDistFieldNumber = 12;
+  inline float cur_nose_reye_dist() const;
+  inline void set_cur_nose_reye_dist(float value);
+
+  // optional float avr_rl_nose_dist = 13;
+  inline bool has_avr_rl_nose_dist() const;
+  inline void clear_avr_rl_nose_dist();
+  static const int kAvrRlNoseDistFieldNumber = 13;
+  inline float avr_rl_nose_dist() const;
+  inline void set_avr_rl_nose_dist(float value);
+
+  // optional float cur_rl_nose_dist = 14;
+  inline bool has_cur_rl_nose_dist() const;
+  inline void clear_cur_rl_nose_dist();
+  static const int kCurRlNoseDistFieldNumber = 14;
+  inline float cur_rl_nose_dist() const;
+  inline void set_cur_rl_nose_dist(float value);
+
+  // optional float avr_nose_rl_ratio = 15;
+  inline bool has_avr_nose_rl_ratio() const;
+  inline void clear_avr_nose_rl_ratio();
+  static const int kAvrNoseRlRatioFieldNumber = 15;
+  inline float avr_nose_rl_ratio() const;
+  inline void set_avr_nose_rl_ratio(float value);
+
+  // optional float cur_nose_rl_ratio = 16;
+  inline bool has_cur_nose_rl_ratio() const;
+  inline void clear_cur_nose_rl_ratio();
+  static const int kCurNoseRlRatioFieldNumber = 16;
+  inline float cur_nose_rl_ratio() const;
+  inline void set_cur_nose_rl_ratio(float value);
+
+  // optional float avr_ln_rl_ratio = 17;
+  inline bool has_avr_ln_rl_ratio() const;
+  inline void clear_avr_ln_rl_ratio();
+  static const int kAvrLnRlRatioFieldNumber = 17;
+  inline float avr_ln_rl_ratio() const;
+  inline void set_avr_ln_rl_ratio(float value);
+
+  // optional float avr_rn_rl_ratio = 18;
+  inline bool has_avr_rn_rl_ratio() const;
+  inline void clear_avr_rn_rl_ratio();
+  static const int kAvrRnRlRatioFieldNumber = 18;
+  inline float avr_rn_rl_ratio() const;
+  inline void set_avr_rn_rl_ratio(float value);
+
+  // optional float cur_ln_rl_ratio = 19;
+  inline bool has_cur_ln_rl_ratio() const;
+  inline void clear_cur_ln_rl_ratio();
+  static const int kCurLnRlRatioFieldNumber = 19;
+  inline float cur_ln_rl_ratio() const;
+  inline void set_cur_ln_rl_ratio(float value);
+
+  // optional float cur_rn_rl_ratio = 20;
+  inline bool has_cur_rn_rl_ratio() const;
+  inline void clear_cur_rn_rl_ratio();
+  static const int kCurRnRlRatioFieldNumber = 20;
+  inline float cur_rn_rl_ratio() const;
+  inline void set_cur_rn_rl_ratio(float value);
+
+  // optional .DMSFrameProtocol.Point_f sum_sqr_nose_point = 21;
+  inline bool has_sum_sqr_nose_point() const;
+  inline void clear_sum_sqr_nose_point();
+  static const int kSumSqrNosePointFieldNumber = 21;
+  inline const ::DMSFrameProtocol::Point_f& sum_sqr_nose_point() const;
+  inline ::DMSFrameProtocol::Point_f* mutable_sum_sqr_nose_point();
+  inline ::DMSFrameProtocol::Point_f* release_sum_sqr_nose_point();
+  inline void set_allocated_sum_sqr_nose_point(::DMSFrameProtocol::Point_f* sum_sqr_nose_point);
+
+  // optional .DMSFrameProtocol.Point_f avr_sqr_nose_point = 22;
+  inline bool has_avr_sqr_nose_point() const;
+  inline void clear_avr_sqr_nose_point();
+  static const int kAvrSqrNosePointFieldNumber = 22;
+  inline const ::DMSFrameProtocol::Point_f& avr_sqr_nose_point() const;
+  inline ::DMSFrameProtocol::Point_f* mutable_avr_sqr_nose_point();
+  inline ::DMSFrameProtocol::Point_f* release_avr_sqr_nose_point();
+  inline void set_allocated_avr_sqr_nose_point(::DMSFrameProtocol::Point_f* avr_sqr_nose_point);
+
+  // optional float avri_nose_posi_x = 23;
+  inline bool has_avri_nose_posi_x() const;
+  inline void clear_avri_nose_posi_x();
+  static const int kAvriNosePosiXFieldNumber = 23;
+  inline float avri_nose_posi_x() const;
+  inline void set_avri_nose_posi_x(float value);
+
+  // optional float avri_nose_posi_y = 24;
+  inline bool has_avri_nose_posi_y() const;
+  inline void clear_avri_nose_posi_y();
+  static const int kAvriNosePosiYFieldNumber = 24;
+  inline float avri_nose_posi_y() const;
+  inline void set_avri_nose_posi_y(float value);
+
+  // @@protoc_insertion_point(class_scope:DMSFrameProtocol.LandmarkPost)
+ private:
+  inline void set_has_deque_size();
+  inline void clear_has_deque_size();
+  inline void set_has_sum_r_eye_point();
+  inline void clear_has_sum_r_eye_point();
+  inline void set_has_sum_l_eye_point();
+  inline void clear_has_sum_l_eye_point();
+  inline void set_has_sum_nose_point();
+  inline void clear_has_sum_nose_point();
+  inline void set_has_avr_r_eye_point();
+  inline void clear_has_avr_r_eye_point();
+  inline void set_has_avr_l_eye_point();
+  inline void clear_has_avr_l_eye_point();
+  inline void set_has_avr_nose_point();
+  inline void clear_has_avr_nose_point();
+  inline void set_has_avr_eyes_dist();
+  inline void clear_has_avr_eyes_dist();
+  inline void set_has_avr_nose_leye_dist();
+  inline void clear_has_avr_nose_leye_dist();
+  inline void set_has_avr_nose_reye_dist();
+  inline void clear_has_avr_nose_reye_dist();
+  inline void set_has_cur_nose_leye_dist();
+  inline void clear_has_cur_nose_leye_dist();
+  inline void set_has_cur_nose_reye_dist();
+  inline void clear_has_cur_nose_reye_dist();
+  inline void set_has_avr_rl_nose_dist();
+  inline void clear_has_avr_rl_nose_dist();
+  inline void set_has_cur_rl_nose_dist();
+  inline void clear_has_cur_rl_nose_dist();
+  inline void set_has_avr_nose_rl_ratio();
+  inline void clear_has_avr_nose_rl_ratio();
+  inline void set_has_cur_nose_rl_ratio();
+  inline void clear_has_cur_nose_rl_ratio();
+  inline void set_has_avr_ln_rl_ratio();
+  inline void clear_has_avr_ln_rl_ratio();
+  inline void set_has_avr_rn_rl_ratio();
+  inline void clear_has_avr_rn_rl_ratio();
+  inline void set_has_cur_ln_rl_ratio();
+  inline void clear_has_cur_ln_rl_ratio();
+  inline void set_has_cur_rn_rl_ratio();
+  inline void clear_has_cur_rn_rl_ratio();
+  inline void set_has_sum_sqr_nose_point();
+  inline void clear_has_sum_sqr_nose_point();
+  inline void set_has_avr_sqr_nose_point();
+  inline void clear_has_avr_sqr_nose_point();
+  inline void set_has_avri_nose_posi_x();
+  inline void clear_has_avri_nose_posi_x();
+  inline void set_has_avri_nose_posi_y();
+  inline void clear_has_avri_nose_posi_y();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  ::DMSFrameProtocol::Point_f* sum_r_eye_point_;
+  ::DMSFrameProtocol::Point_f* sum_l_eye_point_;
+  ::DMSFrameProtocol::Point_f* sum_nose_point_;
+  ::google::protobuf::int32 deque_size_;
+  float avr_eyes_dist_;
+  ::DMSFrameProtocol::Point_f* avr_r_eye_point_;
+  ::DMSFrameProtocol::Point_f* avr_l_eye_point_;
+  ::DMSFrameProtocol::Point_f* avr_nose_point_;
+  float avr_nose_leye_dist_;
+  float avr_nose_reye_dist_;
+  float cur_nose_leye_dist_;
+  float cur_nose_reye_dist_;
+  float avr_rl_nose_dist_;
+  float cur_rl_nose_dist_;
+  float avr_nose_rl_ratio_;
+  float cur_nose_rl_ratio_;
+  float avr_ln_rl_ratio_;
+  float avr_rn_rl_ratio_;
+  float cur_ln_rl_ratio_;
+  float cur_rn_rl_ratio_;
+  ::DMSFrameProtocol::Point_f* sum_sqr_nose_point_;
+  ::DMSFrameProtocol::Point_f* avr_sqr_nose_point_;
+  float avri_nose_posi_x_;
+  float avri_nose_posi_y_;
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
+  friend void protobuf_AssignDesc_DMSFrame_2eproto();
+  friend void protobuf_ShutdownFile_DMSFrame_2eproto();
+
+  void InitAsDefaultInstance();
+  static LandmarkPost* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -600,72 +1305,69 @@ class Eye : public ::google::protobuf::Message {
   Eye();
   virtual ~Eye();
 
-  Eye(const Eye &from);
+  Eye(const Eye& from);
 
-  inline Eye &operator=(const Eye &from) {
+  inline Eye& operator=(const Eye& from) {
     CopyFrom(from);
     return *this;
   }
 
-  inline const ::google::protobuf::UnknownFieldSet &unknown_fields() const {
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
     return _unknown_fields_;
   }
 
-  inline ::google::protobuf::UnknownFieldSet *mutable_unknown_fields() {
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
     return &_unknown_fields_;
   }
 
-  static const ::google::protobuf::Descriptor *descriptor();
-  static const Eye &default_instance();
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const Eye& default_instance();
 
-  void Swap(Eye *other);
+  void Swap(Eye* other);
 
   // implements Message ----------------------------------------------
 
-  Eye *New() const;
-  void CopyFrom(const ::google::protobuf::Message &from);
-  void MergeFrom(const ::google::protobuf::Message &from);
-  void CopyFrom(const Eye &from);
-  void MergeFrom(const Eye &from);
+  Eye* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const Eye& from);
+  void MergeFrom(const Eye& from);
   void Clear();
   bool IsInitialized() const;
 
   int ByteSize() const;
   bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream *input);
+      ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream *output) const;
-  ::google::protobuf::uint8 *SerializeWithCachedSizesToArray(
-      ::google::protobuf::uint8 *output) const;
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
-
- private:
+  private:
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-
- public:
+  public:
   ::google::protobuf::Metadata GetMetadata() const;
 
   // nested types ----------------------------------------------------
 
   // accessors -------------------------------------------------------
 
-  // required .DMSFrameProtocol.Rect ROI = 1;
+  // required .DMSFrameProtocol.Rect_i ROI = 1;
   inline bool has_roi() const;
   inline void clear_roi();
   static const int kROIFieldNumber = 1;
-  inline const ::DMSFrameProtocol::Rect &roi() const;
-  inline ::DMSFrameProtocol::Rect *mutable_roi();
-  inline ::DMSFrameProtocol::Rect *release_roi();
-  inline void set_allocated_roi(::DMSFrameProtocol::Rect *roi);
+  inline const ::DMSFrameProtocol::Rect_i& roi() const;
+  inline ::DMSFrameProtocol::Rect_i* mutable_roi();
+  inline ::DMSFrameProtocol::Rect_i* release_roi();
+  inline void set_allocated_roi(::DMSFrameProtocol::Rect_i* roi);
 
-  // required int32 status = 2;
+  // required .DMSFrameProtocol.EyeStateEnum status = 2;
   inline bool has_status() const;
   inline void clear_status();
   static const int kStatusFieldNumber = 2;
-  inline ::google::protobuf::int32 status() const;
-  inline void set_status(::google::protobuf::int32 value);
+  inline ::DMSFrameProtocol::EyeStateEnum status() const;
+  inline void set_status(::DMSFrameProtocol::EyeStateEnum value);
 
   // required float open_score = 3;
   inline bool has_open_score() const;
@@ -696,16 +1398,16 @@ class Eye : public ::google::protobuf::Message {
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::DMSFrameProtocol::Rect *roi_;
-  ::google::protobuf::int32 status_;
+  ::DMSFrameProtocol::Rect_i* roi_;
+  int status_;
   float open_score_;
   float close_score_;
-  friend void protobuf_AddDesc_DMSFrame_2eproto();
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
   friend void protobuf_AssignDesc_DMSFrame_2eproto();
   friend void protobuf_ShutdownFile_DMSFrame_2eproto();
 
   void InitAsDefaultInstance();
-  static Eye *default_instance_;
+  static Eye* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -714,51 +1416,48 @@ class Eyes : public ::google::protobuf::Message {
   Eyes();
   virtual ~Eyes();
 
-  Eyes(const Eyes &from);
+  Eyes(const Eyes& from);
 
-  inline Eyes &operator=(const Eyes &from) {
+  inline Eyes& operator=(const Eyes& from) {
     CopyFrom(from);
     return *this;
   }
 
-  inline const ::google::protobuf::UnknownFieldSet &unknown_fields() const {
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
     return _unknown_fields_;
   }
 
-  inline ::google::protobuf::UnknownFieldSet *mutable_unknown_fields() {
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
     return &_unknown_fields_;
   }
 
-  static const ::google::protobuf::Descriptor *descriptor();
-  static const Eyes &default_instance();
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const Eyes& default_instance();
 
-  void Swap(Eyes *other);
+  void Swap(Eyes* other);
 
   // implements Message ----------------------------------------------
 
-  Eyes *New() const;
-  void CopyFrom(const ::google::protobuf::Message &from);
-  void MergeFrom(const ::google::protobuf::Message &from);
-  void CopyFrom(const Eyes &from);
-  void MergeFrom(const Eyes &from);
+  Eyes* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const Eyes& from);
+  void MergeFrom(const Eyes& from);
   void Clear();
   bool IsInitialized() const;
 
   int ByteSize() const;
   bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream *input);
+      ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream *output) const;
-  ::google::protobuf::uint8 *SerializeWithCachedSizesToArray(
-      ::google::protobuf::uint8 *output) const;
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
-
- private:
+  private:
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-
- public:
+  public:
   ::google::protobuf::Metadata GetMetadata() const;
 
   // nested types ----------------------------------------------------
@@ -769,19 +1468,19 @@ class Eyes : public ::google::protobuf::Message {
   inline bool has_left() const;
   inline void clear_left();
   static const int kLeftFieldNumber = 1;
-  inline const ::DMSFrameProtocol::Eye &left() const;
-  inline ::DMSFrameProtocol::Eye *mutable_left();
-  inline ::DMSFrameProtocol::Eye *release_left();
-  inline void set_allocated_left(::DMSFrameProtocol::Eye *left);
+  inline const ::DMSFrameProtocol::Eye& left() const;
+  inline ::DMSFrameProtocol::Eye* mutable_left();
+  inline ::DMSFrameProtocol::Eye* release_left();
+  inline void set_allocated_left(::DMSFrameProtocol::Eye* left);
 
   // required .DMSFrameProtocol.Eye right = 2;
   inline bool has_right() const;
   inline void clear_right();
   static const int kRightFieldNumber = 2;
-  inline const ::DMSFrameProtocol::Eye &right() const;
-  inline ::DMSFrameProtocol::Eye *mutable_right();
-  inline ::DMSFrameProtocol::Eye *release_right();
-  inline void set_allocated_right(::DMSFrameProtocol::Eye *right);
+  inline const ::DMSFrameProtocol::Eye& right() const;
+  inline ::DMSFrameProtocol::Eye* mutable_right();
+  inline ::DMSFrameProtocol::Eye* release_right();
+  inline void set_allocated_right(::DMSFrameProtocol::Eye* right);
 
   // @@protoc_insertion_point(class_scope:DMSFrameProtocol.Eyes)
  private:
@@ -794,203 +1493,64 @@ class Eyes : public ::google::protobuf::Message {
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::DMSFrameProtocol::Eye *left_;
-  ::DMSFrameProtocol::Eye *right_;
-  friend void protobuf_AddDesc_DMSFrame_2eproto();
+  ::DMSFrameProtocol::Eye* left_;
+  ::DMSFrameProtocol::Eye* right_;
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
   friend void protobuf_AssignDesc_DMSFrame_2eproto();
   friend void protobuf_ShutdownFile_DMSFrame_2eproto();
 
   void InitAsDefaultInstance();
-  static Eyes *default_instance_;
+  static Eyes* default_instance_;
 };
 // -------------------------------------------------------------------
 
-class AlgoResult : public ::google::protobuf::Message {
+class EyesPost : public ::google::protobuf::Message {
  public:
-  AlgoResult();
-  virtual ~AlgoResult();
+  EyesPost();
+  virtual ~EyesPost();
 
-  AlgoResult(const AlgoResult &from);
+  EyesPost(const EyesPost& from);
 
-  inline AlgoResult &operator=(const AlgoResult &from) {
+  inline EyesPost& operator=(const EyesPost& from) {
     CopyFrom(from);
     return *this;
   }
 
-  inline const ::google::protobuf::UnknownFieldSet &unknown_fields() const {
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
     return _unknown_fields_;
   }
 
-  inline ::google::protobuf::UnknownFieldSet *mutable_unknown_fields() {
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
     return &_unknown_fields_;
   }
 
-  static const ::google::protobuf::Descriptor *descriptor();
-  static const AlgoResult &default_instance();
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const EyesPost& default_instance();
 
-  void Swap(AlgoResult *other);
+  void Swap(EyesPost* other);
 
   // implements Message ----------------------------------------------
 
-  AlgoResult *New() const;
-  void CopyFrom(const ::google::protobuf::Message &from);
-  void MergeFrom(const ::google::protobuf::Message &from);
-  void CopyFrom(const AlgoResult &from);
-  void MergeFrom(const AlgoResult &from);
+  EyesPost* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const EyesPost& from);
+  void MergeFrom(const EyesPost& from);
   void Clear();
   bool IsInitialized() const;
 
   int ByteSize() const;
   bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream *input);
+      ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream *output) const;
-  ::google::protobuf::uint8 *SerializeWithCachedSizesToArray(
-      ::google::protobuf::uint8 *output) const;
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
-
- private:
+  private:
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-
- public:
-  ::google::protobuf::Metadata GetMetadata() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // repeated .DMSFrameProtocol.Face face_original_ROIs = 1;
-  inline int face_original_rois_size() const;
-  inline void clear_face_original_rois();
-  static const int kFaceOriginalROIsFieldNumber = 1;
-  inline const ::DMSFrameProtocol::Face &face_original_rois(int index) const;
-  inline ::DMSFrameProtocol::Face *mutable_face_original_rois(int index);
-  inline ::DMSFrameProtocol::Face *add_face_original_rois();
-  inline const ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::Face>
-      &face_original_rois() const;
-  inline ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::Face>
-      *mutable_face_original_rois();
-
-  // optional .DMSFrameProtocol.Face face_filtered_ROIs = 2;
-  inline bool has_face_filtered_rois() const;
-  inline void clear_face_filtered_rois();
-  static const int kFaceFilteredROIsFieldNumber = 2;
-  inline const ::DMSFrameProtocol::Face &face_filtered_rois() const;
-  inline ::DMSFrameProtocol::Face *mutable_face_filtered_rois();
-  inline ::DMSFrameProtocol::Face *release_face_filtered_rois();
-  inline void set_allocated_face_filtered_rois(
-      ::DMSFrameProtocol::Face *face_filtered_rois);
-
-  // optional .DMSFrameProtocol.LandMark21 landmark = 3;
-  inline bool has_landmark() const;
-  inline void clear_landmark();
-  static const int kLandmarkFieldNumber = 3;
-  inline const ::DMSFrameProtocol::LandMark21 &landmark() const;
-  inline ::DMSFrameProtocol::LandMark21 *mutable_landmark();
-  inline ::DMSFrameProtocol::LandMark21 *release_landmark();
-  inline void set_allocated_landmark(::DMSFrameProtocol::LandMark21 *landmark);
-
-  // optional .DMSFrameProtocol.Eyes eyes = 4;
-  inline bool has_eyes() const;
-  inline void clear_eyes();
-  static const int kEyesFieldNumber = 4;
-  inline const ::DMSFrameProtocol::Eyes &eyes() const;
-  inline ::DMSFrameProtocol::Eyes *mutable_eyes();
-  inline ::DMSFrameProtocol::Eyes *release_eyes();
-  inline void set_allocated_eyes(::DMSFrameProtocol::Eyes *eyes);
-
-  // optional .DMSFrameProtocol.Rect face_detect_ROI = 5;
-  inline bool has_face_detect_roi() const;
-  inline void clear_face_detect_roi();
-  static const int kFaceDetectROIFieldNumber = 5;
-  inline const ::DMSFrameProtocol::Rect &face_detect_roi() const;
-  inline ::DMSFrameProtocol::Rect *mutable_face_detect_roi();
-  inline ::DMSFrameProtocol::Rect *release_face_detect_roi();
-  inline void set_allocated_face_detect_roi(
-      ::DMSFrameProtocol::Rect *face_detect_roi);
-
-  // @@protoc_insertion_point(class_scope:DMSFrameProtocol.AlgoResult)
- private:
-  inline void set_has_face_filtered_rois();
-  inline void clear_has_face_filtered_rois();
-  inline void set_has_landmark();
-  inline void clear_has_landmark();
-  inline void set_has_eyes();
-  inline void clear_has_eyes();
-  inline void set_has_face_detect_roi();
-  inline void clear_has_face_detect_roi();
-
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
-
-  ::google::protobuf::uint32 _has_bits_[1];
-  mutable int _cached_size_;
-  ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::Face>
-      face_original_rois_;
-  ::DMSFrameProtocol::Face *face_filtered_rois_;
-  ::DMSFrameProtocol::LandMark21 *landmark_;
-  ::DMSFrameProtocol::Eyes *eyes_;
-  ::DMSFrameProtocol::Rect *face_detect_roi_;
-  friend void protobuf_AddDesc_DMSFrame_2eproto();
-  friend void protobuf_AssignDesc_DMSFrame_2eproto();
-  friend void protobuf_ShutdownFile_DMSFrame_2eproto();
-
-  void InitAsDefaultInstance();
-  static AlgoResult *default_instance_;
-};
-// -------------------------------------------------------------------
-
-class PolicyParams : public ::google::protobuf::Message {
- public:
-  PolicyParams();
-  virtual ~PolicyParams();
-
-  PolicyParams(const PolicyParams &from);
-
-  inline PolicyParams &operator=(const PolicyParams &from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  inline const ::google::protobuf::UnknownFieldSet &unknown_fields() const {
-    return _unknown_fields_;
-  }
-
-  inline ::google::protobuf::UnknownFieldSet *mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-
-  static const ::google::protobuf::Descriptor *descriptor();
-  static const PolicyParams &default_instance();
-
-  void Swap(PolicyParams *other);
-
-  // implements Message ----------------------------------------------
-
-  PolicyParams *New() const;
-  void CopyFrom(const ::google::protobuf::Message &from);
-  void MergeFrom(const ::google::protobuf::Message &from);
-  void CopyFrom(const PolicyParams &from);
-  void MergeFrom(const PolicyParams &from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream *input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream *output) const;
-  ::google::protobuf::uint8 *SerializeWithCachedSizesToArray(
-      ::google::protobuf::uint8 *output) const;
-  int GetCachedSize() const { return _cached_size_; }
-
- private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-
- public:
+  public:
   ::google::protobuf::Metadata GetMetadata() const;
 
   // nested types ----------------------------------------------------
@@ -1011,267 +1571,30 @@ class PolicyParams : public ::google::protobuf::Message {
   inline float l_eye_gradient() const;
   inline void set_l_eye_gradient(float value);
 
-  // optional float eye_gradient_thld = 3;
-  inline bool has_eye_gradient_thld() const;
-  inline void clear_eye_gradient_thld();
-  static const int kEyeGradientThldFieldNumber = 3;
-  inline float eye_gradient_thld() const;
-  inline void set_eye_gradient_thld(float value);
-
-  // optional float avr_r_eye_close = 4;
+  // optional float avr_r_eye_close = 3;
   inline bool has_avr_r_eye_close() const;
   inline void clear_avr_r_eye_close();
-  static const int kAvrREyeCloseFieldNumber = 4;
+  static const int kAvrREyeCloseFieldNumber = 3;
   inline float avr_r_eye_close() const;
   inline void set_avr_r_eye_close(float value);
 
-  // optional float avr_l_eye_close = 5;
+  // optional float avr_l_eye_close = 4;
   inline bool has_avr_l_eye_close() const;
   inline void clear_avr_l_eye_close();
-  static const int kAvrLEyeCloseFieldNumber = 5;
+  static const int kAvrLEyeCloseFieldNumber = 4;
   inline float avr_l_eye_close() const;
   inline void set_avr_l_eye_close(float value);
 
-  // optional float avr_eyes_dist = 6;
-  inline bool has_avr_eyes_dist() const;
-  inline void clear_avr_eyes_dist();
-  static const int kAvrEyesDistFieldNumber = 6;
-  inline float avr_eyes_dist() const;
-  inline void set_avr_eyes_dist(float value);
-
-  // optional float avr_eyes_dist_thld = 7;
-  inline bool has_avr_eyes_dist_thld() const;
-  inline void clear_avr_eyes_dist_thld();
-  static const int kAvrEyesDistThldFieldNumber = 7;
-  inline float avr_eyes_dist_thld() const;
-  inline void set_avr_eyes_dist_thld(float value);
-
-  // optional .DMSFrameProtocol.Point avr_l_eye_point = 8;
-  inline bool has_avr_l_eye_point() const;
-  inline void clear_avr_l_eye_point();
-  static const int kAvrLEyePointFieldNumber = 8;
-  inline const ::DMSFrameProtocol::Point &avr_l_eye_point() const;
-  inline ::DMSFrameProtocol::Point *mutable_avr_l_eye_point();
-  inline ::DMSFrameProtocol::Point *release_avr_l_eye_point();
-  inline void set_allocated_avr_l_eye_point(
-      ::DMSFrameProtocol::Point *avr_l_eye_point);
-
-  // optional .DMSFrameProtocol.Point avr_r_eye_point = 9;
-  inline bool has_avr_r_eye_point() const;
-  inline void clear_avr_r_eye_point();
-  static const int kAvrREyePointFieldNumber = 9;
-  inline const ::DMSFrameProtocol::Point &avr_r_eye_point() const;
-  inline ::DMSFrameProtocol::Point *mutable_avr_r_eye_point();
-  inline ::DMSFrameProtocol::Point *release_avr_r_eye_point();
-  inline void set_allocated_avr_r_eye_point(
-      ::DMSFrameProtocol::Point *avr_r_eye_point);
-
-  // optional float avr_nose_leye_dist = 10;
-  inline bool has_avr_nose_leye_dist() const;
-  inline void clear_avr_nose_leye_dist();
-  static const int kAvrNoseLeyeDistFieldNumber = 10;
-  inline float avr_nose_leye_dist() const;
-  inline void set_avr_nose_leye_dist(float value);
-
-  // optional float avr_nose_reye_dist = 11;
-  inline bool has_avr_nose_reye_dist() const;
-  inline void clear_avr_nose_reye_dist();
-  static const int kAvrNoseReyeDistFieldNumber = 11;
-  inline float avr_nose_reye_dist() const;
-  inline void set_avr_nose_reye_dist(float value);
-
-  // optional .DMSFrameProtocol.Point avr_nose_point = 12;
-  inline bool has_avr_nose_point() const;
-  inline void clear_avr_nose_point();
-  static const int kAvrNosePointFieldNumber = 12;
-  inline const ::DMSFrameProtocol::Point &avr_nose_point() const;
-  inline ::DMSFrameProtocol::Point *mutable_avr_nose_point();
-  inline ::DMSFrameProtocol::Point *release_avr_nose_point();
-  inline void set_allocated_avr_nose_point(
-      ::DMSFrameProtocol::Point *avr_nose_point);
-
-  // optional float avr_nose_rl_ratio = 13;
-  inline bool has_avr_nose_rl_ratio() const;
-  inline void clear_avr_nose_rl_ratio();
-  static const int kAvrNoseRlRatioFieldNumber = 13;
-  inline float avr_nose_rl_ratio() const;
-  inline void set_avr_nose_rl_ratio(float value);
-
-  // optional float avr_nose_rl_ratio_thld = 14;
-  inline bool has_avr_nose_rl_ratio_thld() const;
-  inline void clear_avr_nose_rl_ratio_thld();
-  static const int kAvrNoseRlRatioThldFieldNumber = 14;
-  inline float avr_nose_rl_ratio_thld() const;
-  inline void set_avr_nose_rl_ratio_thld(float value);
-
-  // optional .DMSFrameProtocol.Point archor_nose_point = 15;
-  inline bool has_archor_nose_point() const;
-  inline void clear_archor_nose_point();
-  static const int kArchorNosePointFieldNumber = 15;
-  inline const ::DMSFrameProtocol::Point &archor_nose_point() const;
-  inline ::DMSFrameProtocol::Point *mutable_archor_nose_point();
-  inline ::DMSFrameProtocol::Point *release_archor_nose_point();
-  inline void set_allocated_archor_nose_point(
-      ::DMSFrameProtocol::Point *archor_nose_point);
-
-  // optional float devi_nose_dist_x = 16;
-  inline bool has_devi_nose_dist_x() const;
-  inline void clear_devi_nose_dist_x();
-  static const int kDeviNoseDistXFieldNumber = 16;
-  inline float devi_nose_dist_x() const;
-  inline void set_devi_nose_dist_x(float value);
-
-  // optional float devi_nose_dist_y = 17;
-  inline bool has_devi_nose_dist_y() const;
-  inline void clear_devi_nose_dist_y();
-  static const int kDeviNoseDistYFieldNumber = 17;
-  inline float devi_nose_dist_y() const;
-  inline void set_devi_nose_dist_y(float value);
-
-  // optional float devi_nose_dist_x_thld = 18;
-  inline bool has_devi_nose_dist_x_thld() const;
-  inline void clear_devi_nose_dist_x_thld();
-  static const int kDeviNoseDistXThldFieldNumber = 18;
-  inline float devi_nose_dist_x_thld() const;
-  inline void set_devi_nose_dist_x_thld(float value);
-
-  // optional float vari_nose_posi_x = 19;
-  inline bool has_vari_nose_posi_x() const;
-  inline void clear_vari_nose_posi_x();
-  static const int kVariNosePosiXFieldNumber = 19;
-  inline float vari_nose_posi_x() const;
-  inline void set_vari_nose_posi_x(float value);
-
-  // optional float vari_nose_posi_y = 20;
-  inline bool has_vari_nose_posi_y() const;
-  inline void clear_vari_nose_posi_y();
-  static const int kVariNosePosiYFieldNumber = 20;
-  inline float vari_nose_posi_y() const;
-  inline void set_vari_nose_posi_y(float value);
-
-  // optional float vari_nose_posi_x_thld = 21;
-  inline bool has_vari_nose_posi_x_thld() const;
-  inline void clear_vari_nose_posi_x_thld();
-  static const int kVariNosePosiXThldFieldNumber = 21;
-  inline float vari_nose_posi_x_thld() const;
-  inline void set_vari_nose_posi_x_thld(float value);
-
-  // optional float vari_nose_posi_y_thld = 22;
-  inline bool has_vari_nose_posi_y_thld() const;
-  inline void clear_vari_nose_posi_y_thld();
-  static const int kVariNosePosiYThldFieldNumber = 22;
-  inline float vari_nose_posi_y_thld() const;
-  inline void set_vari_nose_posi_y_thld(float value);
-
-  // optional float devi_nose_dist_y_thld = 23;
-  inline bool has_devi_nose_dist_y_thld() const;
-  inline void clear_devi_nose_dist_y_thld();
-  static const int kDeviNoseDistYThldFieldNumber = 23;
-  inline float devi_nose_dist_y_thld() const;
-  inline void set_devi_nose_dist_y_thld(float value);
-
-  // optional float avr_rn_rl_ratio = 24;
-  inline bool has_avr_rn_rl_ratio() const;
-  inline void clear_avr_rn_rl_ratio();
-  static const int kAvrRnRlRatioFieldNumber = 24;
-  inline float avr_rn_rl_ratio() const;
-  inline void set_avr_rn_rl_ratio(float value);
-
-  // optional float avr_ln_rl_ratio = 25;
-  inline bool has_avr_ln_rl_ratio() const;
-  inline void clear_avr_ln_rl_ratio();
-  static const int kAvrLnRlRatioFieldNumber = 25;
-  inline float avr_ln_rl_ratio() const;
-  inline void set_avr_ln_rl_ratio(float value);
-
-  // optional float cur_rn_rl_ratio = 26;
-  inline bool has_cur_rn_rl_ratio() const;
-  inline void clear_cur_rn_rl_ratio();
-  static const int kCurRnRlRatioFieldNumber = 26;
-  inline float cur_rn_rl_ratio() const;
-  inline void set_cur_rn_rl_ratio(float value);
-
-  // optional float cur_ln_rl_ratio = 27;
-  inline bool has_cur_ln_rl_ratio() const;
-  inline void clear_cur_ln_rl_ratio();
-  static const int kCurLnRlRatioFieldNumber = 27;
-  inline float cur_ln_rl_ratio() const;
-  inline void set_cur_ln_rl_ratio(float value);
-
-  // optional float cur_nose_rl_ratio = 28;
-  inline bool has_cur_nose_rl_ratio() const;
-  inline void clear_cur_nose_rl_ratio();
-  static const int kCurNoseRlRatioFieldNumber = 28;
-  inline float cur_nose_rl_ratio() const;
-  inline void set_cur_nose_rl_ratio(float value);
-
-  // optional float cur_nose_rl_ratio_side_thld = 29;
-  inline bool has_cur_nose_rl_ratio_side_thld() const;
-  inline void clear_cur_nose_rl_ratio_side_thld();
-  static const int kCurNoseRlRatioSideThldFieldNumber = 29;
-  inline float cur_nose_rl_ratio_side_thld() const;
-  inline void set_cur_nose_rl_ratio_side_thld(float value);
-
-  // @@protoc_insertion_point(class_scope:DMSFrameProtocol.PolicyParams)
+  // @@protoc_insertion_point(class_scope:DMSFrameProtocol.EyesPost)
  private:
   inline void set_has_r_eye_gradient();
   inline void clear_has_r_eye_gradient();
   inline void set_has_l_eye_gradient();
   inline void clear_has_l_eye_gradient();
-  inline void set_has_eye_gradient_thld();
-  inline void clear_has_eye_gradient_thld();
   inline void set_has_avr_r_eye_close();
   inline void clear_has_avr_r_eye_close();
   inline void set_has_avr_l_eye_close();
   inline void clear_has_avr_l_eye_close();
-  inline void set_has_avr_eyes_dist();
-  inline void clear_has_avr_eyes_dist();
-  inline void set_has_avr_eyes_dist_thld();
-  inline void clear_has_avr_eyes_dist_thld();
-  inline void set_has_avr_l_eye_point();
-  inline void clear_has_avr_l_eye_point();
-  inline void set_has_avr_r_eye_point();
-  inline void clear_has_avr_r_eye_point();
-  inline void set_has_avr_nose_leye_dist();
-  inline void clear_has_avr_nose_leye_dist();
-  inline void set_has_avr_nose_reye_dist();
-  inline void clear_has_avr_nose_reye_dist();
-  inline void set_has_avr_nose_point();
-  inline void clear_has_avr_nose_point();
-  inline void set_has_avr_nose_rl_ratio();
-  inline void clear_has_avr_nose_rl_ratio();
-  inline void set_has_avr_nose_rl_ratio_thld();
-  inline void clear_has_avr_nose_rl_ratio_thld();
-  inline void set_has_archor_nose_point();
-  inline void clear_has_archor_nose_point();
-  inline void set_has_devi_nose_dist_x();
-  inline void clear_has_devi_nose_dist_x();
-  inline void set_has_devi_nose_dist_y();
-  inline void clear_has_devi_nose_dist_y();
-  inline void set_has_devi_nose_dist_x_thld();
-  inline void clear_has_devi_nose_dist_x_thld();
-  inline void set_has_vari_nose_posi_x();
-  inline void clear_has_vari_nose_posi_x();
-  inline void set_has_vari_nose_posi_y();
-  inline void clear_has_vari_nose_posi_y();
-  inline void set_has_vari_nose_posi_x_thld();
-  inline void clear_has_vari_nose_posi_x_thld();
-  inline void set_has_vari_nose_posi_y_thld();
-  inline void clear_has_vari_nose_posi_y_thld();
-  inline void set_has_devi_nose_dist_y_thld();
-  inline void clear_has_devi_nose_dist_y_thld();
-  inline void set_has_avr_rn_rl_ratio();
-  inline void clear_has_avr_rn_rl_ratio();
-  inline void set_has_avr_ln_rl_ratio();
-  inline void clear_has_avr_ln_rl_ratio();
-  inline void set_has_cur_rn_rl_ratio();
-  inline void clear_has_cur_rn_rl_ratio();
-  inline void set_has_cur_ln_rl_ratio();
-  inline void clear_has_cur_ln_rl_ratio();
-  inline void set_has_cur_nose_rl_ratio();
-  inline void clear_has_cur_nose_rl_ratio();
-  inline void set_has_cur_nose_rl_ratio_side_thld();
-  inline void clear_has_cur_nose_rl_ratio_side_thld();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -1279,154 +1602,470 @@ class PolicyParams : public ::google::protobuf::Message {
   mutable int _cached_size_;
   float r_eye_gradient_;
   float l_eye_gradient_;
-  float eye_gradient_thld_;
   float avr_r_eye_close_;
   float avr_l_eye_close_;
-  float avr_eyes_dist_;
-  ::DMSFrameProtocol::Point *avr_l_eye_point_;
-  float avr_eyes_dist_thld_;
-  float avr_nose_leye_dist_;
-  ::DMSFrameProtocol::Point *avr_r_eye_point_;
-  ::DMSFrameProtocol::Point *avr_nose_point_;
-  float avr_nose_reye_dist_;
-  float avr_nose_rl_ratio_;
-  ::DMSFrameProtocol::Point *archor_nose_point_;
-  float avr_nose_rl_ratio_thld_;
-  float devi_nose_dist_x_;
-  float devi_nose_dist_y_;
-  float devi_nose_dist_x_thld_;
-  float vari_nose_posi_x_;
-  float vari_nose_posi_y_;
-  float vari_nose_posi_x_thld_;
-  float vari_nose_posi_y_thld_;
-  float devi_nose_dist_y_thld_;
-  float avr_rn_rl_ratio_;
-  float avr_ln_rl_ratio_;
-  float cur_rn_rl_ratio_;
-  float cur_ln_rl_ratio_;
-  float cur_nose_rl_ratio_;
-  float cur_nose_rl_ratio_side_thld_;
-  friend void protobuf_AddDesc_DMSFrame_2eproto();
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
   friend void protobuf_AssignDesc_DMSFrame_2eproto();
   friend void protobuf_ShutdownFile_DMSFrame_2eproto();
 
   void InitAsDefaultInstance();
-  static PolicyParams *default_instance_;
+  static EyesPost* default_instance_;
 };
 // -------------------------------------------------------------------
 
-class MonitorResult : public ::google::protobuf::Message {
+class Phone : public ::google::protobuf::Message {
  public:
-  MonitorResult();
-  virtual ~MonitorResult();
+  Phone();
+  virtual ~Phone();
 
-  MonitorResult(const MonitorResult &from);
+  Phone(const Phone& from);
 
-  inline MonitorResult &operator=(const MonitorResult &from) {
+  inline Phone& operator=(const Phone& from) {
     CopyFrom(from);
     return *this;
   }
 
-  inline const ::google::protobuf::UnknownFieldSet &unknown_fields() const {
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
     return _unknown_fields_;
   }
 
-  inline ::google::protobuf::UnknownFieldSet *mutable_unknown_fields() {
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
     return &_unknown_fields_;
   }
 
-  static const ::google::protobuf::Descriptor *descriptor();
-  static const MonitorResult &default_instance();
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const Phone& default_instance();
 
-  void Swap(MonitorResult *other);
+  void Swap(Phone* other);
 
   // implements Message ----------------------------------------------
 
-  MonitorResult *New() const;
-  void CopyFrom(const ::google::protobuf::Message &from);
-  void MergeFrom(const ::google::protobuf::Message &from);
-  void CopyFrom(const MonitorResult &from);
-  void MergeFrom(const MonitorResult &from);
+  Phone* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const Phone& from);
+  void MergeFrom(const Phone& from);
   void Clear();
   bool IsInitialized() const;
 
   int ByteSize() const;
   bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream *input);
+      ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream *output) const;
-  ::google::protobuf::uint8 *SerializeWithCachedSizesToArray(
-      ::google::protobuf::uint8 *output) const;
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
-
- private:
+  private:
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-
- public:
+  public:
   ::google::protobuf::Metadata GetMetadata() const;
 
   // nested types ----------------------------------------------------
 
   // accessors -------------------------------------------------------
 
-  // required .DMSFrameProtocol.WarnState warn_state = 1;
-  inline bool has_warn_state() const;
-  inline void clear_warn_state();
-  static const int kWarnStateFieldNumber = 1;
-  inline ::DMSFrameProtocol::WarnState warn_state() const;
-  inline void set_warn_state(::DMSFrameProtocol::WarnState value);
+  // required .DMSFrameProtocol.Rect_f ROI = 1;
+  inline bool has_roi() const;
+  inline void clear_roi();
+  static const int kROIFieldNumber = 1;
+  inline const ::DMSFrameProtocol::Rect_f& roi() const;
+  inline ::DMSFrameProtocol::Rect_f* mutable_roi();
+  inline ::DMSFrameProtocol::Rect_f* release_roi();
+  inline void set_allocated_roi(::DMSFrameProtocol::Rect_f* roi);
 
-  // required int64 dur_time = 2;
-  inline bool has_dur_time() const;
-  inline void clear_dur_time();
-  static const int kDurTimeFieldNumber = 2;
-  inline ::google::protobuf::int64 dur_time() const;
-  inline void set_dur_time(::google::protobuf::int64 value);
+  // required float score = 2;
+  inline bool has_score() const;
+  inline void clear_score();
+  static const int kScoreFieldNumber = 2;
+  inline float score() const;
+  inline void set_score(float value);
 
-  // optional .DMSFrameProtocol.PolicyParams policy_params = 3;
-  inline bool has_policy_params() const;
-  inline void clear_policy_params();
-  static const int kPolicyParamsFieldNumber = 3;
-  inline const ::DMSFrameProtocol::PolicyParams &policy_params() const;
-  inline ::DMSFrameProtocol::PolicyParams *mutable_policy_params();
-  inline ::DMSFrameProtocol::PolicyParams *release_policy_params();
-  inline void set_allocated_policy_params(
-      ::DMSFrameProtocol::PolicyParams *policy_params);
-
-  // optional .DMSFrameProtocol.FaceDir face_dir = 4;
-  inline bool has_face_dir() const;
-  inline void clear_face_dir();
-  static const int kFaceDirFieldNumber = 4;
-  inline ::DMSFrameProtocol::FaceDir face_dir() const;
-  inline void set_face_dir(::DMSFrameProtocol::FaceDir value);
-
-  // @@protoc_insertion_point(class_scope:DMSFrameProtocol.MonitorResult)
+  // @@protoc_insertion_point(class_scope:DMSFrameProtocol.Phone)
  private:
-  inline void set_has_warn_state();
-  inline void clear_has_warn_state();
-  inline void set_has_dur_time();
-  inline void clear_has_dur_time();
-  inline void set_has_policy_params();
-  inline void clear_has_policy_params();
-  inline void set_has_face_dir();
-  inline void clear_has_face_dir();
+  inline void set_has_roi();
+  inline void clear_has_roi();
+  inline void set_has_score();
+  inline void clear_has_score();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::google::protobuf::int64 dur_time_;
-  int warn_state_;
-  int face_dir_;
-  ::DMSFrameProtocol::PolicyParams *policy_params_;
-  friend void protobuf_AddDesc_DMSFrame_2eproto();
+  ::DMSFrameProtocol::Rect_f* roi_;
+  float score_;
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
   friend void protobuf_AssignDesc_DMSFrame_2eproto();
   friend void protobuf_ShutdownFile_DMSFrame_2eproto();
 
   void InitAsDefaultInstance();
-  static MonitorResult *default_instance_;
+  static Phone* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class PhoneDetectResult : public ::google::protobuf::Message {
+ public:
+  PhoneDetectResult();
+  virtual ~PhoneDetectResult();
+
+  PhoneDetectResult(const PhoneDetectResult& from);
+
+  inline PhoneDetectResult& operator=(const PhoneDetectResult& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const PhoneDetectResult& default_instance();
+
+  void Swap(PhoneDetectResult* other);
+
+  // implements Message ----------------------------------------------
+
+  PhoneDetectResult* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const PhoneDetectResult& from);
+  void MergeFrom(const PhoneDetectResult& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .DMSFrameProtocol.Phone phone_original_ROIs = 1;
+  inline int phone_original_rois_size() const;
+  inline void clear_phone_original_rois();
+  static const int kPhoneOriginalROIsFieldNumber = 1;
+  inline const ::DMSFrameProtocol::Phone& phone_original_rois(int index) const;
+  inline ::DMSFrameProtocol::Phone* mutable_phone_original_rois(int index);
+  inline ::DMSFrameProtocol::Phone* add_phone_original_rois();
+  inline const ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::Phone >&
+      phone_original_rois() const;
+  inline ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::Phone >*
+      mutable_phone_original_rois();
+
+  // optional .DMSFrameProtocol.Phone phone_filtered_ROIs = 2;
+  inline bool has_phone_filtered_rois() const;
+  inline void clear_phone_filtered_rois();
+  static const int kPhoneFilteredROIsFieldNumber = 2;
+  inline const ::DMSFrameProtocol::Phone& phone_filtered_rois() const;
+  inline ::DMSFrameProtocol::Phone* mutable_phone_filtered_rois();
+  inline ::DMSFrameProtocol::Phone* release_phone_filtered_rois();
+  inline void set_allocated_phone_filtered_rois(::DMSFrameProtocol::Phone* phone_filtered_rois);
+
+  // optional .DMSFrameProtocol.Rect_i phone_detect_ROI = 3;
+  inline bool has_phone_detect_roi() const;
+  inline void clear_phone_detect_roi();
+  static const int kPhoneDetectROIFieldNumber = 3;
+  inline const ::DMSFrameProtocol::Rect_i& phone_detect_roi() const;
+  inline ::DMSFrameProtocol::Rect_i* mutable_phone_detect_roi();
+  inline ::DMSFrameProtocol::Rect_i* release_phone_detect_roi();
+  inline void set_allocated_phone_detect_roi(::DMSFrameProtocol::Rect_i* phone_detect_roi);
+
+  // @@protoc_insertion_point(class_scope:DMSFrameProtocol.PhoneDetectResult)
+ private:
+  inline void set_has_phone_filtered_rois();
+  inline void clear_has_phone_filtered_rois();
+  inline void set_has_phone_detect_roi();
+  inline void clear_has_phone_detect_roi();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::Phone > phone_original_rois_;
+  ::DMSFrameProtocol::Phone* phone_filtered_rois_;
+  ::DMSFrameProtocol::Rect_i* phone_detect_roi_;
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
+  friend void protobuf_AssignDesc_DMSFrame_2eproto();
+  friend void protobuf_ShutdownFile_DMSFrame_2eproto();
+
+  void InitAsDefaultInstance();
+  static PhoneDetectResult* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class PhoneDetectPost : public ::google::protobuf::Message {
+ public:
+  PhoneDetectPost();
+  virtual ~PhoneDetectPost();
+
+  PhoneDetectPost(const PhoneDetectPost& from);
+
+  inline PhoneDetectPost& operator=(const PhoneDetectPost& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const PhoneDetectPost& default_instance();
+
+  void Swap(PhoneDetectPost* other);
+
+  // implements Message ----------------------------------------------
+
+  PhoneDetectPost* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const PhoneDetectPost& from);
+  void MergeFrom(const PhoneDetectPost& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional int32 phone_ear_dist = 1;
+  inline bool has_phone_ear_dist() const;
+  inline void clear_phone_ear_dist();
+  static const int kPhoneEarDistFieldNumber = 1;
+  inline ::google::protobuf::int32 phone_ear_dist() const;
+  inline void set_phone_ear_dist(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:DMSFrameProtocol.PhoneDetectPost)
+ private:
+  inline void set_has_phone_ear_dist();
+  inline void clear_has_phone_ear_dist();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  ::google::protobuf::int32 phone_ear_dist_;
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
+  friend void protobuf_AssignDesc_DMSFrame_2eproto();
+  friend void protobuf_ShutdownFile_DMSFrame_2eproto();
+
+  void InitAsDefaultInstance();
+  static PhoneDetectPost* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class SmokeClsfResult : public ::google::protobuf::Message {
+ public:
+  SmokeClsfResult();
+  virtual ~SmokeClsfResult();
+
+  SmokeClsfResult(const SmokeClsfResult& from);
+
+  inline SmokeClsfResult& operator=(const SmokeClsfResult& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const SmokeClsfResult& default_instance();
+
+  void Swap(SmokeClsfResult* other);
+
+  // implements Message ----------------------------------------------
+
+  SmokeClsfResult* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const SmokeClsfResult& from);
+  void MergeFrom(const SmokeClsfResult& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional float exist_score = 1;
+  inline bool has_exist_score() const;
+  inline void clear_exist_score();
+  static const int kExistScoreFieldNumber = 1;
+  inline float exist_score() const;
+  inline void set_exist_score(float value);
+
+  // optional float noexist_score = 2;
+  inline bool has_noexist_score() const;
+  inline void clear_noexist_score();
+  static const int kNoexistScoreFieldNumber = 2;
+  inline float noexist_score() const;
+  inline void set_noexist_score(float value);
+
+  // optional .DMSFrameProtocol.Rect_i smoke_detect_ROI = 3;
+  inline bool has_smoke_detect_roi() const;
+  inline void clear_smoke_detect_roi();
+  static const int kSmokeDetectROIFieldNumber = 3;
+  inline const ::DMSFrameProtocol::Rect_i& smoke_detect_roi() const;
+  inline ::DMSFrameProtocol::Rect_i* mutable_smoke_detect_roi();
+  inline ::DMSFrameProtocol::Rect_i* release_smoke_detect_roi();
+  inline void set_allocated_smoke_detect_roi(::DMSFrameProtocol::Rect_i* smoke_detect_roi);
+
+  // optional .DMSFrameProtocol.SmokeStateEnum smoke_st = 4;
+  inline bool has_smoke_st() const;
+  inline void clear_smoke_st();
+  static const int kSmokeStFieldNumber = 4;
+  inline ::DMSFrameProtocol::SmokeStateEnum smoke_st() const;
+  inline void set_smoke_st(::DMSFrameProtocol::SmokeStateEnum value);
+
+  // @@protoc_insertion_point(class_scope:DMSFrameProtocol.SmokeClsfResult)
+ private:
+  inline void set_has_exist_score();
+  inline void clear_has_exist_score();
+  inline void set_has_noexist_score();
+  inline void clear_has_noexist_score();
+  inline void set_has_smoke_detect_roi();
+  inline void clear_has_smoke_detect_roi();
+  inline void set_has_smoke_st();
+  inline void clear_has_smoke_st();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  float exist_score_;
+  float noexist_score_;
+  ::DMSFrameProtocol::Rect_i* smoke_detect_roi_;
+  int smoke_st_;
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
+  friend void protobuf_AssignDesc_DMSFrame_2eproto();
+  friend void protobuf_ShutdownFile_DMSFrame_2eproto();
+
+  void InitAsDefaultInstance();
+  static SmokeClsfResult* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class SmokeClsfPost : public ::google::protobuf::Message {
+ public:
+  SmokeClsfPost();
+  virtual ~SmokeClsfPost();
+
+  SmokeClsfPost(const SmokeClsfPost& from);
+
+  inline SmokeClsfPost& operator=(const SmokeClsfPost& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const SmokeClsfPost& default_instance();
+
+  void Swap(SmokeClsfPost* other);
+
+  // implements Message ----------------------------------------------
+
+  SmokeClsfPost* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const SmokeClsfPost& from);
+  void MergeFrom(const SmokeClsfPost& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:DMSFrameProtocol.SmokeClsfPost)
+ private:
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
+  friend void protobuf_AssignDesc_DMSFrame_2eproto();
+  friend void protobuf_ShutdownFile_DMSFrame_2eproto();
+
+  void InitAsDefaultInstance();
+  static SmokeClsfPost* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -1435,141 +2074,1678 @@ class FaceRecogResult : public ::google::protobuf::Message {
   FaceRecogResult();
   virtual ~FaceRecogResult();
 
-  FaceRecogResult(const FaceRecogResult &from);
+  FaceRecogResult(const FaceRecogResult& from);
 
-  inline FaceRecogResult &operator=(const FaceRecogResult &from) {
+  inline FaceRecogResult& operator=(const FaceRecogResult& from) {
     CopyFrom(from);
     return *this;
   }
 
-  inline const ::google::protobuf::UnknownFieldSet &unknown_fields() const {
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
     return _unknown_fields_;
   }
 
-  inline ::google::protobuf::UnknownFieldSet *mutable_unknown_fields() {
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
     return &_unknown_fields_;
   }
 
-  static const ::google::protobuf::Descriptor *descriptor();
-  static const FaceRecogResult &default_instance();
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const FaceRecogResult& default_instance();
 
-  void Swap(FaceRecogResult *other);
+  void Swap(FaceRecogResult* other);
 
   // implements Message ----------------------------------------------
 
-  FaceRecogResult *New() const;
-  void CopyFrom(const ::google::protobuf::Message &from);
-  void MergeFrom(const ::google::protobuf::Message &from);
-  void CopyFrom(const FaceRecogResult &from);
-  void MergeFrom(const FaceRecogResult &from);
+  FaceRecogResult* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const FaceRecogResult& from);
+  void MergeFrom(const FaceRecogResult& from);
   void Clear();
   bool IsInitialized() const;
 
   int ByteSize() const;
   bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream *input);
+      ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream *output) const;
-  ::google::protobuf::uint8 *SerializeWithCachedSizesToArray(
-      ::google::protobuf::uint8 *output) const;
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
-
- private:
+  private:
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-
- public:
+  public:
   ::google::protobuf::Metadata GetMetadata() const;
 
   // nested types ----------------------------------------------------
 
   // accessors -------------------------------------------------------
 
-  // optional int32 persion_id = 1;
-  inline bool has_persion_id() const;
-  inline void clear_persion_id();
-  static const int kPersionIdFieldNumber = 1;
-  inline ::google::protobuf::int32 persion_id() const;
-  inline void set_persion_id(::google::protobuf::int32 value);
+  // optional int32 person_id = 1;
+  inline bool has_person_id() const;
+  inline void clear_person_id();
+  static const int kPersonIdFieldNumber = 1;
+  inline ::google::protobuf::int32 person_id() const;
+  inline void set_person_id(::google::protobuf::int32 value);
 
-  // optional string persion_name = 2;
-  inline bool has_persion_name() const;
-  inline void clear_persion_name();
-  static const int kPersionNameFieldNumber = 2;
-  inline const ::std::string &persion_name() const;
-  inline void set_persion_name(const ::std::string &value);
-  inline void set_persion_name(const char *value);
-  inline void set_persion_name(const char *value, size_t size);
-  inline ::std::string *mutable_persion_name();
-  inline ::std::string *release_persion_name();
-  inline void set_allocated_persion_name(::std::string *persion_name);
+  // optional string person_name = 2;
+  inline bool has_person_name() const;
+  inline void clear_person_name();
+  static const int kPersonNameFieldNumber = 2;
+  inline const ::std::string& person_name() const;
+  inline void set_person_name(const ::std::string& value);
+  inline void set_person_name(const char* value);
+  inline void set_person_name(const char* value, size_t size);
+  inline ::std::string* mutable_person_name();
+  inline ::std::string* release_person_name();
+  inline void set_allocated_person_name(::std::string* person_name);
 
-  // optional int64 persion_timestamp = 3;
-  inline bool has_persion_timestamp() const;
-  inline void clear_persion_timestamp();
-  static const int kPersionTimestampFieldNumber = 3;
-  inline ::google::protobuf::int64 persion_timestamp() const;
-  inline void set_persion_timestamp(::google::protobuf::int64 value);
+  // optional int64 person_timestamp = 3;
+  inline bool has_person_timestamp() const;
+  inline void clear_person_timestamp();
+  static const int kPersonTimestampFieldNumber = 3;
+  inline ::google::protobuf::int64 person_timestamp() const;
+  inline void set_person_timestamp(::google::protobuf::int64 value);
 
-  // optional int32 persion_frame_id = 4;
-  inline bool has_persion_frame_id() const;
-  inline void clear_persion_frame_id();
-  static const int kPersionFrameIdFieldNumber = 4;
-  inline ::google::protobuf::int32 persion_frame_id() const;
-  inline void set_persion_frame_id(::google::protobuf::int32 value);
+  // optional int32 person_frame_id = 4;
+  inline bool has_person_frame_id() const;
+  inline void clear_person_frame_id();
+  static const int kPersonFrameIdFieldNumber = 4;
+  inline ::google::protobuf::int32 person_frame_id() const;
+  inline void set_person_frame_id(::google::protobuf::int32 value);
 
-  // optional .DMSFrameProtocol.Rect_i persion_detect_ROI = 5;
-  inline bool has_persion_detect_roi() const;
-  inline void clear_persion_detect_roi();
-  static const int kPersionDetectROIFieldNumber = 5;
-  inline const ::DMSFrameProtocol::Rect_i &persion_detect_roi() const;
-  inline ::DMSFrameProtocol::Rect_i *mutable_persion_detect_roi();
-  inline ::DMSFrameProtocol::Rect_i *release_persion_detect_roi();
-  inline void set_allocated_persion_detect_roi(
-      ::DMSFrameProtocol::Rect_i *persion_detect_roi);
+  // optional .DMSFrameProtocol.Rect_i person_detect_ROI = 5;
+  inline bool has_person_detect_roi() const;
+  inline void clear_person_detect_roi();
+  static const int kPersonDetectROIFieldNumber = 5;
+  inline const ::DMSFrameProtocol::Rect_i& person_detect_roi() const;
+  inline ::DMSFrameProtocol::Rect_i* mutable_person_detect_roi();
+  inline ::DMSFrameProtocol::Rect_i* release_person_detect_roi();
+  inline void set_allocated_person_detect_roi(::DMSFrameProtocol::Rect_i* person_detect_roi);
 
-  // optional .DMSFrameProtocol.Rect_i persion_result_ROI = 6;
-  inline bool has_persion_result_roi() const;
-  inline void clear_persion_result_roi();
-  static const int kPersionResultROIFieldNumber = 6;
-  inline const ::DMSFrameProtocol::Rect_i &persion_result_roi() const;
-  inline ::DMSFrameProtocol::Rect_i *mutable_persion_result_roi();
-  inline ::DMSFrameProtocol::Rect_i *release_persion_result_roi();
-  inline void set_allocated_persion_result_roi(
-      ::DMSFrameProtocol::Rect_i *persion_result_roi);
+  // optional .DMSFrameProtocol.Rect_i person_result_ROI = 6;
+  inline bool has_person_result_roi() const;
+  inline void clear_person_result_roi();
+  static const int kPersonResultROIFieldNumber = 6;
+  inline const ::DMSFrameProtocol::Rect_i& person_result_roi() const;
+  inline ::DMSFrameProtocol::Rect_i* mutable_person_result_roi();
+  inline ::DMSFrameProtocol::Rect_i* release_person_result_roi();
+  inline void set_allocated_person_result_roi(::DMSFrameProtocol::Rect_i* person_result_roi);
 
   // @@protoc_insertion_point(class_scope:DMSFrameProtocol.FaceRecogResult)
  private:
-  inline void set_has_persion_id();
-  inline void clear_has_persion_id();
-  inline void set_has_persion_name();
-  inline void clear_has_persion_name();
-  inline void set_has_persion_timestamp();
-  inline void clear_has_persion_timestamp();
-  inline void set_has_persion_frame_id();
-  inline void clear_has_persion_frame_id();
-  inline void set_has_persion_detect_roi();
-  inline void clear_has_persion_detect_roi();
-  inline void set_has_persion_result_roi();
-  inline void clear_has_persion_result_roi();
+  inline void set_has_person_id();
+  inline void clear_has_person_id();
+  inline void set_has_person_name();
+  inline void clear_has_person_name();
+  inline void set_has_person_timestamp();
+  inline void clear_has_person_timestamp();
+  inline void set_has_person_frame_id();
+  inline void clear_has_person_frame_id();
+  inline void set_has_person_detect_roi();
+  inline void clear_has_person_detect_roi();
+  inline void set_has_person_result_roi();
+  inline void clear_has_person_result_roi();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::std::string *persion_name_;
-  ::google::protobuf::int32 persion_id_;
-  ::google::protobuf::int32 persion_frame_id_;
-  ::google::protobuf::int64 persion_timestamp_;
-  ::DMSFrameProtocol::Rect_i *persion_detect_roi_;
-  ::DMSFrameProtocol::Rect_i *persion_result_roi_;
-  friend void protobuf_AddDesc_DMSFrame_2eproto();
+  ::std::string* person_name_;
+  ::google::protobuf::int32 person_id_;
+  ::google::protobuf::int32 person_frame_id_;
+  ::google::protobuf::int64 person_timestamp_;
+  ::DMSFrameProtocol::Rect_i* person_detect_roi_;
+  ::DMSFrameProtocol::Rect_i* person_result_roi_;
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
   friend void protobuf_AssignDesc_DMSFrame_2eproto();
   friend void protobuf_ShutdownFile_DMSFrame_2eproto();
 
   void InitAsDefaultInstance();
-  static FaceRecogResult *default_instance_;
+  static FaceRecogResult* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class FaceRecogPost : public ::google::protobuf::Message {
+ public:
+  FaceRecogPost();
+  virtual ~FaceRecogPost();
+
+  FaceRecogPost(const FaceRecogPost& from);
+
+  inline FaceRecogPost& operator=(const FaceRecogPost& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const FaceRecogPost& default_instance();
+
+  void Swap(FaceRecogPost* other);
+
+  // implements Message ----------------------------------------------
+
+  FaceRecogPost* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const FaceRecogPost& from);
+  void MergeFrom(const FaceRecogPost& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:DMSFrameProtocol.FaceRecogPost)
+ private:
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
+  friend void protobuf_AssignDesc_DMSFrame_2eproto();
+  friend void protobuf_ShutdownFile_DMSFrame_2eproto();
+
+  void InitAsDefaultInstance();
+  static FaceRecogPost* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class AlgoResult : public ::google::protobuf::Message {
+ public:
+  AlgoResult();
+  virtual ~AlgoResult();
+
+  AlgoResult(const AlgoResult& from);
+
+  inline AlgoResult& operator=(const AlgoResult& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const AlgoResult& default_instance();
+
+  void Swap(AlgoResult* other);
+
+  // implements Message ----------------------------------------------
+
+  AlgoResult* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const AlgoResult& from);
+  void MergeFrom(const AlgoResult& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional .DMSFrameProtocol.FaceDetectResult face_detect = 1;
+  inline bool has_face_detect() const;
+  inline void clear_face_detect();
+  static const int kFaceDetectFieldNumber = 1;
+  inline const ::DMSFrameProtocol::FaceDetectResult& face_detect() const;
+  inline ::DMSFrameProtocol::FaceDetectResult* mutable_face_detect();
+  inline ::DMSFrameProtocol::FaceDetectResult* release_face_detect();
+  inline void set_allocated_face_detect(::DMSFrameProtocol::FaceDetectResult* face_detect);
+
+  // optional .DMSFrameProtocol.FaceDetectPost face_detect_post = 2;
+  inline bool has_face_detect_post() const;
+  inline void clear_face_detect_post();
+  static const int kFaceDetectPostFieldNumber = 2;
+  inline const ::DMSFrameProtocol::FaceDetectPost& face_detect_post() const;
+  inline ::DMSFrameProtocol::FaceDetectPost* mutable_face_detect_post();
+  inline ::DMSFrameProtocol::FaceDetectPost* release_face_detect_post();
+  inline void set_allocated_face_detect_post(::DMSFrameProtocol::FaceDetectPost* face_detect_post);
+
+  // optional .DMSFrameProtocol.PhoneDetectResult phone_detect = 3;
+  inline bool has_phone_detect() const;
+  inline void clear_phone_detect();
+  static const int kPhoneDetectFieldNumber = 3;
+  inline const ::DMSFrameProtocol::PhoneDetectResult& phone_detect() const;
+  inline ::DMSFrameProtocol::PhoneDetectResult* mutable_phone_detect();
+  inline ::DMSFrameProtocol::PhoneDetectResult* release_phone_detect();
+  inline void set_allocated_phone_detect(::DMSFrameProtocol::PhoneDetectResult* phone_detect);
+
+  // optional .DMSFrameProtocol.PhoneDetectPost phone_detect_post = 4;
+  inline bool has_phone_detect_post() const;
+  inline void clear_phone_detect_post();
+  static const int kPhoneDetectPostFieldNumber = 4;
+  inline const ::DMSFrameProtocol::PhoneDetectPost& phone_detect_post() const;
+  inline ::DMSFrameProtocol::PhoneDetectPost* mutable_phone_detect_post();
+  inline ::DMSFrameProtocol::PhoneDetectPost* release_phone_detect_post();
+  inline void set_allocated_phone_detect_post(::DMSFrameProtocol::PhoneDetectPost* phone_detect_post);
+
+  // optional .DMSFrameProtocol.LandMark21 landmark = 5;
+  inline bool has_landmark() const;
+  inline void clear_landmark();
+  static const int kLandmarkFieldNumber = 5;
+  inline const ::DMSFrameProtocol::LandMark21& landmark() const;
+  inline ::DMSFrameProtocol::LandMark21* mutable_landmark();
+  inline ::DMSFrameProtocol::LandMark21* release_landmark();
+  inline void set_allocated_landmark(::DMSFrameProtocol::LandMark21* landmark);
+
+  // optional .DMSFrameProtocol.LandmarkPost landmark_post = 6;
+  inline bool has_landmark_post() const;
+  inline void clear_landmark_post();
+  static const int kLandmarkPostFieldNumber = 6;
+  inline const ::DMSFrameProtocol::LandmarkPost& landmark_post() const;
+  inline ::DMSFrameProtocol::LandmarkPost* mutable_landmark_post();
+  inline ::DMSFrameProtocol::LandmarkPost* release_landmark_post();
+  inline void set_allocated_landmark_post(::DMSFrameProtocol::LandmarkPost* landmark_post);
+
+  // optional .DMSFrameProtocol.Eyes eyes = 7;
+  inline bool has_eyes() const;
+  inline void clear_eyes();
+  static const int kEyesFieldNumber = 7;
+  inline const ::DMSFrameProtocol::Eyes& eyes() const;
+  inline ::DMSFrameProtocol::Eyes* mutable_eyes();
+  inline ::DMSFrameProtocol::Eyes* release_eyes();
+  inline void set_allocated_eyes(::DMSFrameProtocol::Eyes* eyes);
+
+  // optional .DMSFrameProtocol.EyesPost eyes_post = 8;
+  inline bool has_eyes_post() const;
+  inline void clear_eyes_post();
+  static const int kEyesPostFieldNumber = 8;
+  inline const ::DMSFrameProtocol::EyesPost& eyes_post() const;
+  inline ::DMSFrameProtocol::EyesPost* mutable_eyes_post();
+  inline ::DMSFrameProtocol::EyesPost* release_eyes_post();
+  inline void set_allocated_eyes_post(::DMSFrameProtocol::EyesPost* eyes_post);
+
+  // optional .DMSFrameProtocol.SmokeClsfResult smoke_clsf = 9;
+  inline bool has_smoke_clsf() const;
+  inline void clear_smoke_clsf();
+  static const int kSmokeClsfFieldNumber = 9;
+  inline const ::DMSFrameProtocol::SmokeClsfResult& smoke_clsf() const;
+  inline ::DMSFrameProtocol::SmokeClsfResult* mutable_smoke_clsf();
+  inline ::DMSFrameProtocol::SmokeClsfResult* release_smoke_clsf();
+  inline void set_allocated_smoke_clsf(::DMSFrameProtocol::SmokeClsfResult* smoke_clsf);
+
+  // optional .DMSFrameProtocol.SmokeClsfPost smoke_clsf_post = 10;
+  inline bool has_smoke_clsf_post() const;
+  inline void clear_smoke_clsf_post();
+  static const int kSmokeClsfPostFieldNumber = 10;
+  inline const ::DMSFrameProtocol::SmokeClsfPost& smoke_clsf_post() const;
+  inline ::DMSFrameProtocol::SmokeClsfPost* mutable_smoke_clsf_post();
+  inline ::DMSFrameProtocol::SmokeClsfPost* release_smoke_clsf_post();
+  inline void set_allocated_smoke_clsf_post(::DMSFrameProtocol::SmokeClsfPost* smoke_clsf_post);
+
+  // optional .DMSFrameProtocol.FaceRecogResult facerecog_result = 11;
+  inline bool has_facerecog_result() const;
+  inline void clear_facerecog_result();
+  static const int kFacerecogResultFieldNumber = 11;
+  inline const ::DMSFrameProtocol::FaceRecogResult& facerecog_result() const;
+  inline ::DMSFrameProtocol::FaceRecogResult* mutable_facerecog_result();
+  inline ::DMSFrameProtocol::FaceRecogResult* release_facerecog_result();
+  inline void set_allocated_facerecog_result(::DMSFrameProtocol::FaceRecogResult* facerecog_result);
+
+  // optional .DMSFrameProtocol.FaceRecogPost facerecog_result_post = 12;
+  inline bool has_facerecog_result_post() const;
+  inline void clear_facerecog_result_post();
+  static const int kFacerecogResultPostFieldNumber = 12;
+  inline const ::DMSFrameProtocol::FaceRecogPost& facerecog_result_post() const;
+  inline ::DMSFrameProtocol::FaceRecogPost* mutable_facerecog_result_post();
+  inline ::DMSFrameProtocol::FaceRecogPost* release_facerecog_result_post();
+  inline void set_allocated_facerecog_result_post(::DMSFrameProtocol::FaceRecogPost* facerecog_result_post);
+
+  // @@protoc_insertion_point(class_scope:DMSFrameProtocol.AlgoResult)
+ private:
+  inline void set_has_face_detect();
+  inline void clear_has_face_detect();
+  inline void set_has_face_detect_post();
+  inline void clear_has_face_detect_post();
+  inline void set_has_phone_detect();
+  inline void clear_has_phone_detect();
+  inline void set_has_phone_detect_post();
+  inline void clear_has_phone_detect_post();
+  inline void set_has_landmark();
+  inline void clear_has_landmark();
+  inline void set_has_landmark_post();
+  inline void clear_has_landmark_post();
+  inline void set_has_eyes();
+  inline void clear_has_eyes();
+  inline void set_has_eyes_post();
+  inline void clear_has_eyes_post();
+  inline void set_has_smoke_clsf();
+  inline void clear_has_smoke_clsf();
+  inline void set_has_smoke_clsf_post();
+  inline void clear_has_smoke_clsf_post();
+  inline void set_has_facerecog_result();
+  inline void clear_has_facerecog_result();
+  inline void set_has_facerecog_result_post();
+  inline void clear_has_facerecog_result_post();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  ::DMSFrameProtocol::FaceDetectResult* face_detect_;
+  ::DMSFrameProtocol::FaceDetectPost* face_detect_post_;
+  ::DMSFrameProtocol::PhoneDetectResult* phone_detect_;
+  ::DMSFrameProtocol::PhoneDetectPost* phone_detect_post_;
+  ::DMSFrameProtocol::LandMark21* landmark_;
+  ::DMSFrameProtocol::LandmarkPost* landmark_post_;
+  ::DMSFrameProtocol::Eyes* eyes_;
+  ::DMSFrameProtocol::EyesPost* eyes_post_;
+  ::DMSFrameProtocol::SmokeClsfResult* smoke_clsf_;
+  ::DMSFrameProtocol::SmokeClsfPost* smoke_clsf_post_;
+  ::DMSFrameProtocol::FaceRecogResult* facerecog_result_;
+  ::DMSFrameProtocol::FaceRecogPost* facerecog_result_post_;
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
+  friend void protobuf_AssignDesc_DMSFrame_2eproto();
+  friend void protobuf_ShutdownFile_DMSFrame_2eproto();
+
+  void InitAsDefaultInstance();
+  static AlgoResult* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class DFWPolicyParams : public ::google::protobuf::Message {
+ public:
+  DFWPolicyParams();
+  virtual ~DFWPolicyParams();
+
+  DFWPolicyParams(const DFWPolicyParams& from);
+
+  inline DFWPolicyParams& operator=(const DFWPolicyParams& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const DFWPolicyParams& default_instance();
+
+  void Swap(DFWPolicyParams* other);
+
+  // implements Message ----------------------------------------------
+
+  DFWPolicyParams* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const DFWPolicyParams& from);
+  void MergeFrom(const DFWPolicyParams& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:DMSFrameProtocol.DFWPolicyParams)
+ private:
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
+  friend void protobuf_AssignDesc_DMSFrame_2eproto();
+  friend void protobuf_ShutdownFile_DMSFrame_2eproto();
+
+  void InitAsDefaultInstance();
+  static DFWPolicyParams* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class DFWPolicyResult : public ::google::protobuf::Message {
+ public:
+  DFWPolicyResult();
+  virtual ~DFWPolicyResult();
+
+  DFWPolicyResult(const DFWPolicyResult& from);
+
+  inline DFWPolicyResult& operator=(const DFWPolicyResult& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const DFWPolicyResult& default_instance();
+
+  void Swap(DFWPolicyResult* other);
+
+  // implements Message ----------------------------------------------
+
+  DFWPolicyResult* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const DFWPolicyResult& from);
+  void MergeFrom(const DFWPolicyResult& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required .DMSFrameProtocol.WarnStateEnum warn_state = 1;
+  inline bool has_warn_state() const;
+  inline void clear_warn_state();
+  static const int kWarnStateFieldNumber = 1;
+  inline ::DMSFrameProtocol::WarnStateEnum warn_state() const;
+  inline void set_warn_state(::DMSFrameProtocol::WarnStateEnum value);
+
+  // optional .DMSFrameProtocol.DFWPolicyParams policy_params = 2;
+  inline bool has_policy_params() const;
+  inline void clear_policy_params();
+  static const int kPolicyParamsFieldNumber = 2;
+  inline const ::DMSFrameProtocol::DFWPolicyParams& policy_params() const;
+  inline ::DMSFrameProtocol::DFWPolicyParams* mutable_policy_params();
+  inline ::DMSFrameProtocol::DFWPolicyParams* release_policy_params();
+  inline void set_allocated_policy_params(::DMSFrameProtocol::DFWPolicyParams* policy_params);
+
+  // @@protoc_insertion_point(class_scope:DMSFrameProtocol.DFWPolicyResult)
+ private:
+  inline void set_has_warn_state();
+  inline void clear_has_warn_state();
+  inline void set_has_policy_params();
+  inline void clear_has_policy_params();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  ::DMSFrameProtocol::DFWPolicyParams* policy_params_;
+  int warn_state_;
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
+  friend void protobuf_AssignDesc_DMSFrame_2eproto();
+  friend void protobuf_ShutdownFile_DMSFrame_2eproto();
+
+  void InitAsDefaultInstance();
+  static DFWPolicyResult* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class DDWPolicyParams : public ::google::protobuf::Message {
+ public:
+  DDWPolicyParams();
+  virtual ~DDWPolicyParams();
+
+  DDWPolicyParams(const DDWPolicyParams& from);
+
+  inline DDWPolicyParams& operator=(const DDWPolicyParams& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const DDWPolicyParams& default_instance();
+
+  void Swap(DDWPolicyParams* other);
+
+  // implements Message ----------------------------------------------
+
+  DDWPolicyParams* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const DDWPolicyParams& from);
+  void MergeFrom(const DDWPolicyParams& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional .DMSFrameProtocol.Point_f archor_nose_point = 1;
+  inline bool has_archor_nose_point() const;
+  inline void clear_archor_nose_point();
+  static const int kArchorNosePointFieldNumber = 1;
+  inline const ::DMSFrameProtocol::Point_f& archor_nose_point() const;
+  inline ::DMSFrameProtocol::Point_f* mutable_archor_nose_point();
+  inline ::DMSFrameProtocol::Point_f* release_archor_nose_point();
+  inline void set_allocated_archor_nose_point(::DMSFrameProtocol::Point_f* archor_nose_point);
+
+  // optional float devi_nose_dist_x = 2;
+  inline bool has_devi_nose_dist_x() const;
+  inline void clear_devi_nose_dist_x();
+  static const int kDeviNoseDistXFieldNumber = 2;
+  inline float devi_nose_dist_x() const;
+  inline void set_devi_nose_dist_x(float value);
+
+  // optional float devi_nose_dist_y = 3;
+  inline bool has_devi_nose_dist_y() const;
+  inline void clear_devi_nose_dist_y();
+  static const int kDeviNoseDistYFieldNumber = 3;
+  inline float devi_nose_dist_y() const;
+  inline void set_devi_nose_dist_y(float value);
+
+  // optional float avr_eyes_dist_thld = 4;
+  inline bool has_avr_eyes_dist_thld() const;
+  inline void clear_avr_eyes_dist_thld();
+  static const int kAvrEyesDistThldFieldNumber = 4;
+  inline float avr_eyes_dist_thld() const;
+  inline void set_avr_eyes_dist_thld(float value);
+
+  // optional float devi_nose_dist_x_thld = 5;
+  inline bool has_devi_nose_dist_x_thld() const;
+  inline void clear_devi_nose_dist_x_thld();
+  static const int kDeviNoseDistXThldFieldNumber = 5;
+  inline float devi_nose_dist_x_thld() const;
+  inline void set_devi_nose_dist_x_thld(float value);
+
+  // optional float devi_nose_dist_y_thld = 7;
+  inline bool has_devi_nose_dist_y_thld() const;
+  inline void clear_devi_nose_dist_y_thld();
+  static const int kDeviNoseDistYThldFieldNumber = 7;
+  inline float devi_nose_dist_y_thld() const;
+  inline void set_devi_nose_dist_y_thld(float value);
+
+  // optional float eye_gradient_thld = 8;
+  inline bool has_eye_gradient_thld() const;
+  inline void clear_eye_gradient_thld();
+  static const int kEyeGradientThldFieldNumber = 8;
+  inline float eye_gradient_thld() const;
+  inline void set_eye_gradient_thld(float value);
+
+  // optional float vari_nose_posi_x_thld = 9;
+  inline bool has_vari_nose_posi_x_thld() const;
+  inline void clear_vari_nose_posi_x_thld();
+  static const int kVariNosePosiXThldFieldNumber = 9;
+  inline float vari_nose_posi_x_thld() const;
+  inline void set_vari_nose_posi_x_thld(float value);
+
+  // optional float vari_nose_posi_y_thld = 10;
+  inline bool has_vari_nose_posi_y_thld() const;
+  inline void clear_vari_nose_posi_y_thld();
+  static const int kVariNosePosiYThldFieldNumber = 10;
+  inline float vari_nose_posi_y_thld() const;
+  inline void set_vari_nose_posi_y_thld(float value);
+
+  // optional float rl_nose_dist_thld = 11;
+  inline bool has_rl_nose_dist_thld() const;
+  inline void clear_rl_nose_dist_thld();
+  static const int kRlNoseDistThldFieldNumber = 11;
+  inline float rl_nose_dist_thld() const;
+  inline void set_rl_nose_dist_thld(float value);
+
+  // @@protoc_insertion_point(class_scope:DMSFrameProtocol.DDWPolicyParams)
+ private:
+  inline void set_has_archor_nose_point();
+  inline void clear_has_archor_nose_point();
+  inline void set_has_devi_nose_dist_x();
+  inline void clear_has_devi_nose_dist_x();
+  inline void set_has_devi_nose_dist_y();
+  inline void clear_has_devi_nose_dist_y();
+  inline void set_has_avr_eyes_dist_thld();
+  inline void clear_has_avr_eyes_dist_thld();
+  inline void set_has_devi_nose_dist_x_thld();
+  inline void clear_has_devi_nose_dist_x_thld();
+  inline void set_has_devi_nose_dist_y_thld();
+  inline void clear_has_devi_nose_dist_y_thld();
+  inline void set_has_eye_gradient_thld();
+  inline void clear_has_eye_gradient_thld();
+  inline void set_has_vari_nose_posi_x_thld();
+  inline void clear_has_vari_nose_posi_x_thld();
+  inline void set_has_vari_nose_posi_y_thld();
+  inline void clear_has_vari_nose_posi_y_thld();
+  inline void set_has_rl_nose_dist_thld();
+  inline void clear_has_rl_nose_dist_thld();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  ::DMSFrameProtocol::Point_f* archor_nose_point_;
+  float devi_nose_dist_x_;
+  float devi_nose_dist_y_;
+  float avr_eyes_dist_thld_;
+  float devi_nose_dist_x_thld_;
+  float devi_nose_dist_y_thld_;
+  float eye_gradient_thld_;
+  float vari_nose_posi_x_thld_;
+  float vari_nose_posi_y_thld_;
+  float rl_nose_dist_thld_;
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
+  friend void protobuf_AssignDesc_DMSFrame_2eproto();
+  friend void protobuf_ShutdownFile_DMSFrame_2eproto();
+
+  void InitAsDefaultInstance();
+  static DDWPolicyParams* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class DDWPolicyResult : public ::google::protobuf::Message {
+ public:
+  DDWPolicyResult();
+  virtual ~DDWPolicyResult();
+
+  DDWPolicyResult(const DDWPolicyResult& from);
+
+  inline DDWPolicyResult& operator=(const DDWPolicyResult& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const DDWPolicyResult& default_instance();
+
+  void Swap(DDWPolicyResult* other);
+
+  // implements Message ----------------------------------------------
+
+  DDWPolicyResult* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const DDWPolicyResult& from);
+  void MergeFrom(const DDWPolicyResult& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required .DMSFrameProtocol.WarnStateEnum warn_state = 1;
+  inline bool has_warn_state() const;
+  inline void clear_warn_state();
+  static const int kWarnStateFieldNumber = 1;
+  inline ::DMSFrameProtocol::WarnStateEnum warn_state() const;
+  inline void set_warn_state(::DMSFrameProtocol::WarnStateEnum value);
+
+  // optional .DMSFrameProtocol.DDWPolicyParams policy_params = 2;
+  inline bool has_policy_params() const;
+  inline void clear_policy_params();
+  static const int kPolicyParamsFieldNumber = 2;
+  inline const ::DMSFrameProtocol::DDWPolicyParams& policy_params() const;
+  inline ::DMSFrameProtocol::DDWPolicyParams* mutable_policy_params();
+  inline ::DMSFrameProtocol::DDWPolicyParams* release_policy_params();
+  inline void set_allocated_policy_params(::DMSFrameProtocol::DDWPolicyParams* policy_params);
+
+  // @@protoc_insertion_point(class_scope:DMSFrameProtocol.DDWPolicyResult)
+ private:
+  inline void set_has_warn_state();
+  inline void clear_has_warn_state();
+  inline void set_has_policy_params();
+  inline void clear_has_policy_params();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  ::DMSFrameProtocol::DDWPolicyParams* policy_params_;
+  int warn_state_;
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
+  friend void protobuf_AssignDesc_DMSFrame_2eproto();
+  friend void protobuf_ShutdownFile_DMSFrame_2eproto();
+
+  void InitAsDefaultInstance();
+  static DDWPolicyResult* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class DCAPolicyParams : public ::google::protobuf::Message {
+ public:
+  DCAPolicyParams();
+  virtual ~DCAPolicyParams();
+
+  DCAPolicyParams(const DCAPolicyParams& from);
+
+  inline DCAPolicyParams& operator=(const DCAPolicyParams& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const DCAPolicyParams& default_instance();
+
+  void Swap(DCAPolicyParams* other);
+
+  // implements Message ----------------------------------------------
+
+  DCAPolicyParams* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const DCAPolicyParams& from);
+  void MergeFrom(const DCAPolicyParams& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:DMSFrameProtocol.DCAPolicyParams)
+ private:
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
+  friend void protobuf_AssignDesc_DMSFrame_2eproto();
+  friend void protobuf_ShutdownFile_DMSFrame_2eproto();
+
+  void InitAsDefaultInstance();
+  static DCAPolicyParams* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class DCAPolicyResult : public ::google::protobuf::Message {
+ public:
+  DCAPolicyResult();
+  virtual ~DCAPolicyResult();
+
+  DCAPolicyResult(const DCAPolicyResult& from);
+
+  inline DCAPolicyResult& operator=(const DCAPolicyResult& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const DCAPolicyResult& default_instance();
+
+  void Swap(DCAPolicyResult* other);
+
+  // implements Message ----------------------------------------------
+
+  DCAPolicyResult* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const DCAPolicyResult& from);
+  void MergeFrom(const DCAPolicyResult& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required .DMSFrameProtocol.WarnStateEnum warn_state = 1;
+  inline bool has_warn_state() const;
+  inline void clear_warn_state();
+  static const int kWarnStateFieldNumber = 1;
+  inline ::DMSFrameProtocol::WarnStateEnum warn_state() const;
+  inline void set_warn_state(::DMSFrameProtocol::WarnStateEnum value);
+
+  // optional .DMSFrameProtocol.DCAPolicyParams policy_params = 2;
+  inline bool has_policy_params() const;
+  inline void clear_policy_params();
+  static const int kPolicyParamsFieldNumber = 2;
+  inline const ::DMSFrameProtocol::DCAPolicyParams& policy_params() const;
+  inline ::DMSFrameProtocol::DCAPolicyParams* mutable_policy_params();
+  inline ::DMSFrameProtocol::DCAPolicyParams* release_policy_params();
+  inline void set_allocated_policy_params(::DMSFrameProtocol::DCAPolicyParams* policy_params);
+
+  // @@protoc_insertion_point(class_scope:DMSFrameProtocol.DCAPolicyResult)
+ private:
+  inline void set_has_warn_state();
+  inline void clear_has_warn_state();
+  inline void set_has_policy_params();
+  inline void clear_has_policy_params();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  ::DMSFrameProtocol::DCAPolicyParams* policy_params_;
+  int warn_state_;
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
+  friend void protobuf_AssignDesc_DMSFrame_2eproto();
+  friend void protobuf_ShutdownFile_DMSFrame_2eproto();
+
+  void InitAsDefaultInstance();
+  static DCAPolicyResult* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class DSAPolicyParams : public ::google::protobuf::Message {
+ public:
+  DSAPolicyParams();
+  virtual ~DSAPolicyParams();
+
+  DSAPolicyParams(const DSAPolicyParams& from);
+
+  inline DSAPolicyParams& operator=(const DSAPolicyParams& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const DSAPolicyParams& default_instance();
+
+  void Swap(DSAPolicyParams* other);
+
+  // implements Message ----------------------------------------------
+
+  DSAPolicyParams* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const DSAPolicyParams& from);
+  void MergeFrom(const DSAPolicyParams& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:DMSFrameProtocol.DSAPolicyParams)
+ private:
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
+  friend void protobuf_AssignDesc_DMSFrame_2eproto();
+  friend void protobuf_ShutdownFile_DMSFrame_2eproto();
+
+  void InitAsDefaultInstance();
+  static DSAPolicyParams* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class DSAPolicyResult : public ::google::protobuf::Message {
+ public:
+  DSAPolicyResult();
+  virtual ~DSAPolicyResult();
+
+  DSAPolicyResult(const DSAPolicyResult& from);
+
+  inline DSAPolicyResult& operator=(const DSAPolicyResult& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const DSAPolicyResult& default_instance();
+
+  void Swap(DSAPolicyResult* other);
+
+  // implements Message ----------------------------------------------
+
+  DSAPolicyResult* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const DSAPolicyResult& from);
+  void MergeFrom(const DSAPolicyResult& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required .DMSFrameProtocol.WarnStateEnum warn_state = 1;
+  inline bool has_warn_state() const;
+  inline void clear_warn_state();
+  static const int kWarnStateFieldNumber = 1;
+  inline ::DMSFrameProtocol::WarnStateEnum warn_state() const;
+  inline void set_warn_state(::DMSFrameProtocol::WarnStateEnum value);
+
+  // optional .DMSFrameProtocol.DSAPolicyParams policy_params = 2;
+  inline bool has_policy_params() const;
+  inline void clear_policy_params();
+  static const int kPolicyParamsFieldNumber = 2;
+  inline const ::DMSFrameProtocol::DSAPolicyParams& policy_params() const;
+  inline ::DMSFrameProtocol::DSAPolicyParams* mutable_policy_params();
+  inline ::DMSFrameProtocol::DSAPolicyParams* release_policy_params();
+  inline void set_allocated_policy_params(::DMSFrameProtocol::DSAPolicyParams* policy_params);
+
+  // @@protoc_insertion_point(class_scope:DMSFrameProtocol.DSAPolicyResult)
+ private:
+  inline void set_has_warn_state();
+  inline void clear_has_warn_state();
+  inline void set_has_policy_params();
+  inline void clear_has_policy_params();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  ::DMSFrameProtocol::DSAPolicyParams* policy_params_;
+  int warn_state_;
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
+  friend void protobuf_AssignDesc_DMSFrame_2eproto();
+  friend void protobuf_ShutdownFile_DMSFrame_2eproto();
+
+  void InitAsDefaultInstance();
+  static DSAPolicyResult* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class FaceDirParams : public ::google::protobuf::Message {
+ public:
+  FaceDirParams();
+  virtual ~FaceDirParams();
+
+  FaceDirParams(const FaceDirParams& from);
+
+  inline FaceDirParams& operator=(const FaceDirParams& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const FaceDirParams& default_instance();
+
+  void Swap(FaceDirParams* other);
+
+  // implements Message ----------------------------------------------
+
+  FaceDirParams* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const FaceDirParams& from);
+  void MergeFrom(const FaceDirParams& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:DMSFrameProtocol.FaceDirParams)
+ private:
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
+  friend void protobuf_AssignDesc_DMSFrame_2eproto();
+  friend void protobuf_ShutdownFile_DMSFrame_2eproto();
+
+  void InitAsDefaultInstance();
+  static FaceDirParams* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class FaceDirResult : public ::google::protobuf::Message {
+ public:
+  FaceDirResult();
+  virtual ~FaceDirResult();
+
+  FaceDirResult(const FaceDirResult& from);
+
+  inline FaceDirResult& operator=(const FaceDirResult& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const FaceDirResult& default_instance();
+
+  void Swap(FaceDirResult* other);
+
+  // implements Message ----------------------------------------------
+
+  FaceDirResult* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const FaceDirResult& from);
+  void MergeFrom(const FaceDirResult& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional .DMSFrameProtocol.FaceDirEnum face_dir = 1;
+  inline bool has_face_dir() const;
+  inline void clear_face_dir();
+  static const int kFaceDirFieldNumber = 1;
+  inline ::DMSFrameProtocol::FaceDirEnum face_dir() const;
+  inline void set_face_dir(::DMSFrameProtocol::FaceDirEnum value);
+
+  // optional .DMSFrameProtocol.FaceDirParams policy_params = 2;
+  inline bool has_policy_params() const;
+  inline void clear_policy_params();
+  static const int kPolicyParamsFieldNumber = 2;
+  inline const ::DMSFrameProtocol::FaceDirParams& policy_params() const;
+  inline ::DMSFrameProtocol::FaceDirParams* mutable_policy_params();
+  inline ::DMSFrameProtocol::FaceDirParams* release_policy_params();
+  inline void set_allocated_policy_params(::DMSFrameProtocol::FaceDirParams* policy_params);
+
+  // @@protoc_insertion_point(class_scope:DMSFrameProtocol.FaceDirResult)
+ private:
+  inline void set_has_face_dir();
+  inline void clear_has_face_dir();
+  inline void set_has_policy_params();
+  inline void clear_has_policy_params();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  ::DMSFrameProtocol::FaceDirParams* policy_params_;
+  int face_dir_;
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
+  friend void protobuf_AssignDesc_DMSFrame_2eproto();
+  friend void protobuf_ShutdownFile_DMSFrame_2eproto();
+
+  void InitAsDefaultInstance();
+  static FaceDirResult* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class DIRPolicyParams : public ::google::protobuf::Message {
+ public:
+  DIRPolicyParams();
+  virtual ~DIRPolicyParams();
+
+  DIRPolicyParams(const DIRPolicyParams& from);
+
+  inline DIRPolicyParams& operator=(const DIRPolicyParams& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const DIRPolicyParams& default_instance();
+
+  void Swap(DIRPolicyParams* other);
+
+  // implements Message ----------------------------------------------
+
+  DIRPolicyParams* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const DIRPolicyParams& from);
+  void MergeFrom(const DIRPolicyParams& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:DMSFrameProtocol.DIRPolicyParams)
+ private:
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
+  friend void protobuf_AssignDesc_DMSFrame_2eproto();
+  friend void protobuf_ShutdownFile_DMSFrame_2eproto();
+
+  void InitAsDefaultInstance();
+  static DIRPolicyParams* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class DIRPolicyResult : public ::google::protobuf::Message {
+ public:
+  DIRPolicyResult();
+  virtual ~DIRPolicyResult();
+
+  DIRPolicyResult(const DIRPolicyResult& from);
+
+  inline DIRPolicyResult& operator=(const DIRPolicyResult& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const DIRPolicyResult& default_instance();
+
+  void Swap(DIRPolicyResult* other);
+
+  // implements Message ----------------------------------------------
+
+  DIRPolicyResult* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const DIRPolicyResult& from);
+  void MergeFrom(const DIRPolicyResult& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional .DMSFrameProtocol.DIRPolicyParams policy_params = 1;
+  inline bool has_policy_params() const;
+  inline void clear_policy_params();
+  static const int kPolicyParamsFieldNumber = 1;
+  inline const ::DMSFrameProtocol::DIRPolicyParams& policy_params() const;
+  inline ::DMSFrameProtocol::DIRPolicyParams* mutable_policy_params();
+  inline ::DMSFrameProtocol::DIRPolicyParams* release_policy_params();
+  inline void set_allocated_policy_params(::DMSFrameProtocol::DIRPolicyParams* policy_params);
+
+  // @@protoc_insertion_point(class_scope:DMSFrameProtocol.DIRPolicyResult)
+ private:
+  inline void set_has_policy_params();
+  inline void clear_has_policy_params();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  ::DMSFrameProtocol::DIRPolicyParams* policy_params_;
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
+  friend void protobuf_AssignDesc_DMSFrame_2eproto();
+  friend void protobuf_ShutdownFile_DMSFrame_2eproto();
+
+  void InitAsDefaultInstance();
+  static DIRPolicyResult* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class PolicyResult : public ::google::protobuf::Message {
+ public:
+  PolicyResult();
+  virtual ~PolicyResult();
+
+  PolicyResult(const PolicyResult& from);
+
+  inline PolicyResult& operator=(const PolicyResult& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const PolicyResult& default_instance();
+
+  void Swap(PolicyResult* other);
+
+  // implements Message ----------------------------------------------
+
+  PolicyResult* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const PolicyResult& from);
+  void MergeFrom(const PolicyResult& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional .DMSFrameProtocol.DDWPolicyResult DDW_result = 1;
+  inline bool has_ddw_result() const;
+  inline void clear_ddw_result();
+  static const int kDDWResultFieldNumber = 1;
+  inline const ::DMSFrameProtocol::DDWPolicyResult& ddw_result() const;
+  inline ::DMSFrameProtocol::DDWPolicyResult* mutable_ddw_result();
+  inline ::DMSFrameProtocol::DDWPolicyResult* release_ddw_result();
+  inline void set_allocated_ddw_result(::DMSFrameProtocol::DDWPolicyResult* ddw_result);
+
+  // optional .DMSFrameProtocol.DFWPolicyResult DFW_result = 2;
+  inline bool has_dfw_result() const;
+  inline void clear_dfw_result();
+  static const int kDFWResultFieldNumber = 2;
+  inline const ::DMSFrameProtocol::DFWPolicyResult& dfw_result() const;
+  inline ::DMSFrameProtocol::DFWPolicyResult* mutable_dfw_result();
+  inline ::DMSFrameProtocol::DFWPolicyResult* release_dfw_result();
+  inline void set_allocated_dfw_result(::DMSFrameProtocol::DFWPolicyResult* dfw_result);
+
+  // optional .DMSFrameProtocol.DCAPolicyResult DCA_result = 3;
+  inline bool has_dca_result() const;
+  inline void clear_dca_result();
+  static const int kDCAResultFieldNumber = 3;
+  inline const ::DMSFrameProtocol::DCAPolicyResult& dca_result() const;
+  inline ::DMSFrameProtocol::DCAPolicyResult* mutable_dca_result();
+  inline ::DMSFrameProtocol::DCAPolicyResult* release_dca_result();
+  inline void set_allocated_dca_result(::DMSFrameProtocol::DCAPolicyResult* dca_result);
+
+  // optional .DMSFrameProtocol.DSAPolicyResult DSA_result = 4;
+  inline bool has_dsa_result() const;
+  inline void clear_dsa_result();
+  static const int kDSAResultFieldNumber = 4;
+  inline const ::DMSFrameProtocol::DSAPolicyResult& dsa_result() const;
+  inline ::DMSFrameProtocol::DSAPolicyResult* mutable_dsa_result();
+  inline ::DMSFrameProtocol::DSAPolicyResult* release_dsa_result();
+  inline void set_allocated_dsa_result(::DMSFrameProtocol::DSAPolicyResult* dsa_result);
+
+  // optional .DMSFrameProtocol.FaceDirResult FaceDir_result = 5;
+  inline bool has_facedir_result() const;
+  inline void clear_facedir_result();
+  static const int kFaceDirResultFieldNumber = 5;
+  inline const ::DMSFrameProtocol::FaceDirResult& facedir_result() const;
+  inline ::DMSFrameProtocol::FaceDirResult* mutable_facedir_result();
+  inline ::DMSFrameProtocol::FaceDirResult* release_facedir_result();
+  inline void set_allocated_facedir_result(::DMSFrameProtocol::FaceDirResult* facedir_result);
+
+  // @@protoc_insertion_point(class_scope:DMSFrameProtocol.PolicyResult)
+ private:
+  inline void set_has_ddw_result();
+  inline void clear_has_ddw_result();
+  inline void set_has_dfw_result();
+  inline void clear_has_dfw_result();
+  inline void set_has_dca_result();
+  inline void clear_has_dca_result();
+  inline void set_has_dsa_result();
+  inline void clear_has_dsa_result();
+  inline void set_has_facedir_result();
+  inline void clear_has_facedir_result();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  ::DMSFrameProtocol::DDWPolicyResult* ddw_result_;
+  ::DMSFrameProtocol::DFWPolicyResult* dfw_result_;
+  ::DMSFrameProtocol::DCAPolicyResult* dca_result_;
+  ::DMSFrameProtocol::DSAPolicyResult* dsa_result_;
+  ::DMSFrameProtocol::FaceDirResult* facedir_result_;
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
+  friend void protobuf_AssignDesc_DMSFrame_2eproto();
+  friend void protobuf_ShutdownFile_DMSFrame_2eproto();
+
+  void InitAsDefaultInstance();
+  static PolicyResult* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class EventResult : public ::google::protobuf::Message {
+ public:
+  EventResult();
+  virtual ~EventResult();
+
+  EventResult(const EventResult& from);
+
+  inline EventResult& operator=(const EventResult& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const EventResult& default_instance();
+
+  void Swap(EventResult* other);
+
+  // implements Message ----------------------------------------------
+
+  EventResult* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const EventResult& from);
+  void MergeFrom(const EventResult& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required .DMSFrameProtocol.EventEnum event = 1;
+  inline bool has_event() const;
+  inline void clear_event();
+  static const int kEventFieldNumber = 1;
+  inline ::DMSFrameProtocol::EventEnum event() const;
+  inline void set_event(::DMSFrameProtocol::EventEnum value);
+
+  // @@protoc_insertion_point(class_scope:DMSFrameProtocol.EventResult)
+ private:
+  inline void set_has_event();
+  inline void clear_has_event();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  int event_;
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
+  friend void protobuf_AssignDesc_DMSFrame_2eproto();
+  friend void protobuf_ShutdownFile_DMSFrame_2eproto();
+
+  void InitAsDefaultInstance();
+  static EventResult* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -1578,51 +3754,48 @@ class CANInfo : public ::google::protobuf::Message {
   CANInfo();
   virtual ~CANInfo();
 
-  CANInfo(const CANInfo &from);
+  CANInfo(const CANInfo& from);
 
-  inline CANInfo &operator=(const CANInfo &from) {
+  inline CANInfo& operator=(const CANInfo& from) {
     CopyFrom(from);
     return *this;
   }
 
-  inline const ::google::protobuf::UnknownFieldSet &unknown_fields() const {
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
     return _unknown_fields_;
   }
 
-  inline ::google::protobuf::UnknownFieldSet *mutable_unknown_fields() {
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
     return &_unknown_fields_;
   }
 
-  static const ::google::protobuf::Descriptor *descriptor();
-  static const CANInfo &default_instance();
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const CANInfo& default_instance();
 
-  void Swap(CANInfo *other);
+  void Swap(CANInfo* other);
 
   // implements Message ----------------------------------------------
 
-  CANInfo *New() const;
-  void CopyFrom(const ::google::protobuf::Message &from);
-  void MergeFrom(const ::google::protobuf::Message &from);
-  void CopyFrom(const CANInfo &from);
-  void MergeFrom(const CANInfo &from);
+  CANInfo* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const CANInfo& from);
+  void MergeFrom(const CANInfo& from);
   void Clear();
   bool IsInitialized() const;
 
   int ByteSize() const;
   bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream *input);
+      ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream *output) const;
-  ::google::protobuf::uint8 *SerializeWithCachedSizesToArray(
-      ::google::protobuf::uint8 *output) const;
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
-
- private:
+  private:
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-
- public:
+  public:
   ::google::protobuf::Metadata GetMetadata() const;
 
   // nested types ----------------------------------------------------
@@ -1686,12 +3859,131 @@ class CANInfo : public ::google::protobuf::Message {
   ::google::protobuf::int32 gears_;
   ::google::protobuf::int32 speed_;
   ::google::protobuf::int64 timestamp_;
-  friend void protobuf_AddDesc_DMSFrame_2eproto();
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
   friend void protobuf_AssignDesc_DMSFrame_2eproto();
   friend void protobuf_ShutdownFile_DMSFrame_2eproto();
 
   void InitAsDefaultInstance();
-  static CANInfo *default_instance_;
+  static CANInfo* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class VehicleInfo : public ::google::protobuf::Message {
+ public:
+  VehicleInfo();
+  virtual ~VehicleInfo();
+
+  VehicleInfo(const VehicleInfo& from);
+
+  inline VehicleInfo& operator=(const VehicleInfo& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const VehicleInfo& default_instance();
+
+  void Swap(VehicleInfo* other);
+
+  // implements Message ----------------------------------------------
+
+  VehicleInfo* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const VehicleInfo& from);
+  void MergeFrom(const VehicleInfo& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional .DMSFrameProtocol.TurnLightStateEnum turn_light = 1;
+  inline bool has_turn_light() const;
+  inline void clear_turn_light();
+  static const int kTurnLightFieldNumber = 1;
+  inline ::DMSFrameProtocol::TurnLightStateEnum turn_light() const;
+  inline void set_turn_light(::DMSFrameProtocol::TurnLightStateEnum value);
+
+  // optional .DMSFrameProtocol.GearsStateEnum gears = 2;
+  inline bool has_gears() const;
+  inline void clear_gears();
+  static const int kGearsFieldNumber = 2;
+  inline ::DMSFrameProtocol::GearsStateEnum gears() const;
+  inline void set_gears(::DMSFrameProtocol::GearsStateEnum value);
+
+  // optional int32 wheel_angle = 3;
+  inline bool has_wheel_angle() const;
+  inline void clear_wheel_angle();
+  static const int kWheelAngleFieldNumber = 3;
+  inline ::google::protobuf::int32 wheel_angle() const;
+  inline void set_wheel_angle(::google::protobuf::int32 value);
+
+  // optional int32 veh_speed = 4;
+  inline bool has_veh_speed() const;
+  inline void clear_veh_speed();
+  static const int kVehSpeedFieldNumber = 4;
+  inline ::google::protobuf::int32 veh_speed() const;
+  inline void set_veh_speed(::google::protobuf::int32 value);
+
+  // optional int64 timestamp = 5;
+  inline bool has_timestamp() const;
+  inline void clear_timestamp();
+  static const int kTimestampFieldNumber = 5;
+  inline ::google::protobuf::int64 timestamp() const;
+  inline void set_timestamp(::google::protobuf::int64 value);
+
+  // @@protoc_insertion_point(class_scope:DMSFrameProtocol.VehicleInfo)
+ private:
+  inline void set_has_turn_light();
+  inline void clear_has_turn_light();
+  inline void set_has_gears();
+  inline void clear_has_gears();
+  inline void set_has_wheel_angle();
+  inline void clear_has_wheel_angle();
+  inline void set_has_veh_speed();
+  inline void clear_has_veh_speed();
+  inline void set_has_timestamp();
+  inline void clear_has_timestamp();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  int turn_light_;
+  int gears_;
+  ::google::protobuf::int32 wheel_angle_;
+  ::google::protobuf::int32 veh_speed_;
+  ::google::protobuf::int64 timestamp_;
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
+  friend void protobuf_AssignDesc_DMSFrame_2eproto();
+  friend void protobuf_ShutdownFile_DMSFrame_2eproto();
+
+  void InitAsDefaultInstance();
+  static VehicleInfo* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -1700,51 +3992,48 @@ class ImageInfo : public ::google::protobuf::Message {
   ImageInfo();
   virtual ~ImageInfo();
 
-  ImageInfo(const ImageInfo &from);
+  ImageInfo(const ImageInfo& from);
 
-  inline ImageInfo &operator=(const ImageInfo &from) {
+  inline ImageInfo& operator=(const ImageInfo& from) {
     CopyFrom(from);
     return *this;
   }
 
-  inline const ::google::protobuf::UnknownFieldSet &unknown_fields() const {
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
     return _unknown_fields_;
   }
 
-  inline ::google::protobuf::UnknownFieldSet *mutable_unknown_fields() {
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
     return &_unknown_fields_;
   }
 
-  static const ::google::protobuf::Descriptor *descriptor();
-  static const ImageInfo &default_instance();
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ImageInfo& default_instance();
 
-  void Swap(ImageInfo *other);
+  void Swap(ImageInfo* other);
 
   // implements Message ----------------------------------------------
 
-  ImageInfo *New() const;
-  void CopyFrom(const ::google::protobuf::Message &from);
-  void MergeFrom(const ::google::protobuf::Message &from);
-  void CopyFrom(const ImageInfo &from);
-  void MergeFrom(const ImageInfo &from);
+  ImageInfo* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ImageInfo& from);
+  void MergeFrom(const ImageInfo& from);
   void Clear();
   bool IsInitialized() const;
 
   int ByteSize() const;
   bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream *input);
+      ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream *output) const;
-  ::google::protobuf::uint8 *SerializeWithCachedSizesToArray(
-      ::google::protobuf::uint8 *output) const;
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
-
- private:
+  private:
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-
- public:
+  public:
   ::google::protobuf::Metadata GetMetadata() const;
 
   // nested types ----------------------------------------------------
@@ -1818,12 +4107,12 @@ class ImageInfo : public ::google::protobuf::Message {
   ::google::protobuf::int32 format_;
   ::google::protobuf::int32 luma_;
   ::google::protobuf::int32 img_id_;
-  friend void protobuf_AddDesc_DMSFrame_2eproto();
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
   friend void protobuf_AssignDesc_DMSFrame_2eproto();
   friend void protobuf_ShutdownFile_DMSFrame_2eproto();
 
   void InitAsDefaultInstance();
-  static ImageInfo *default_instance_;
+  static ImageInfo* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -1832,51 +4121,48 @@ class DMSFrame : public ::google::protobuf::Message {
   DMSFrame();
   virtual ~DMSFrame();
 
-  DMSFrame(const DMSFrame &from);
+  DMSFrame(const DMSFrame& from);
 
-  inline DMSFrame &operator=(const DMSFrame &from) {
+  inline DMSFrame& operator=(const DMSFrame& from) {
     CopyFrom(from);
     return *this;
   }
 
-  inline const ::google::protobuf::UnknownFieldSet &unknown_fields() const {
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
     return _unknown_fields_;
   }
 
-  inline ::google::protobuf::UnknownFieldSet *mutable_unknown_fields() {
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
     return &_unknown_fields_;
   }
 
-  static const ::google::protobuf::Descriptor *descriptor();
-  static const DMSFrame &default_instance();
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const DMSFrame& default_instance();
 
-  void Swap(DMSFrame *other);
+  void Swap(DMSFrame* other);
 
   // implements Message ----------------------------------------------
 
-  DMSFrame *New() const;
-  void CopyFrom(const ::google::protobuf::Message &from);
-  void MergeFrom(const ::google::protobuf::Message &from);
-  void CopyFrom(const DMSFrame &from);
-  void MergeFrom(const DMSFrame &from);
+  DMSFrame* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const DMSFrame& from);
+  void MergeFrom(const DMSFrame& from);
   void Clear();
   bool IsInitialized() const;
 
   int ByteSize() const;
   bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream *input);
+      ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream *output) const;
-  ::google::protobuf::uint8 *SerializeWithCachedSizesToArray(
-      ::google::protobuf::uint8 *output) const;
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
-
- private:
+  private:
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-
- public:
+  public:
   ::google::protobuf::Metadata GetMetadata() const;
 
   // nested types ----------------------------------------------------
@@ -1894,60 +4180,68 @@ class DMSFrame : public ::google::protobuf::Message {
   inline bool has_image() const;
   inline void clear_image();
   static const int kImageFieldNumber = 2;
-  inline const ::DMSFrameProtocol::ImageInfo &image() const;
-  inline ::DMSFrameProtocol::ImageInfo *mutable_image();
-  inline ::DMSFrameProtocol::ImageInfo *release_image();
-  inline void set_allocated_image(::DMSFrameProtocol::ImageInfo *image);
+  inline const ::DMSFrameProtocol::ImageInfo& image() const;
+  inline ::DMSFrameProtocol::ImageInfo* mutable_image();
+  inline ::DMSFrameProtocol::ImageInfo* release_image();
+  inline void set_allocated_image(::DMSFrameProtocol::ImageInfo* image);
 
   // optional .DMSFrameProtocol.AlgoResult algo_result = 3;
   inline bool has_algo_result() const;
   inline void clear_algo_result();
   static const int kAlgoResultFieldNumber = 3;
-  inline const ::DMSFrameProtocol::AlgoResult &algo_result() const;
-  inline ::DMSFrameProtocol::AlgoResult *mutable_algo_result();
-  inline ::DMSFrameProtocol::AlgoResult *release_algo_result();
-  inline void set_allocated_algo_result(
-      ::DMSFrameProtocol::AlgoResult *algo_result);
+  inline const ::DMSFrameProtocol::AlgoResult& algo_result() const;
+  inline ::DMSFrameProtocol::AlgoResult* mutable_algo_result();
+  inline ::DMSFrameProtocol::AlgoResult* release_algo_result();
+  inline void set_allocated_algo_result(::DMSFrameProtocol::AlgoResult* algo_result);
 
-  // optional .DMSFrameProtocol.MonitorResult monitor_result = 4;
-  inline bool has_monitor_result() const;
-  inline void clear_monitor_result();
-  static const int kMonitorResultFieldNumber = 4;
-  inline const ::DMSFrameProtocol::MonitorResult &monitor_result() const;
-  inline ::DMSFrameProtocol::MonitorResult *mutable_monitor_result();
-  inline ::DMSFrameProtocol::MonitorResult *release_monitor_result();
-  inline void set_allocated_monitor_result(
-      ::DMSFrameProtocol::MonitorResult *monitor_result);
+  // optional .DMSFrameProtocol.PolicyResult policy_result = 4;
+  inline bool has_policy_result() const;
+  inline void clear_policy_result();
+  static const int kPolicyResultFieldNumber = 4;
+  inline const ::DMSFrameProtocol::PolicyResult& policy_result() const;
+  inline ::DMSFrameProtocol::PolicyResult* mutable_policy_result();
+  inline ::DMSFrameProtocol::PolicyResult* release_policy_result();
+  inline void set_allocated_policy_result(::DMSFrameProtocol::PolicyResult* policy_result);
 
-  // repeated .DMSFrameProtocol.CANInfo can_info = 5;
+  // repeated .DMSFrameProtocol.EventResult event_result = 5;
+  inline int event_result_size() const;
+  inline void clear_event_result();
+  static const int kEventResultFieldNumber = 5;
+  inline const ::DMSFrameProtocol::EventResult& event_result(int index) const;
+  inline ::DMSFrameProtocol::EventResult* mutable_event_result(int index);
+  inline ::DMSFrameProtocol::EventResult* add_event_result();
+  inline const ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::EventResult >&
+      event_result() const;
+  inline ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::EventResult >*
+      mutable_event_result();
+
+  // repeated .DMSFrameProtocol.CANInfo can_info = 6;
   inline int can_info_size() const;
   inline void clear_can_info();
-  static const int kCanInfoFieldNumber = 5;
-  inline const ::DMSFrameProtocol::CANInfo &can_info(int index) const;
-  inline ::DMSFrameProtocol::CANInfo *mutable_can_info(int index);
-  inline ::DMSFrameProtocol::CANInfo *add_can_info();
-  inline const ::google::protobuf::RepeatedPtrField<
-      ::DMSFrameProtocol::CANInfo>
-      &can_info() const;
-  inline ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::CANInfo>
-      *mutable_can_info();
+  static const int kCanInfoFieldNumber = 6;
+  inline const ::DMSFrameProtocol::CANInfo& can_info(int index) const;
+  inline ::DMSFrameProtocol::CANInfo* mutable_can_info(int index);
+  inline ::DMSFrameProtocol::CANInfo* add_can_info();
+  inline const ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::CANInfo >&
+      can_info() const;
+  inline ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::CANInfo >*
+      mutable_can_info();
 
-  // optional bool seek_flag = 6 [default = false];
+  // optional .DMSFrameProtocol.VehicleInfo veh_info = 7;
+  inline bool has_veh_info() const;
+  inline void clear_veh_info();
+  static const int kVehInfoFieldNumber = 7;
+  inline const ::DMSFrameProtocol::VehicleInfo& veh_info() const;
+  inline ::DMSFrameProtocol::VehicleInfo* mutable_veh_info();
+  inline ::DMSFrameProtocol::VehicleInfo* release_veh_info();
+  inline void set_allocated_veh_info(::DMSFrameProtocol::VehicleInfo* veh_info);
+
+  // optional bool seek_flag = 8 [default = false];
   inline bool has_seek_flag() const;
   inline void clear_seek_flag();
-  static const int kSeekFlagFieldNumber = 6;
+  static const int kSeekFlagFieldNumber = 8;
   inline bool seek_flag() const;
   inline void set_seek_flag(bool value);
-
-  // optional .DMSFrameProtocol.FaceRecogResult facerecog_result = 7;
-  inline bool has_facerecog_result() const;
-  inline void clear_facerecog_result();
-  static const int kFacerecogResultFieldNumber = 7;
-  inline const ::DMSFrameProtocol::FaceRecogResult &facerecog_result() const;
-  inline ::DMSFrameProtocol::FaceRecogResult *mutable_facerecog_result();
-  inline ::DMSFrameProtocol::FaceRecogResult *release_facerecog_result();
-  inline void set_allocated_facerecog_result(
-      ::DMSFrameProtocol::FaceRecogResult *facerecog_result);
 
   // @@protoc_insertion_point(class_scope:DMSFrameProtocol.DMSFrame)
  private:
@@ -1957,113 +4251,133 @@ class DMSFrame : public ::google::protobuf::Message {
   inline void clear_has_image();
   inline void set_has_algo_result();
   inline void clear_has_algo_result();
-  inline void set_has_monitor_result();
-  inline void clear_has_monitor_result();
+  inline void set_has_policy_result();
+  inline void clear_has_policy_result();
+  inline void set_has_veh_info();
+  inline void clear_has_veh_info();
   inline void set_has_seek_flag();
   inline void clear_has_seek_flag();
-  inline void set_has_facerecog_result();
-  inline void clear_has_facerecog_result();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::DMSFrameProtocol::ImageInfo *image_;
-  ::DMSFrameProtocol::AlgoResult *algo_result_;
+  ::DMSFrameProtocol::ImageInfo* image_;
+  ::DMSFrameProtocol::AlgoResult* algo_result_;
+  ::DMSFrameProtocol::PolicyResult* policy_result_;
   ::google::protobuf::int32 frame_id_;
   bool seek_flag_;
-  ::DMSFrameProtocol::MonitorResult *monitor_result_;
-  ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::CANInfo> can_info_;
-  ::DMSFrameProtocol::FaceRecogResult *facerecog_result_;
-  friend void protobuf_AddDesc_DMSFrame_2eproto();
+  ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::EventResult > event_result_;
+  ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::CANInfo > can_info_;
+  ::DMSFrameProtocol::VehicleInfo* veh_info_;
+  friend void  protobuf_AddDesc_DMSFrame_2eproto();
   friend void protobuf_AssignDesc_DMSFrame_2eproto();
   friend void protobuf_ShutdownFile_DMSFrame_2eproto();
 
   void InitAsDefaultInstance();
-  static DMSFrame *default_instance_;
+  static DMSFrame* default_instance_;
 };
 // ===================================================================
 
+
 // ===================================================================
 
-// Rect
+// Rect_f
 
 // required float left = 1;
-inline bool Rect::has_left() const {
+inline bool Rect_f::has_left() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void Rect::set_has_left() { _has_bits_[0] |= 0x00000001u; }
-inline void Rect::clear_has_left() { _has_bits_[0] &= ~0x00000001u; }
-inline void Rect::clear_left() {
+inline void Rect_f::set_has_left() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void Rect_f::clear_has_left() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void Rect_f::clear_left() {
   left_ = 0;
   clear_has_left();
 }
-inline float Rect::left() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.Rect.left)
+inline float Rect_f::left() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.Rect_f.left)
   return left_;
 }
-inline void Rect::set_left(float value) {
+inline void Rect_f::set_left(float value) {
   set_has_left();
   left_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.Rect.left)
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.Rect_f.left)
 }
 
 // required float right = 2;
-inline bool Rect::has_right() const {
+inline bool Rect_f::has_right() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void Rect::set_has_right() { _has_bits_[0] |= 0x00000002u; }
-inline void Rect::clear_has_right() { _has_bits_[0] &= ~0x00000002u; }
-inline void Rect::clear_right() {
+inline void Rect_f::set_has_right() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void Rect_f::clear_has_right() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void Rect_f::clear_right() {
   right_ = 0;
   clear_has_right();
 }
-inline float Rect::right() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.Rect.right)
+inline float Rect_f::right() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.Rect_f.right)
   return right_;
 }
-inline void Rect::set_right(float value) {
+inline void Rect_f::set_right(float value) {
   set_has_right();
   right_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.Rect.right)
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.Rect_f.right)
 }
 
 // required float top = 3;
-inline bool Rect::has_top() const { return (_has_bits_[0] & 0x00000004u) != 0; }
-inline void Rect::set_has_top() { _has_bits_[0] |= 0x00000004u; }
-inline void Rect::clear_has_top() { _has_bits_[0] &= ~0x00000004u; }
-inline void Rect::clear_top() {
+inline bool Rect_f::has_top() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void Rect_f::set_has_top() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void Rect_f::clear_has_top() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void Rect_f::clear_top() {
   top_ = 0;
   clear_has_top();
 }
-inline float Rect::top() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.Rect.top)
+inline float Rect_f::top() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.Rect_f.top)
   return top_;
 }
-inline void Rect::set_top(float value) {
+inline void Rect_f::set_top(float value) {
   set_has_top();
   top_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.Rect.top)
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.Rect_f.top)
 }
 
 // required float bottom = 4;
-inline bool Rect::has_bottom() const {
+inline bool Rect_f::has_bottom() const {
   return (_has_bits_[0] & 0x00000008u) != 0;
 }
-inline void Rect::set_has_bottom() { _has_bits_[0] |= 0x00000008u; }
-inline void Rect::clear_has_bottom() { _has_bits_[0] &= ~0x00000008u; }
-inline void Rect::clear_bottom() {
+inline void Rect_f::set_has_bottom() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void Rect_f::clear_has_bottom() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void Rect_f::clear_bottom() {
   bottom_ = 0;
   clear_has_bottom();
 }
-inline float Rect::bottom() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.Rect.bottom)
+inline float Rect_f::bottom() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.Rect_f.bottom)
   return bottom_;
 }
-inline void Rect::set_bottom(float value) {
+inline void Rect_f::set_bottom(float value) {
   set_has_bottom();
   bottom_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.Rect.bottom)
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.Rect_f.bottom)
 }
 
 // -------------------------------------------------------------------
@@ -2074,8 +4388,12 @@ inline void Rect::set_bottom(float value) {
 inline bool Rect_i::has_left() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void Rect_i::set_has_left() { _has_bits_[0] |= 0x00000001u; }
-inline void Rect_i::clear_has_left() { _has_bits_[0] &= ~0x00000001u; }
+inline void Rect_i::set_has_left() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void Rect_i::clear_has_left() {
+  _has_bits_[0] &= ~0x00000001u;
+}
 inline void Rect_i::clear_left() {
   left_ = 0;
   clear_has_left();
@@ -2094,8 +4412,12 @@ inline void Rect_i::set_left(::google::protobuf::int32 value) {
 inline bool Rect_i::has_right() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void Rect_i::set_has_right() { _has_bits_[0] |= 0x00000002u; }
-inline void Rect_i::clear_has_right() { _has_bits_[0] &= ~0x00000002u; }
+inline void Rect_i::set_has_right() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void Rect_i::clear_has_right() {
+  _has_bits_[0] &= ~0x00000002u;
+}
 inline void Rect_i::clear_right() {
   right_ = 0;
   clear_has_right();
@@ -2114,8 +4436,12 @@ inline void Rect_i::set_right(::google::protobuf::int32 value) {
 inline bool Rect_i::has_top() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void Rect_i::set_has_top() { _has_bits_[0] |= 0x00000004u; }
-inline void Rect_i::clear_has_top() { _has_bits_[0] &= ~0x00000004u; }
+inline void Rect_i::set_has_top() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void Rect_i::clear_has_top() {
+  _has_bits_[0] &= ~0x00000004u;
+}
 inline void Rect_i::clear_top() {
   top_ = 0;
   clear_has_top();
@@ -2134,8 +4460,12 @@ inline void Rect_i::set_top(::google::protobuf::int32 value) {
 inline bool Rect_i::has_bottom() const {
   return (_has_bits_[0] & 0x00000008u) != 0;
 }
-inline void Rect_i::set_has_bottom() { _has_bits_[0] |= 0x00000008u; }
-inline void Rect_i::clear_has_bottom() { _has_bits_[0] &= ~0x00000008u; }
+inline void Rect_i::set_has_bottom() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void Rect_i::clear_has_bottom() {
+  _has_bits_[0] &= ~0x00000008u;
+}
 inline void Rect_i::clear_bottom() {
   bottom_ = 0;
   clear_has_bottom();
@@ -2152,75 +4482,91 @@ inline void Rect_i::set_bottom(::google::protobuf::int32 value) {
 
 // -------------------------------------------------------------------
 
-// Point
+// Point_f
 
 // required float x = 1;
-inline bool Point::has_x() const { return (_has_bits_[0] & 0x00000001u) != 0; }
-inline void Point::set_has_x() { _has_bits_[0] |= 0x00000001u; }
-inline void Point::clear_has_x() { _has_bits_[0] &= ~0x00000001u; }
-inline void Point::clear_x() {
+inline bool Point_f::has_x() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void Point_f::set_has_x() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void Point_f::clear_has_x() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void Point_f::clear_x() {
   x_ = 0;
   clear_has_x();
 }
-inline float Point::x() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.Point.x)
+inline float Point_f::x() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.Point_f.x)
   return x_;
 }
-inline void Point::set_x(float value) {
+inline void Point_f::set_x(float value) {
   set_has_x();
   x_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.Point.x)
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.Point_f.x)
 }
 
 // required float y = 2;
-inline bool Point::has_y() const { return (_has_bits_[0] & 0x00000002u) != 0; }
-inline void Point::set_has_y() { _has_bits_[0] |= 0x00000002u; }
-inline void Point::clear_has_y() { _has_bits_[0] &= ~0x00000002u; }
-inline void Point::clear_y() {
+inline bool Point_f::has_y() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void Point_f::set_has_y() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void Point_f::clear_has_y() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void Point_f::clear_y() {
   y_ = 0;
   clear_has_y();
 }
-inline float Point::y() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.Point.y)
+inline float Point_f::y() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.Point_f.y)
   return y_;
 }
-inline void Point::set_y(float value) {
+inline void Point_f::set_y(float value) {
   set_has_y();
   y_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.Point.y)
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.Point_f.y)
 }
 
 // -------------------------------------------------------------------
 
 // Face
 
-// required .DMSFrameProtocol.Rect ROI = 1;
-inline bool Face::has_roi() const { return (_has_bits_[0] & 0x00000001u) != 0; }
-inline void Face::set_has_roi() { _has_bits_[0] |= 0x00000001u; }
-inline void Face::clear_has_roi() { _has_bits_[0] &= ~0x00000001u; }
+// required .DMSFrameProtocol.Rect_f ROI = 1;
+inline bool Face::has_roi() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void Face::set_has_roi() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void Face::clear_has_roi() {
+  _has_bits_[0] &= ~0x00000001u;
+}
 inline void Face::clear_roi() {
-  if (roi_ != NULL)
-    roi_->::DMSFrameProtocol::Rect::Clear();
+  if (roi_ != NULL) roi_->::DMSFrameProtocol::Rect_f::Clear();
   clear_has_roi();
 }
-inline const ::DMSFrameProtocol::Rect &Face::roi() const {
+inline const ::DMSFrameProtocol::Rect_f& Face::roi() const {
   // @@protoc_insertion_point(field_get:DMSFrameProtocol.Face.ROI)
   return roi_ != NULL ? *roi_ : *default_instance_->roi_;
 }
-inline ::DMSFrameProtocol::Rect *Face::mutable_roi() {
+inline ::DMSFrameProtocol::Rect_f* Face::mutable_roi() {
   set_has_roi();
-  if (roi_ == NULL)
-    roi_ = new ::DMSFrameProtocol::Rect;
+  if (roi_ == NULL) roi_ = new ::DMSFrameProtocol::Rect_f;
   // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.Face.ROI)
   return roi_;
 }
-inline ::DMSFrameProtocol::Rect *Face::release_roi() {
+inline ::DMSFrameProtocol::Rect_f* Face::release_roi() {
   clear_has_roi();
-  ::DMSFrameProtocol::Rect *temp = roi_;
+  ::DMSFrameProtocol::Rect_f* temp = roi_;
   roi_ = NULL;
   return temp;
 }
-inline void Face::set_allocated_roi(::DMSFrameProtocol::Rect *roi) {
+inline void Face::set_allocated_roi(::DMSFrameProtocol::Rect_f* roi) {
   delete roi_;
   roi_ = roi;
   if (roi) {
@@ -2235,8 +4581,12 @@ inline void Face::set_allocated_roi(::DMSFrameProtocol::Rect *roi) {
 inline bool Face::has_score() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void Face::set_has_score() { _has_bits_[0] |= 0x00000002u; }
-inline void Face::clear_has_score() { _has_bits_[0] &= ~0x00000002u; }
+inline void Face::set_has_score() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void Face::clear_has_score() {
+  _has_bits_[0] &= ~0x00000002u;
+}
 inline void Face::clear_score() {
   score_ = 0;
   clear_has_score();
@@ -2253,90 +4603,1078 @@ inline void Face::set_score(float value) {
 
 // -------------------------------------------------------------------
 
+// FaceDetectResult
+
+// repeated .DMSFrameProtocol.Face face_original_ROIs = 1;
+inline int FaceDetectResult::face_original_rois_size() const {
+  return face_original_rois_.size();
+}
+inline void FaceDetectResult::clear_face_original_rois() {
+  face_original_rois_.Clear();
+}
+inline const ::DMSFrameProtocol::Face& FaceDetectResult::face_original_rois(int index) const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.FaceDetectResult.face_original_ROIs)
+  return face_original_rois_.Get(index);
+}
+inline ::DMSFrameProtocol::Face* FaceDetectResult::mutable_face_original_rois(int index) {
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.FaceDetectResult.face_original_ROIs)
+  return face_original_rois_.Mutable(index);
+}
+inline ::DMSFrameProtocol::Face* FaceDetectResult::add_face_original_rois() {
+  // @@protoc_insertion_point(field_add:DMSFrameProtocol.FaceDetectResult.face_original_ROIs)
+  return face_original_rois_.Add();
+}
+inline const ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::Face >&
+FaceDetectResult::face_original_rois() const {
+  // @@protoc_insertion_point(field_list:DMSFrameProtocol.FaceDetectResult.face_original_ROIs)
+  return face_original_rois_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::Face >*
+FaceDetectResult::mutable_face_original_rois() {
+  // @@protoc_insertion_point(field_mutable_list:DMSFrameProtocol.FaceDetectResult.face_original_ROIs)
+  return &face_original_rois_;
+}
+
+// optional .DMSFrameProtocol.Face face_filtered_ROIs = 2;
+inline bool FaceDetectResult::has_face_filtered_rois() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void FaceDetectResult::set_has_face_filtered_rois() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void FaceDetectResult::clear_has_face_filtered_rois() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void FaceDetectResult::clear_face_filtered_rois() {
+  if (face_filtered_rois_ != NULL) face_filtered_rois_->::DMSFrameProtocol::Face::Clear();
+  clear_has_face_filtered_rois();
+}
+inline const ::DMSFrameProtocol::Face& FaceDetectResult::face_filtered_rois() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.FaceDetectResult.face_filtered_ROIs)
+  return face_filtered_rois_ != NULL ? *face_filtered_rois_ : *default_instance_->face_filtered_rois_;
+}
+inline ::DMSFrameProtocol::Face* FaceDetectResult::mutable_face_filtered_rois() {
+  set_has_face_filtered_rois();
+  if (face_filtered_rois_ == NULL) face_filtered_rois_ = new ::DMSFrameProtocol::Face;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.FaceDetectResult.face_filtered_ROIs)
+  return face_filtered_rois_;
+}
+inline ::DMSFrameProtocol::Face* FaceDetectResult::release_face_filtered_rois() {
+  clear_has_face_filtered_rois();
+  ::DMSFrameProtocol::Face* temp = face_filtered_rois_;
+  face_filtered_rois_ = NULL;
+  return temp;
+}
+inline void FaceDetectResult::set_allocated_face_filtered_rois(::DMSFrameProtocol::Face* face_filtered_rois) {
+  delete face_filtered_rois_;
+  face_filtered_rois_ = face_filtered_rois;
+  if (face_filtered_rois) {
+    set_has_face_filtered_rois();
+  } else {
+    clear_has_face_filtered_rois();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.FaceDetectResult.face_filtered_ROIs)
+}
+
+// optional .DMSFrameProtocol.Rect_i face_detect_ROI = 3;
+inline bool FaceDetectResult::has_face_detect_roi() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void FaceDetectResult::set_has_face_detect_roi() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void FaceDetectResult::clear_has_face_detect_roi() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void FaceDetectResult::clear_face_detect_roi() {
+  if (face_detect_roi_ != NULL) face_detect_roi_->::DMSFrameProtocol::Rect_i::Clear();
+  clear_has_face_detect_roi();
+}
+inline const ::DMSFrameProtocol::Rect_i& FaceDetectResult::face_detect_roi() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.FaceDetectResult.face_detect_ROI)
+  return face_detect_roi_ != NULL ? *face_detect_roi_ : *default_instance_->face_detect_roi_;
+}
+inline ::DMSFrameProtocol::Rect_i* FaceDetectResult::mutable_face_detect_roi() {
+  set_has_face_detect_roi();
+  if (face_detect_roi_ == NULL) face_detect_roi_ = new ::DMSFrameProtocol::Rect_i;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.FaceDetectResult.face_detect_ROI)
+  return face_detect_roi_;
+}
+inline ::DMSFrameProtocol::Rect_i* FaceDetectResult::release_face_detect_roi() {
+  clear_has_face_detect_roi();
+  ::DMSFrameProtocol::Rect_i* temp = face_detect_roi_;
+  face_detect_roi_ = NULL;
+  return temp;
+}
+inline void FaceDetectResult::set_allocated_face_detect_roi(::DMSFrameProtocol::Rect_i* face_detect_roi) {
+  delete face_detect_roi_;
+  face_detect_roi_ = face_detect_roi;
+  if (face_detect_roi) {
+    set_has_face_detect_roi();
+  } else {
+    clear_has_face_detect_roi();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.FaceDetectResult.face_detect_ROI)
+}
+
+// -------------------------------------------------------------------
+
+// FaceDetectPost
+
+// optional .DMSFrameProtocol.FaceStateEnum face_state = 1;
+inline bool FaceDetectPost::has_face_state() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void FaceDetectPost::set_has_face_state() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void FaceDetectPost::clear_has_face_state() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void FaceDetectPost::clear_face_state() {
+  face_state_ = 0;
+  clear_has_face_state();
+}
+inline ::DMSFrameProtocol::FaceStateEnum FaceDetectPost::face_state() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.FaceDetectPost.face_state)
+  return static_cast< ::DMSFrameProtocol::FaceStateEnum >(face_state_);
+}
+inline void FaceDetectPost::set_face_state(::DMSFrameProtocol::FaceStateEnum value) {
+  assert(::DMSFrameProtocol::FaceStateEnum_IsValid(value));
+  set_has_face_state();
+  face_state_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.FaceDetectPost.face_state)
+}
+
+// optional float ab_sum_face_width = 2;
+inline bool FaceDetectPost::has_ab_sum_face_width() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void FaceDetectPost::set_has_ab_sum_face_width() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void FaceDetectPost::clear_has_ab_sum_face_width() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void FaceDetectPost::clear_ab_sum_face_width() {
+  ab_sum_face_width_ = 0;
+  clear_has_ab_sum_face_width();
+}
+inline float FaceDetectPost::ab_sum_face_width() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.FaceDetectPost.ab_sum_face_width)
+  return ab_sum_face_width_;
+}
+inline void FaceDetectPost::set_ab_sum_face_width(float value) {
+  set_has_ab_sum_face_width();
+  ab_sum_face_width_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.FaceDetectPost.ab_sum_face_width)
+}
+
+// optional float ab_avr_face_width = 3;
+inline bool FaceDetectPost::has_ab_avr_face_width() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void FaceDetectPost::set_has_ab_avr_face_width() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void FaceDetectPost::clear_has_ab_avr_face_width() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void FaceDetectPost::clear_ab_avr_face_width() {
+  ab_avr_face_width_ = 0;
+  clear_has_ab_avr_face_width();
+}
+inline float FaceDetectPost::ab_avr_face_width() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.FaceDetectPost.ab_avr_face_width)
+  return ab_avr_face_width_;
+}
+inline void FaceDetectPost::set_ab_avr_face_width(float value) {
+  set_has_ab_avr_face_width();
+  ab_avr_face_width_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.FaceDetectPost.ab_avr_face_width)
+}
+
+// optional float ab_sum_sqr_face_width = 4;
+inline bool FaceDetectPost::has_ab_sum_sqr_face_width() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void FaceDetectPost::set_has_ab_sum_sqr_face_width() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void FaceDetectPost::clear_has_ab_sum_sqr_face_width() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void FaceDetectPost::clear_ab_sum_sqr_face_width() {
+  ab_sum_sqr_face_width_ = 0;
+  clear_has_ab_sum_sqr_face_width();
+}
+inline float FaceDetectPost::ab_sum_sqr_face_width() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.FaceDetectPost.ab_sum_sqr_face_width)
+  return ab_sum_sqr_face_width_;
+}
+inline void FaceDetectPost::set_ab_sum_sqr_face_width(float value) {
+  set_has_ab_sum_sqr_face_width();
+  ab_sum_sqr_face_width_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.FaceDetectPost.ab_sum_sqr_face_width)
+}
+
+// optional float sum_face_width = 5;
+inline bool FaceDetectPost::has_sum_face_width() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void FaceDetectPost::set_has_sum_face_width() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void FaceDetectPost::clear_has_sum_face_width() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void FaceDetectPost::clear_sum_face_width() {
+  sum_face_width_ = 0;
+  clear_has_sum_face_width();
+}
+inline float FaceDetectPost::sum_face_width() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.FaceDetectPost.sum_face_width)
+  return sum_face_width_;
+}
+inline void FaceDetectPost::set_sum_face_width(float value) {
+  set_has_sum_face_width();
+  sum_face_width_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.FaceDetectPost.sum_face_width)
+}
+
+// optional float avr_face_width = 6;
+inline bool FaceDetectPost::has_avr_face_width() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void FaceDetectPost::set_has_avr_face_width() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void FaceDetectPost::clear_has_avr_face_width() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void FaceDetectPost::clear_avr_face_width() {
+  avr_face_width_ = 0;
+  clear_has_avr_face_width();
+}
+inline float FaceDetectPost::avr_face_width() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.FaceDetectPost.avr_face_width)
+  return avr_face_width_;
+}
+inline void FaceDetectPost::set_avr_face_width(float value) {
+  set_has_avr_face_width();
+  avr_face_width_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.FaceDetectPost.avr_face_width)
+}
+
+// -------------------------------------------------------------------
+
 // LandMark21
 
-// repeated .DMSFrameProtocol.Point LDMK = 1;
-inline int LandMark21::ldmk_size() const { return ldmk_.size(); }
-inline void LandMark21::clear_ldmk() { ldmk_.Clear(); }
-inline const ::DMSFrameProtocol::Point &LandMark21::ldmk(int index) const {
+// repeated .DMSFrameProtocol.Point_f LDMK = 1;
+inline int LandMark21::ldmk_size() const {
+  return ldmk_.size();
+}
+inline void LandMark21::clear_ldmk() {
+  ldmk_.Clear();
+}
+inline const ::DMSFrameProtocol::Point_f& LandMark21::ldmk(int index) const {
   // @@protoc_insertion_point(field_get:DMSFrameProtocol.LandMark21.LDMK)
   return ldmk_.Get(index);
 }
-inline ::DMSFrameProtocol::Point *LandMark21::mutable_ldmk(int index) {
+inline ::DMSFrameProtocol::Point_f* LandMark21::mutable_ldmk(int index) {
   // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.LandMark21.LDMK)
   return ldmk_.Mutable(index);
 }
-inline ::DMSFrameProtocol::Point *LandMark21::add_ldmk() {
+inline ::DMSFrameProtocol::Point_f* LandMark21::add_ldmk() {
   // @@protoc_insertion_point(field_add:DMSFrameProtocol.LandMark21.LDMK)
   return ldmk_.Add();
 }
-inline const ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::Point>
-    &LandMark21::ldmk() const {
+inline const ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::Point_f >&
+LandMark21::ldmk() const {
   // @@protoc_insertion_point(field_list:DMSFrameProtocol.LandMark21.LDMK)
   return ldmk_;
 }
-inline ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::Point>
-    *LandMark21::mutable_ldmk() {
+inline ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::Point_f >*
+LandMark21::mutable_ldmk() {
   // @@protoc_insertion_point(field_mutable_list:DMSFrameProtocol.LandMark21.LDMK)
   return &ldmk_;
 }
 
-// repeated float score = 2;
-inline int LandMark21::score_size() const { return score_.size(); }
-inline void LandMark21::clear_score() { score_.Clear(); }
-inline float LandMark21::score(int index) const {
+// optional float score = 2;
+inline bool LandMark21::has_score() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void LandMark21::set_has_score() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void LandMark21::clear_has_score() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void LandMark21::clear_score() {
+  score_ = 0;
+  clear_has_score();
+}
+inline float LandMark21::score() const {
   // @@protoc_insertion_point(field_get:DMSFrameProtocol.LandMark21.score)
-  return score_.Get(index);
-}
-inline void LandMark21::set_score(int index, float value) {
-  score_.Set(index, value);
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.LandMark21.score)
-}
-inline void LandMark21::add_score(float value) {
-  score_.Add(value);
-  // @@protoc_insertion_point(field_add:DMSFrameProtocol.LandMark21.score)
-}
-inline const ::google::protobuf::RepeatedField<float> &LandMark21::score()
-    const {
-  // @@protoc_insertion_point(field_list:DMSFrameProtocol.LandMark21.score)
   return score_;
 }
-inline ::google::protobuf::RepeatedField<float> *LandMark21::mutable_score() {
-  // @@protoc_insertion_point(field_mutable_list:DMSFrameProtocol.LandMark21.score)
-  return &score_;
+inline void LandMark21::set_score(float value) {
+  set_has_score();
+  score_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.LandMark21.score)
+}
+
+// -------------------------------------------------------------------
+
+// LandmarkPost
+
+// optional int32 deque_size = 1;
+inline bool LandmarkPost::has_deque_size() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void LandmarkPost::set_has_deque_size() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void LandmarkPost::clear_has_deque_size() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void LandmarkPost::clear_deque_size() {
+  deque_size_ = 0;
+  clear_has_deque_size();
+}
+inline ::google::protobuf::int32 LandmarkPost::deque_size() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.LandmarkPost.deque_size)
+  return deque_size_;
+}
+inline void LandmarkPost::set_deque_size(::google::protobuf::int32 value) {
+  set_has_deque_size();
+  deque_size_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.LandmarkPost.deque_size)
+}
+
+// optional .DMSFrameProtocol.Point_f sum_r_eye_point = 2;
+inline bool LandmarkPost::has_sum_r_eye_point() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void LandmarkPost::set_has_sum_r_eye_point() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void LandmarkPost::clear_has_sum_r_eye_point() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void LandmarkPost::clear_sum_r_eye_point() {
+  if (sum_r_eye_point_ != NULL) sum_r_eye_point_->::DMSFrameProtocol::Point_f::Clear();
+  clear_has_sum_r_eye_point();
+}
+inline const ::DMSFrameProtocol::Point_f& LandmarkPost::sum_r_eye_point() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.LandmarkPost.sum_r_eye_point)
+  return sum_r_eye_point_ != NULL ? *sum_r_eye_point_ : *default_instance_->sum_r_eye_point_;
+}
+inline ::DMSFrameProtocol::Point_f* LandmarkPost::mutable_sum_r_eye_point() {
+  set_has_sum_r_eye_point();
+  if (sum_r_eye_point_ == NULL) sum_r_eye_point_ = new ::DMSFrameProtocol::Point_f;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.LandmarkPost.sum_r_eye_point)
+  return sum_r_eye_point_;
+}
+inline ::DMSFrameProtocol::Point_f* LandmarkPost::release_sum_r_eye_point() {
+  clear_has_sum_r_eye_point();
+  ::DMSFrameProtocol::Point_f* temp = sum_r_eye_point_;
+  sum_r_eye_point_ = NULL;
+  return temp;
+}
+inline void LandmarkPost::set_allocated_sum_r_eye_point(::DMSFrameProtocol::Point_f* sum_r_eye_point) {
+  delete sum_r_eye_point_;
+  sum_r_eye_point_ = sum_r_eye_point;
+  if (sum_r_eye_point) {
+    set_has_sum_r_eye_point();
+  } else {
+    clear_has_sum_r_eye_point();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.LandmarkPost.sum_r_eye_point)
+}
+
+// optional .DMSFrameProtocol.Point_f sum_l_eye_point = 3;
+inline bool LandmarkPost::has_sum_l_eye_point() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void LandmarkPost::set_has_sum_l_eye_point() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void LandmarkPost::clear_has_sum_l_eye_point() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void LandmarkPost::clear_sum_l_eye_point() {
+  if (sum_l_eye_point_ != NULL) sum_l_eye_point_->::DMSFrameProtocol::Point_f::Clear();
+  clear_has_sum_l_eye_point();
+}
+inline const ::DMSFrameProtocol::Point_f& LandmarkPost::sum_l_eye_point() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.LandmarkPost.sum_l_eye_point)
+  return sum_l_eye_point_ != NULL ? *sum_l_eye_point_ : *default_instance_->sum_l_eye_point_;
+}
+inline ::DMSFrameProtocol::Point_f* LandmarkPost::mutable_sum_l_eye_point() {
+  set_has_sum_l_eye_point();
+  if (sum_l_eye_point_ == NULL) sum_l_eye_point_ = new ::DMSFrameProtocol::Point_f;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.LandmarkPost.sum_l_eye_point)
+  return sum_l_eye_point_;
+}
+inline ::DMSFrameProtocol::Point_f* LandmarkPost::release_sum_l_eye_point() {
+  clear_has_sum_l_eye_point();
+  ::DMSFrameProtocol::Point_f* temp = sum_l_eye_point_;
+  sum_l_eye_point_ = NULL;
+  return temp;
+}
+inline void LandmarkPost::set_allocated_sum_l_eye_point(::DMSFrameProtocol::Point_f* sum_l_eye_point) {
+  delete sum_l_eye_point_;
+  sum_l_eye_point_ = sum_l_eye_point;
+  if (sum_l_eye_point) {
+    set_has_sum_l_eye_point();
+  } else {
+    clear_has_sum_l_eye_point();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.LandmarkPost.sum_l_eye_point)
+}
+
+// optional .DMSFrameProtocol.Point_f sum_nose_point = 4;
+inline bool LandmarkPost::has_sum_nose_point() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void LandmarkPost::set_has_sum_nose_point() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void LandmarkPost::clear_has_sum_nose_point() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void LandmarkPost::clear_sum_nose_point() {
+  if (sum_nose_point_ != NULL) sum_nose_point_->::DMSFrameProtocol::Point_f::Clear();
+  clear_has_sum_nose_point();
+}
+inline const ::DMSFrameProtocol::Point_f& LandmarkPost::sum_nose_point() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.LandmarkPost.sum_nose_point)
+  return sum_nose_point_ != NULL ? *sum_nose_point_ : *default_instance_->sum_nose_point_;
+}
+inline ::DMSFrameProtocol::Point_f* LandmarkPost::mutable_sum_nose_point() {
+  set_has_sum_nose_point();
+  if (sum_nose_point_ == NULL) sum_nose_point_ = new ::DMSFrameProtocol::Point_f;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.LandmarkPost.sum_nose_point)
+  return sum_nose_point_;
+}
+inline ::DMSFrameProtocol::Point_f* LandmarkPost::release_sum_nose_point() {
+  clear_has_sum_nose_point();
+  ::DMSFrameProtocol::Point_f* temp = sum_nose_point_;
+  sum_nose_point_ = NULL;
+  return temp;
+}
+inline void LandmarkPost::set_allocated_sum_nose_point(::DMSFrameProtocol::Point_f* sum_nose_point) {
+  delete sum_nose_point_;
+  sum_nose_point_ = sum_nose_point;
+  if (sum_nose_point) {
+    set_has_sum_nose_point();
+  } else {
+    clear_has_sum_nose_point();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.LandmarkPost.sum_nose_point)
+}
+
+// optional .DMSFrameProtocol.Point_f avr_r_eye_point = 5;
+inline bool LandmarkPost::has_avr_r_eye_point() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void LandmarkPost::set_has_avr_r_eye_point() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void LandmarkPost::clear_has_avr_r_eye_point() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void LandmarkPost::clear_avr_r_eye_point() {
+  if (avr_r_eye_point_ != NULL) avr_r_eye_point_->::DMSFrameProtocol::Point_f::Clear();
+  clear_has_avr_r_eye_point();
+}
+inline const ::DMSFrameProtocol::Point_f& LandmarkPost::avr_r_eye_point() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.LandmarkPost.avr_r_eye_point)
+  return avr_r_eye_point_ != NULL ? *avr_r_eye_point_ : *default_instance_->avr_r_eye_point_;
+}
+inline ::DMSFrameProtocol::Point_f* LandmarkPost::mutable_avr_r_eye_point() {
+  set_has_avr_r_eye_point();
+  if (avr_r_eye_point_ == NULL) avr_r_eye_point_ = new ::DMSFrameProtocol::Point_f;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.LandmarkPost.avr_r_eye_point)
+  return avr_r_eye_point_;
+}
+inline ::DMSFrameProtocol::Point_f* LandmarkPost::release_avr_r_eye_point() {
+  clear_has_avr_r_eye_point();
+  ::DMSFrameProtocol::Point_f* temp = avr_r_eye_point_;
+  avr_r_eye_point_ = NULL;
+  return temp;
+}
+inline void LandmarkPost::set_allocated_avr_r_eye_point(::DMSFrameProtocol::Point_f* avr_r_eye_point) {
+  delete avr_r_eye_point_;
+  avr_r_eye_point_ = avr_r_eye_point;
+  if (avr_r_eye_point) {
+    set_has_avr_r_eye_point();
+  } else {
+    clear_has_avr_r_eye_point();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.LandmarkPost.avr_r_eye_point)
+}
+
+// optional .DMSFrameProtocol.Point_f avr_l_eye_point = 6;
+inline bool LandmarkPost::has_avr_l_eye_point() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void LandmarkPost::set_has_avr_l_eye_point() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void LandmarkPost::clear_has_avr_l_eye_point() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void LandmarkPost::clear_avr_l_eye_point() {
+  if (avr_l_eye_point_ != NULL) avr_l_eye_point_->::DMSFrameProtocol::Point_f::Clear();
+  clear_has_avr_l_eye_point();
+}
+inline const ::DMSFrameProtocol::Point_f& LandmarkPost::avr_l_eye_point() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.LandmarkPost.avr_l_eye_point)
+  return avr_l_eye_point_ != NULL ? *avr_l_eye_point_ : *default_instance_->avr_l_eye_point_;
+}
+inline ::DMSFrameProtocol::Point_f* LandmarkPost::mutable_avr_l_eye_point() {
+  set_has_avr_l_eye_point();
+  if (avr_l_eye_point_ == NULL) avr_l_eye_point_ = new ::DMSFrameProtocol::Point_f;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.LandmarkPost.avr_l_eye_point)
+  return avr_l_eye_point_;
+}
+inline ::DMSFrameProtocol::Point_f* LandmarkPost::release_avr_l_eye_point() {
+  clear_has_avr_l_eye_point();
+  ::DMSFrameProtocol::Point_f* temp = avr_l_eye_point_;
+  avr_l_eye_point_ = NULL;
+  return temp;
+}
+inline void LandmarkPost::set_allocated_avr_l_eye_point(::DMSFrameProtocol::Point_f* avr_l_eye_point) {
+  delete avr_l_eye_point_;
+  avr_l_eye_point_ = avr_l_eye_point;
+  if (avr_l_eye_point) {
+    set_has_avr_l_eye_point();
+  } else {
+    clear_has_avr_l_eye_point();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.LandmarkPost.avr_l_eye_point)
+}
+
+// optional .DMSFrameProtocol.Point_f avr_nose_point = 7;
+inline bool LandmarkPost::has_avr_nose_point() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void LandmarkPost::set_has_avr_nose_point() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void LandmarkPost::clear_has_avr_nose_point() {
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline void LandmarkPost::clear_avr_nose_point() {
+  if (avr_nose_point_ != NULL) avr_nose_point_->::DMSFrameProtocol::Point_f::Clear();
+  clear_has_avr_nose_point();
+}
+inline const ::DMSFrameProtocol::Point_f& LandmarkPost::avr_nose_point() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.LandmarkPost.avr_nose_point)
+  return avr_nose_point_ != NULL ? *avr_nose_point_ : *default_instance_->avr_nose_point_;
+}
+inline ::DMSFrameProtocol::Point_f* LandmarkPost::mutable_avr_nose_point() {
+  set_has_avr_nose_point();
+  if (avr_nose_point_ == NULL) avr_nose_point_ = new ::DMSFrameProtocol::Point_f;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.LandmarkPost.avr_nose_point)
+  return avr_nose_point_;
+}
+inline ::DMSFrameProtocol::Point_f* LandmarkPost::release_avr_nose_point() {
+  clear_has_avr_nose_point();
+  ::DMSFrameProtocol::Point_f* temp = avr_nose_point_;
+  avr_nose_point_ = NULL;
+  return temp;
+}
+inline void LandmarkPost::set_allocated_avr_nose_point(::DMSFrameProtocol::Point_f* avr_nose_point) {
+  delete avr_nose_point_;
+  avr_nose_point_ = avr_nose_point;
+  if (avr_nose_point) {
+    set_has_avr_nose_point();
+  } else {
+    clear_has_avr_nose_point();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.LandmarkPost.avr_nose_point)
+}
+
+// optional float avr_eyes_dist = 8;
+inline bool LandmarkPost::has_avr_eyes_dist() const {
+  return (_has_bits_[0] & 0x00000080u) != 0;
+}
+inline void LandmarkPost::set_has_avr_eyes_dist() {
+  _has_bits_[0] |= 0x00000080u;
+}
+inline void LandmarkPost::clear_has_avr_eyes_dist() {
+  _has_bits_[0] &= ~0x00000080u;
+}
+inline void LandmarkPost::clear_avr_eyes_dist() {
+  avr_eyes_dist_ = 0;
+  clear_has_avr_eyes_dist();
+}
+inline float LandmarkPost::avr_eyes_dist() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.LandmarkPost.avr_eyes_dist)
+  return avr_eyes_dist_;
+}
+inline void LandmarkPost::set_avr_eyes_dist(float value) {
+  set_has_avr_eyes_dist();
+  avr_eyes_dist_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.LandmarkPost.avr_eyes_dist)
+}
+
+// optional float avr_nose_leye_dist = 9;
+inline bool LandmarkPost::has_avr_nose_leye_dist() const {
+  return (_has_bits_[0] & 0x00000100u) != 0;
+}
+inline void LandmarkPost::set_has_avr_nose_leye_dist() {
+  _has_bits_[0] |= 0x00000100u;
+}
+inline void LandmarkPost::clear_has_avr_nose_leye_dist() {
+  _has_bits_[0] &= ~0x00000100u;
+}
+inline void LandmarkPost::clear_avr_nose_leye_dist() {
+  avr_nose_leye_dist_ = 0;
+  clear_has_avr_nose_leye_dist();
+}
+inline float LandmarkPost::avr_nose_leye_dist() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.LandmarkPost.avr_nose_leye_dist)
+  return avr_nose_leye_dist_;
+}
+inline void LandmarkPost::set_avr_nose_leye_dist(float value) {
+  set_has_avr_nose_leye_dist();
+  avr_nose_leye_dist_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.LandmarkPost.avr_nose_leye_dist)
+}
+
+// optional float avr_nose_reye_dist = 10;
+inline bool LandmarkPost::has_avr_nose_reye_dist() const {
+  return (_has_bits_[0] & 0x00000200u) != 0;
+}
+inline void LandmarkPost::set_has_avr_nose_reye_dist() {
+  _has_bits_[0] |= 0x00000200u;
+}
+inline void LandmarkPost::clear_has_avr_nose_reye_dist() {
+  _has_bits_[0] &= ~0x00000200u;
+}
+inline void LandmarkPost::clear_avr_nose_reye_dist() {
+  avr_nose_reye_dist_ = 0;
+  clear_has_avr_nose_reye_dist();
+}
+inline float LandmarkPost::avr_nose_reye_dist() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.LandmarkPost.avr_nose_reye_dist)
+  return avr_nose_reye_dist_;
+}
+inline void LandmarkPost::set_avr_nose_reye_dist(float value) {
+  set_has_avr_nose_reye_dist();
+  avr_nose_reye_dist_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.LandmarkPost.avr_nose_reye_dist)
+}
+
+// optional float cur_nose_leye_dist = 11;
+inline bool LandmarkPost::has_cur_nose_leye_dist() const {
+  return (_has_bits_[0] & 0x00000400u) != 0;
+}
+inline void LandmarkPost::set_has_cur_nose_leye_dist() {
+  _has_bits_[0] |= 0x00000400u;
+}
+inline void LandmarkPost::clear_has_cur_nose_leye_dist() {
+  _has_bits_[0] &= ~0x00000400u;
+}
+inline void LandmarkPost::clear_cur_nose_leye_dist() {
+  cur_nose_leye_dist_ = 0;
+  clear_has_cur_nose_leye_dist();
+}
+inline float LandmarkPost::cur_nose_leye_dist() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.LandmarkPost.cur_nose_leye_dist)
+  return cur_nose_leye_dist_;
+}
+inline void LandmarkPost::set_cur_nose_leye_dist(float value) {
+  set_has_cur_nose_leye_dist();
+  cur_nose_leye_dist_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.LandmarkPost.cur_nose_leye_dist)
+}
+
+// optional float cur_nose_reye_dist = 12;
+inline bool LandmarkPost::has_cur_nose_reye_dist() const {
+  return (_has_bits_[0] & 0x00000800u) != 0;
+}
+inline void LandmarkPost::set_has_cur_nose_reye_dist() {
+  _has_bits_[0] |= 0x00000800u;
+}
+inline void LandmarkPost::clear_has_cur_nose_reye_dist() {
+  _has_bits_[0] &= ~0x00000800u;
+}
+inline void LandmarkPost::clear_cur_nose_reye_dist() {
+  cur_nose_reye_dist_ = 0;
+  clear_has_cur_nose_reye_dist();
+}
+inline float LandmarkPost::cur_nose_reye_dist() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.LandmarkPost.cur_nose_reye_dist)
+  return cur_nose_reye_dist_;
+}
+inline void LandmarkPost::set_cur_nose_reye_dist(float value) {
+  set_has_cur_nose_reye_dist();
+  cur_nose_reye_dist_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.LandmarkPost.cur_nose_reye_dist)
+}
+
+// optional float avr_rl_nose_dist = 13;
+inline bool LandmarkPost::has_avr_rl_nose_dist() const {
+  return (_has_bits_[0] & 0x00001000u) != 0;
+}
+inline void LandmarkPost::set_has_avr_rl_nose_dist() {
+  _has_bits_[0] |= 0x00001000u;
+}
+inline void LandmarkPost::clear_has_avr_rl_nose_dist() {
+  _has_bits_[0] &= ~0x00001000u;
+}
+inline void LandmarkPost::clear_avr_rl_nose_dist() {
+  avr_rl_nose_dist_ = 0;
+  clear_has_avr_rl_nose_dist();
+}
+inline float LandmarkPost::avr_rl_nose_dist() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.LandmarkPost.avr_rl_nose_dist)
+  return avr_rl_nose_dist_;
+}
+inline void LandmarkPost::set_avr_rl_nose_dist(float value) {
+  set_has_avr_rl_nose_dist();
+  avr_rl_nose_dist_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.LandmarkPost.avr_rl_nose_dist)
+}
+
+// optional float cur_rl_nose_dist = 14;
+inline bool LandmarkPost::has_cur_rl_nose_dist() const {
+  return (_has_bits_[0] & 0x00002000u) != 0;
+}
+inline void LandmarkPost::set_has_cur_rl_nose_dist() {
+  _has_bits_[0] |= 0x00002000u;
+}
+inline void LandmarkPost::clear_has_cur_rl_nose_dist() {
+  _has_bits_[0] &= ~0x00002000u;
+}
+inline void LandmarkPost::clear_cur_rl_nose_dist() {
+  cur_rl_nose_dist_ = 0;
+  clear_has_cur_rl_nose_dist();
+}
+inline float LandmarkPost::cur_rl_nose_dist() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.LandmarkPost.cur_rl_nose_dist)
+  return cur_rl_nose_dist_;
+}
+inline void LandmarkPost::set_cur_rl_nose_dist(float value) {
+  set_has_cur_rl_nose_dist();
+  cur_rl_nose_dist_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.LandmarkPost.cur_rl_nose_dist)
+}
+
+// optional float avr_nose_rl_ratio = 15;
+inline bool LandmarkPost::has_avr_nose_rl_ratio() const {
+  return (_has_bits_[0] & 0x00004000u) != 0;
+}
+inline void LandmarkPost::set_has_avr_nose_rl_ratio() {
+  _has_bits_[0] |= 0x00004000u;
+}
+inline void LandmarkPost::clear_has_avr_nose_rl_ratio() {
+  _has_bits_[0] &= ~0x00004000u;
+}
+inline void LandmarkPost::clear_avr_nose_rl_ratio() {
+  avr_nose_rl_ratio_ = 0;
+  clear_has_avr_nose_rl_ratio();
+}
+inline float LandmarkPost::avr_nose_rl_ratio() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.LandmarkPost.avr_nose_rl_ratio)
+  return avr_nose_rl_ratio_;
+}
+inline void LandmarkPost::set_avr_nose_rl_ratio(float value) {
+  set_has_avr_nose_rl_ratio();
+  avr_nose_rl_ratio_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.LandmarkPost.avr_nose_rl_ratio)
+}
+
+// optional float cur_nose_rl_ratio = 16;
+inline bool LandmarkPost::has_cur_nose_rl_ratio() const {
+  return (_has_bits_[0] & 0x00008000u) != 0;
+}
+inline void LandmarkPost::set_has_cur_nose_rl_ratio() {
+  _has_bits_[0] |= 0x00008000u;
+}
+inline void LandmarkPost::clear_has_cur_nose_rl_ratio() {
+  _has_bits_[0] &= ~0x00008000u;
+}
+inline void LandmarkPost::clear_cur_nose_rl_ratio() {
+  cur_nose_rl_ratio_ = 0;
+  clear_has_cur_nose_rl_ratio();
+}
+inline float LandmarkPost::cur_nose_rl_ratio() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.LandmarkPost.cur_nose_rl_ratio)
+  return cur_nose_rl_ratio_;
+}
+inline void LandmarkPost::set_cur_nose_rl_ratio(float value) {
+  set_has_cur_nose_rl_ratio();
+  cur_nose_rl_ratio_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.LandmarkPost.cur_nose_rl_ratio)
+}
+
+// optional float avr_ln_rl_ratio = 17;
+inline bool LandmarkPost::has_avr_ln_rl_ratio() const {
+  return (_has_bits_[0] & 0x00010000u) != 0;
+}
+inline void LandmarkPost::set_has_avr_ln_rl_ratio() {
+  _has_bits_[0] |= 0x00010000u;
+}
+inline void LandmarkPost::clear_has_avr_ln_rl_ratio() {
+  _has_bits_[0] &= ~0x00010000u;
+}
+inline void LandmarkPost::clear_avr_ln_rl_ratio() {
+  avr_ln_rl_ratio_ = 0;
+  clear_has_avr_ln_rl_ratio();
+}
+inline float LandmarkPost::avr_ln_rl_ratio() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.LandmarkPost.avr_ln_rl_ratio)
+  return avr_ln_rl_ratio_;
+}
+inline void LandmarkPost::set_avr_ln_rl_ratio(float value) {
+  set_has_avr_ln_rl_ratio();
+  avr_ln_rl_ratio_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.LandmarkPost.avr_ln_rl_ratio)
+}
+
+// optional float avr_rn_rl_ratio = 18;
+inline bool LandmarkPost::has_avr_rn_rl_ratio() const {
+  return (_has_bits_[0] & 0x00020000u) != 0;
+}
+inline void LandmarkPost::set_has_avr_rn_rl_ratio() {
+  _has_bits_[0] |= 0x00020000u;
+}
+inline void LandmarkPost::clear_has_avr_rn_rl_ratio() {
+  _has_bits_[0] &= ~0x00020000u;
+}
+inline void LandmarkPost::clear_avr_rn_rl_ratio() {
+  avr_rn_rl_ratio_ = 0;
+  clear_has_avr_rn_rl_ratio();
+}
+inline float LandmarkPost::avr_rn_rl_ratio() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.LandmarkPost.avr_rn_rl_ratio)
+  return avr_rn_rl_ratio_;
+}
+inline void LandmarkPost::set_avr_rn_rl_ratio(float value) {
+  set_has_avr_rn_rl_ratio();
+  avr_rn_rl_ratio_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.LandmarkPost.avr_rn_rl_ratio)
+}
+
+// optional float cur_ln_rl_ratio = 19;
+inline bool LandmarkPost::has_cur_ln_rl_ratio() const {
+  return (_has_bits_[0] & 0x00040000u) != 0;
+}
+inline void LandmarkPost::set_has_cur_ln_rl_ratio() {
+  _has_bits_[0] |= 0x00040000u;
+}
+inline void LandmarkPost::clear_has_cur_ln_rl_ratio() {
+  _has_bits_[0] &= ~0x00040000u;
+}
+inline void LandmarkPost::clear_cur_ln_rl_ratio() {
+  cur_ln_rl_ratio_ = 0;
+  clear_has_cur_ln_rl_ratio();
+}
+inline float LandmarkPost::cur_ln_rl_ratio() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.LandmarkPost.cur_ln_rl_ratio)
+  return cur_ln_rl_ratio_;
+}
+inline void LandmarkPost::set_cur_ln_rl_ratio(float value) {
+  set_has_cur_ln_rl_ratio();
+  cur_ln_rl_ratio_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.LandmarkPost.cur_ln_rl_ratio)
+}
+
+// optional float cur_rn_rl_ratio = 20;
+inline bool LandmarkPost::has_cur_rn_rl_ratio() const {
+  return (_has_bits_[0] & 0x00080000u) != 0;
+}
+inline void LandmarkPost::set_has_cur_rn_rl_ratio() {
+  _has_bits_[0] |= 0x00080000u;
+}
+inline void LandmarkPost::clear_has_cur_rn_rl_ratio() {
+  _has_bits_[0] &= ~0x00080000u;
+}
+inline void LandmarkPost::clear_cur_rn_rl_ratio() {
+  cur_rn_rl_ratio_ = 0;
+  clear_has_cur_rn_rl_ratio();
+}
+inline float LandmarkPost::cur_rn_rl_ratio() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.LandmarkPost.cur_rn_rl_ratio)
+  return cur_rn_rl_ratio_;
+}
+inline void LandmarkPost::set_cur_rn_rl_ratio(float value) {
+  set_has_cur_rn_rl_ratio();
+  cur_rn_rl_ratio_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.LandmarkPost.cur_rn_rl_ratio)
+}
+
+// optional .DMSFrameProtocol.Point_f sum_sqr_nose_point = 21;
+inline bool LandmarkPost::has_sum_sqr_nose_point() const {
+  return (_has_bits_[0] & 0x00100000u) != 0;
+}
+inline void LandmarkPost::set_has_sum_sqr_nose_point() {
+  _has_bits_[0] |= 0x00100000u;
+}
+inline void LandmarkPost::clear_has_sum_sqr_nose_point() {
+  _has_bits_[0] &= ~0x00100000u;
+}
+inline void LandmarkPost::clear_sum_sqr_nose_point() {
+  if (sum_sqr_nose_point_ != NULL) sum_sqr_nose_point_->::DMSFrameProtocol::Point_f::Clear();
+  clear_has_sum_sqr_nose_point();
+}
+inline const ::DMSFrameProtocol::Point_f& LandmarkPost::sum_sqr_nose_point() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.LandmarkPost.sum_sqr_nose_point)
+  return sum_sqr_nose_point_ != NULL ? *sum_sqr_nose_point_ : *default_instance_->sum_sqr_nose_point_;
+}
+inline ::DMSFrameProtocol::Point_f* LandmarkPost::mutable_sum_sqr_nose_point() {
+  set_has_sum_sqr_nose_point();
+  if (sum_sqr_nose_point_ == NULL) sum_sqr_nose_point_ = new ::DMSFrameProtocol::Point_f;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.LandmarkPost.sum_sqr_nose_point)
+  return sum_sqr_nose_point_;
+}
+inline ::DMSFrameProtocol::Point_f* LandmarkPost::release_sum_sqr_nose_point() {
+  clear_has_sum_sqr_nose_point();
+  ::DMSFrameProtocol::Point_f* temp = sum_sqr_nose_point_;
+  sum_sqr_nose_point_ = NULL;
+  return temp;
+}
+inline void LandmarkPost::set_allocated_sum_sqr_nose_point(::DMSFrameProtocol::Point_f* sum_sqr_nose_point) {
+  delete sum_sqr_nose_point_;
+  sum_sqr_nose_point_ = sum_sqr_nose_point;
+  if (sum_sqr_nose_point) {
+    set_has_sum_sqr_nose_point();
+  } else {
+    clear_has_sum_sqr_nose_point();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.LandmarkPost.sum_sqr_nose_point)
+}
+
+// optional .DMSFrameProtocol.Point_f avr_sqr_nose_point = 22;
+inline bool LandmarkPost::has_avr_sqr_nose_point() const {
+  return (_has_bits_[0] & 0x00200000u) != 0;
+}
+inline void LandmarkPost::set_has_avr_sqr_nose_point() {
+  _has_bits_[0] |= 0x00200000u;
+}
+inline void LandmarkPost::clear_has_avr_sqr_nose_point() {
+  _has_bits_[0] &= ~0x00200000u;
+}
+inline void LandmarkPost::clear_avr_sqr_nose_point() {
+  if (avr_sqr_nose_point_ != NULL) avr_sqr_nose_point_->::DMSFrameProtocol::Point_f::Clear();
+  clear_has_avr_sqr_nose_point();
+}
+inline const ::DMSFrameProtocol::Point_f& LandmarkPost::avr_sqr_nose_point() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.LandmarkPost.avr_sqr_nose_point)
+  return avr_sqr_nose_point_ != NULL ? *avr_sqr_nose_point_ : *default_instance_->avr_sqr_nose_point_;
+}
+inline ::DMSFrameProtocol::Point_f* LandmarkPost::mutable_avr_sqr_nose_point() {
+  set_has_avr_sqr_nose_point();
+  if (avr_sqr_nose_point_ == NULL) avr_sqr_nose_point_ = new ::DMSFrameProtocol::Point_f;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.LandmarkPost.avr_sqr_nose_point)
+  return avr_sqr_nose_point_;
+}
+inline ::DMSFrameProtocol::Point_f* LandmarkPost::release_avr_sqr_nose_point() {
+  clear_has_avr_sqr_nose_point();
+  ::DMSFrameProtocol::Point_f* temp = avr_sqr_nose_point_;
+  avr_sqr_nose_point_ = NULL;
+  return temp;
+}
+inline void LandmarkPost::set_allocated_avr_sqr_nose_point(::DMSFrameProtocol::Point_f* avr_sqr_nose_point) {
+  delete avr_sqr_nose_point_;
+  avr_sqr_nose_point_ = avr_sqr_nose_point;
+  if (avr_sqr_nose_point) {
+    set_has_avr_sqr_nose_point();
+  } else {
+    clear_has_avr_sqr_nose_point();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.LandmarkPost.avr_sqr_nose_point)
+}
+
+// optional float avri_nose_posi_x = 23;
+inline bool LandmarkPost::has_avri_nose_posi_x() const {
+  return (_has_bits_[0] & 0x00400000u) != 0;
+}
+inline void LandmarkPost::set_has_avri_nose_posi_x() {
+  _has_bits_[0] |= 0x00400000u;
+}
+inline void LandmarkPost::clear_has_avri_nose_posi_x() {
+  _has_bits_[0] &= ~0x00400000u;
+}
+inline void LandmarkPost::clear_avri_nose_posi_x() {
+  avri_nose_posi_x_ = 0;
+  clear_has_avri_nose_posi_x();
+}
+inline float LandmarkPost::avri_nose_posi_x() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.LandmarkPost.avri_nose_posi_x)
+  return avri_nose_posi_x_;
+}
+inline void LandmarkPost::set_avri_nose_posi_x(float value) {
+  set_has_avri_nose_posi_x();
+  avri_nose_posi_x_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.LandmarkPost.avri_nose_posi_x)
+}
+
+// optional float avri_nose_posi_y = 24;
+inline bool LandmarkPost::has_avri_nose_posi_y() const {
+  return (_has_bits_[0] & 0x00800000u) != 0;
+}
+inline void LandmarkPost::set_has_avri_nose_posi_y() {
+  _has_bits_[0] |= 0x00800000u;
+}
+inline void LandmarkPost::clear_has_avri_nose_posi_y() {
+  _has_bits_[0] &= ~0x00800000u;
+}
+inline void LandmarkPost::clear_avri_nose_posi_y() {
+  avri_nose_posi_y_ = 0;
+  clear_has_avri_nose_posi_y();
+}
+inline float LandmarkPost::avri_nose_posi_y() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.LandmarkPost.avri_nose_posi_y)
+  return avri_nose_posi_y_;
+}
+inline void LandmarkPost::set_avri_nose_posi_y(float value) {
+  set_has_avri_nose_posi_y();
+  avri_nose_posi_y_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.LandmarkPost.avri_nose_posi_y)
 }
 
 // -------------------------------------------------------------------
 
 // Eye
 
-// required .DMSFrameProtocol.Rect ROI = 1;
-inline bool Eye::has_roi() const { return (_has_bits_[0] & 0x00000001u) != 0; }
-inline void Eye::set_has_roi() { _has_bits_[0] |= 0x00000001u; }
-inline void Eye::clear_has_roi() { _has_bits_[0] &= ~0x00000001u; }
+// required .DMSFrameProtocol.Rect_i ROI = 1;
+inline bool Eye::has_roi() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void Eye::set_has_roi() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void Eye::clear_has_roi() {
+  _has_bits_[0] &= ~0x00000001u;
+}
 inline void Eye::clear_roi() {
-  if (roi_ != NULL)
-    roi_->::DMSFrameProtocol::Rect::Clear();
+  if (roi_ != NULL) roi_->::DMSFrameProtocol::Rect_i::Clear();
   clear_has_roi();
 }
-inline const ::DMSFrameProtocol::Rect &Eye::roi() const {
+inline const ::DMSFrameProtocol::Rect_i& Eye::roi() const {
   // @@protoc_insertion_point(field_get:DMSFrameProtocol.Eye.ROI)
   return roi_ != NULL ? *roi_ : *default_instance_->roi_;
 }
-inline ::DMSFrameProtocol::Rect *Eye::mutable_roi() {
+inline ::DMSFrameProtocol::Rect_i* Eye::mutable_roi() {
   set_has_roi();
-  if (roi_ == NULL)
-    roi_ = new ::DMSFrameProtocol::Rect;
+  if (roi_ == NULL) roi_ = new ::DMSFrameProtocol::Rect_i;
   // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.Eye.ROI)
   return roi_;
 }
-inline ::DMSFrameProtocol::Rect *Eye::release_roi() {
+inline ::DMSFrameProtocol::Rect_i* Eye::release_roi() {
   clear_has_roi();
-  ::DMSFrameProtocol::Rect *temp = roi_;
+  ::DMSFrameProtocol::Rect_i* temp = roi_;
   roi_ = NULL;
   return temp;
 }
-inline void Eye::set_allocated_roi(::DMSFrameProtocol::Rect *roi) {
+inline void Eye::set_allocated_roi(::DMSFrameProtocol::Rect_i* roi) {
   delete roi_;
   roi_ = roi;
   if (roi) {
@@ -2347,21 +5685,26 @@ inline void Eye::set_allocated_roi(::DMSFrameProtocol::Rect *roi) {
   // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.Eye.ROI)
 }
 
-// required int32 status = 2;
+// required .DMSFrameProtocol.EyeStateEnum status = 2;
 inline bool Eye::has_status() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void Eye::set_has_status() { _has_bits_[0] |= 0x00000002u; }
-inline void Eye::clear_has_status() { _has_bits_[0] &= ~0x00000002u; }
+inline void Eye::set_has_status() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void Eye::clear_has_status() {
+  _has_bits_[0] &= ~0x00000002u;
+}
 inline void Eye::clear_status() {
   status_ = 0;
   clear_has_status();
 }
-inline ::google::protobuf::int32 Eye::status() const {
+inline ::DMSFrameProtocol::EyeStateEnum Eye::status() const {
   // @@protoc_insertion_point(field_get:DMSFrameProtocol.Eye.status)
-  return status_;
+  return static_cast< ::DMSFrameProtocol::EyeStateEnum >(status_);
 }
-inline void Eye::set_status(::google::protobuf::int32 value) {
+inline void Eye::set_status(::DMSFrameProtocol::EyeStateEnum value) {
+  assert(::DMSFrameProtocol::EyeStateEnum_IsValid(value));
   set_has_status();
   status_ = value;
   // @@protoc_insertion_point(field_set:DMSFrameProtocol.Eye.status)
@@ -2371,8 +5714,12 @@ inline void Eye::set_status(::google::protobuf::int32 value) {
 inline bool Eye::has_open_score() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void Eye::set_has_open_score() { _has_bits_[0] |= 0x00000004u; }
-inline void Eye::clear_has_open_score() { _has_bits_[0] &= ~0x00000004u; }
+inline void Eye::set_has_open_score() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void Eye::clear_has_open_score() {
+  _has_bits_[0] &= ~0x00000004u;
+}
 inline void Eye::clear_open_score() {
   open_score_ = 0;
   clear_has_open_score();
@@ -2391,8 +5738,12 @@ inline void Eye::set_open_score(float value) {
 inline bool Eye::has_close_score() const {
   return (_has_bits_[0] & 0x00000008u) != 0;
 }
-inline void Eye::set_has_close_score() { _has_bits_[0] |= 0x00000008u; }
-inline void Eye::clear_has_close_score() { _has_bits_[0] &= ~0x00000008u; }
+inline void Eye::set_has_close_score() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void Eye::clear_has_close_score() {
+  _has_bits_[0] &= ~0x00000008u;
+}
 inline void Eye::clear_close_score() {
   close_score_ = 0;
   clear_has_close_score();
@@ -2415,31 +5766,33 @@ inline void Eye::set_close_score(float value) {
 inline bool Eyes::has_left() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void Eyes::set_has_left() { _has_bits_[0] |= 0x00000001u; }
-inline void Eyes::clear_has_left() { _has_bits_[0] &= ~0x00000001u; }
+inline void Eyes::set_has_left() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void Eyes::clear_has_left() {
+  _has_bits_[0] &= ~0x00000001u;
+}
 inline void Eyes::clear_left() {
-  if (left_ != NULL)
-    left_->::DMSFrameProtocol::Eye::Clear();
+  if (left_ != NULL) left_->::DMSFrameProtocol::Eye::Clear();
   clear_has_left();
 }
-inline const ::DMSFrameProtocol::Eye &Eyes::left() const {
+inline const ::DMSFrameProtocol::Eye& Eyes::left() const {
   // @@protoc_insertion_point(field_get:DMSFrameProtocol.Eyes.left)
   return left_ != NULL ? *left_ : *default_instance_->left_;
 }
-inline ::DMSFrameProtocol::Eye *Eyes::mutable_left() {
+inline ::DMSFrameProtocol::Eye* Eyes::mutable_left() {
   set_has_left();
-  if (left_ == NULL)
-    left_ = new ::DMSFrameProtocol::Eye;
+  if (left_ == NULL) left_ = new ::DMSFrameProtocol::Eye;
   // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.Eyes.left)
   return left_;
 }
-inline ::DMSFrameProtocol::Eye *Eyes::release_left() {
+inline ::DMSFrameProtocol::Eye* Eyes::release_left() {
   clear_has_left();
-  ::DMSFrameProtocol::Eye *temp = left_;
+  ::DMSFrameProtocol::Eye* temp = left_;
   left_ = NULL;
   return temp;
 }
-inline void Eyes::set_allocated_left(::DMSFrameProtocol::Eye *left) {
+inline void Eyes::set_allocated_left(::DMSFrameProtocol::Eye* left) {
   delete left_;
   left_ = left;
   if (left) {
@@ -2454,31 +5807,33 @@ inline void Eyes::set_allocated_left(::DMSFrameProtocol::Eye *left) {
 inline bool Eyes::has_right() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void Eyes::set_has_right() { _has_bits_[0] |= 0x00000002u; }
-inline void Eyes::clear_has_right() { _has_bits_[0] &= ~0x00000002u; }
+inline void Eyes::set_has_right() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void Eyes::clear_has_right() {
+  _has_bits_[0] &= ~0x00000002u;
+}
 inline void Eyes::clear_right() {
-  if (right_ != NULL)
-    right_->::DMSFrameProtocol::Eye::Clear();
+  if (right_ != NULL) right_->::DMSFrameProtocol::Eye::Clear();
   clear_has_right();
 }
-inline const ::DMSFrameProtocol::Eye &Eyes::right() const {
+inline const ::DMSFrameProtocol::Eye& Eyes::right() const {
   // @@protoc_insertion_point(field_get:DMSFrameProtocol.Eyes.right)
   return right_ != NULL ? *right_ : *default_instance_->right_;
 }
-inline ::DMSFrameProtocol::Eye *Eyes::mutable_right() {
+inline ::DMSFrameProtocol::Eye* Eyes::mutable_right() {
   set_has_right();
-  if (right_ == NULL)
-    right_ = new ::DMSFrameProtocol::Eye;
+  if (right_ == NULL) right_ = new ::DMSFrameProtocol::Eye;
   // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.Eyes.right)
   return right_;
 }
-inline ::DMSFrameProtocol::Eye *Eyes::release_right() {
+inline ::DMSFrameProtocol::Eye* Eyes::release_right() {
   clear_has_right();
-  ::DMSFrameProtocol::Eye *temp = right_;
+  ::DMSFrameProtocol::Eye* temp = right_;
   right_ = NULL;
   return temp;
 }
-inline void Eyes::set_allocated_right(::DMSFrameProtocol::Eye *right) {
+inline void Eyes::set_allocated_right(::DMSFrameProtocol::Eye* right) {
   delete right_;
   right_ = right;
   if (right) {
@@ -2491,115 +5846,876 @@ inline void Eyes::set_allocated_right(::DMSFrameProtocol::Eye *right) {
 
 // -------------------------------------------------------------------
 
-// AlgoResult
+// EyesPost
 
-// repeated .DMSFrameProtocol.Face face_original_ROIs = 1;
-inline int AlgoResult::face_original_rois_size() const {
-  return face_original_rois_.size();
+// optional float r_eye_gradient = 1;
+inline bool EyesPost::has_r_eye_gradient() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void AlgoResult::clear_face_original_rois() {
-  face_original_rois_.Clear();
+inline void EyesPost::set_has_r_eye_gradient() {
+  _has_bits_[0] |= 0x00000001u;
 }
-inline const ::DMSFrameProtocol::Face &AlgoResult::face_original_rois(
-    int index) const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.AlgoResult.face_original_ROIs)
-  return face_original_rois_.Get(index);
+inline void EyesPost::clear_has_r_eye_gradient() {
+  _has_bits_[0] &= ~0x00000001u;
 }
-inline ::DMSFrameProtocol::Face *AlgoResult::mutable_face_original_rois(
-    int index) {
-  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.AlgoResult.face_original_ROIs)
-  return face_original_rois_.Mutable(index);
+inline void EyesPost::clear_r_eye_gradient() {
+  r_eye_gradient_ = 0;
+  clear_has_r_eye_gradient();
 }
-inline ::DMSFrameProtocol::Face *AlgoResult::add_face_original_rois() {
-  // @@protoc_insertion_point(field_add:DMSFrameProtocol.AlgoResult.face_original_ROIs)
-  return face_original_rois_.Add();
+inline float EyesPost::r_eye_gradient() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.EyesPost.r_eye_gradient)
+  return r_eye_gradient_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::Face>
-    &AlgoResult::face_original_rois() const {
-  // @@protoc_insertion_point(field_list:DMSFrameProtocol.AlgoResult.face_original_ROIs)
-  return face_original_rois_;
-}
-inline ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::Face>
-    *AlgoResult::mutable_face_original_rois() {
-  // @@protoc_insertion_point(field_mutable_list:DMSFrameProtocol.AlgoResult.face_original_ROIs)
-  return &face_original_rois_;
+inline void EyesPost::set_r_eye_gradient(float value) {
+  set_has_r_eye_gradient();
+  r_eye_gradient_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.EyesPost.r_eye_gradient)
 }
 
-// optional .DMSFrameProtocol.Face face_filtered_ROIs = 2;
-inline bool AlgoResult::has_face_filtered_rois() const {
+// optional float l_eye_gradient = 2;
+inline bool EyesPost::has_l_eye_gradient() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void AlgoResult::set_has_face_filtered_rois() {
+inline void EyesPost::set_has_l_eye_gradient() {
   _has_bits_[0] |= 0x00000002u;
 }
-inline void AlgoResult::clear_has_face_filtered_rois() {
+inline void EyesPost::clear_has_l_eye_gradient() {
   _has_bits_[0] &= ~0x00000002u;
 }
-inline void AlgoResult::clear_face_filtered_rois() {
-  if (face_filtered_rois_ != NULL)
-    face_filtered_rois_->::DMSFrameProtocol::Face::Clear();
-  clear_has_face_filtered_rois();
+inline void EyesPost::clear_l_eye_gradient() {
+  l_eye_gradient_ = 0;
+  clear_has_l_eye_gradient();
 }
-inline const ::DMSFrameProtocol::Face &AlgoResult::face_filtered_rois() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.AlgoResult.face_filtered_ROIs)
-  return face_filtered_rois_ != NULL ? *face_filtered_rois_
-                                     : *default_instance_->face_filtered_rois_;
+inline float EyesPost::l_eye_gradient() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.EyesPost.l_eye_gradient)
+  return l_eye_gradient_;
 }
-inline ::DMSFrameProtocol::Face *AlgoResult::mutable_face_filtered_rois() {
-  set_has_face_filtered_rois();
-  if (face_filtered_rois_ == NULL)
-    face_filtered_rois_ = new ::DMSFrameProtocol::Face;
-  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.AlgoResult.face_filtered_ROIs)
-  return face_filtered_rois_;
-}
-inline ::DMSFrameProtocol::Face *AlgoResult::release_face_filtered_rois() {
-  clear_has_face_filtered_rois();
-  ::DMSFrameProtocol::Face *temp = face_filtered_rois_;
-  face_filtered_rois_ = NULL;
-  return temp;
-}
-inline void AlgoResult::set_allocated_face_filtered_rois(
-    ::DMSFrameProtocol::Face *face_filtered_rois) {
-  delete face_filtered_rois_;
-  face_filtered_rois_ = face_filtered_rois;
-  if (face_filtered_rois) {
-    set_has_face_filtered_rois();
-  } else {
-    clear_has_face_filtered_rois();
-  }
-  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.AlgoResult.face_filtered_ROIs)
+inline void EyesPost::set_l_eye_gradient(float value) {
+  set_has_l_eye_gradient();
+  l_eye_gradient_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.EyesPost.l_eye_gradient)
 }
 
-// optional .DMSFrameProtocol.LandMark21 landmark = 3;
-inline bool AlgoResult::has_landmark() const {
+// optional float avr_r_eye_close = 3;
+inline bool EyesPost::has_avr_r_eye_close() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void AlgoResult::set_has_landmark() { _has_bits_[0] |= 0x00000004u; }
-inline void AlgoResult::clear_has_landmark() { _has_bits_[0] &= ~0x00000004u; }
+inline void EyesPost::set_has_avr_r_eye_close() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void EyesPost::clear_has_avr_r_eye_close() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void EyesPost::clear_avr_r_eye_close() {
+  avr_r_eye_close_ = 0;
+  clear_has_avr_r_eye_close();
+}
+inline float EyesPost::avr_r_eye_close() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.EyesPost.avr_r_eye_close)
+  return avr_r_eye_close_;
+}
+inline void EyesPost::set_avr_r_eye_close(float value) {
+  set_has_avr_r_eye_close();
+  avr_r_eye_close_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.EyesPost.avr_r_eye_close)
+}
+
+// optional float avr_l_eye_close = 4;
+inline bool EyesPost::has_avr_l_eye_close() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void EyesPost::set_has_avr_l_eye_close() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void EyesPost::clear_has_avr_l_eye_close() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void EyesPost::clear_avr_l_eye_close() {
+  avr_l_eye_close_ = 0;
+  clear_has_avr_l_eye_close();
+}
+inline float EyesPost::avr_l_eye_close() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.EyesPost.avr_l_eye_close)
+  return avr_l_eye_close_;
+}
+inline void EyesPost::set_avr_l_eye_close(float value) {
+  set_has_avr_l_eye_close();
+  avr_l_eye_close_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.EyesPost.avr_l_eye_close)
+}
+
+// -------------------------------------------------------------------
+
+// Phone
+
+// required .DMSFrameProtocol.Rect_f ROI = 1;
+inline bool Phone::has_roi() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void Phone::set_has_roi() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void Phone::clear_has_roi() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void Phone::clear_roi() {
+  if (roi_ != NULL) roi_->::DMSFrameProtocol::Rect_f::Clear();
+  clear_has_roi();
+}
+inline const ::DMSFrameProtocol::Rect_f& Phone::roi() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.Phone.ROI)
+  return roi_ != NULL ? *roi_ : *default_instance_->roi_;
+}
+inline ::DMSFrameProtocol::Rect_f* Phone::mutable_roi() {
+  set_has_roi();
+  if (roi_ == NULL) roi_ = new ::DMSFrameProtocol::Rect_f;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.Phone.ROI)
+  return roi_;
+}
+inline ::DMSFrameProtocol::Rect_f* Phone::release_roi() {
+  clear_has_roi();
+  ::DMSFrameProtocol::Rect_f* temp = roi_;
+  roi_ = NULL;
+  return temp;
+}
+inline void Phone::set_allocated_roi(::DMSFrameProtocol::Rect_f* roi) {
+  delete roi_;
+  roi_ = roi;
+  if (roi) {
+    set_has_roi();
+  } else {
+    clear_has_roi();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.Phone.ROI)
+}
+
+// required float score = 2;
+inline bool Phone::has_score() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void Phone::set_has_score() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void Phone::clear_has_score() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void Phone::clear_score() {
+  score_ = 0;
+  clear_has_score();
+}
+inline float Phone::score() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.Phone.score)
+  return score_;
+}
+inline void Phone::set_score(float value) {
+  set_has_score();
+  score_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.Phone.score)
+}
+
+// -------------------------------------------------------------------
+
+// PhoneDetectResult
+
+// repeated .DMSFrameProtocol.Phone phone_original_ROIs = 1;
+inline int PhoneDetectResult::phone_original_rois_size() const {
+  return phone_original_rois_.size();
+}
+inline void PhoneDetectResult::clear_phone_original_rois() {
+  phone_original_rois_.Clear();
+}
+inline const ::DMSFrameProtocol::Phone& PhoneDetectResult::phone_original_rois(int index) const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PhoneDetectResult.phone_original_ROIs)
+  return phone_original_rois_.Get(index);
+}
+inline ::DMSFrameProtocol::Phone* PhoneDetectResult::mutable_phone_original_rois(int index) {
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.PhoneDetectResult.phone_original_ROIs)
+  return phone_original_rois_.Mutable(index);
+}
+inline ::DMSFrameProtocol::Phone* PhoneDetectResult::add_phone_original_rois() {
+  // @@protoc_insertion_point(field_add:DMSFrameProtocol.PhoneDetectResult.phone_original_ROIs)
+  return phone_original_rois_.Add();
+}
+inline const ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::Phone >&
+PhoneDetectResult::phone_original_rois() const {
+  // @@protoc_insertion_point(field_list:DMSFrameProtocol.PhoneDetectResult.phone_original_ROIs)
+  return phone_original_rois_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::Phone >*
+PhoneDetectResult::mutable_phone_original_rois() {
+  // @@protoc_insertion_point(field_mutable_list:DMSFrameProtocol.PhoneDetectResult.phone_original_ROIs)
+  return &phone_original_rois_;
+}
+
+// optional .DMSFrameProtocol.Phone phone_filtered_ROIs = 2;
+inline bool PhoneDetectResult::has_phone_filtered_rois() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void PhoneDetectResult::set_has_phone_filtered_rois() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void PhoneDetectResult::clear_has_phone_filtered_rois() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void PhoneDetectResult::clear_phone_filtered_rois() {
+  if (phone_filtered_rois_ != NULL) phone_filtered_rois_->::DMSFrameProtocol::Phone::Clear();
+  clear_has_phone_filtered_rois();
+}
+inline const ::DMSFrameProtocol::Phone& PhoneDetectResult::phone_filtered_rois() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PhoneDetectResult.phone_filtered_ROIs)
+  return phone_filtered_rois_ != NULL ? *phone_filtered_rois_ : *default_instance_->phone_filtered_rois_;
+}
+inline ::DMSFrameProtocol::Phone* PhoneDetectResult::mutable_phone_filtered_rois() {
+  set_has_phone_filtered_rois();
+  if (phone_filtered_rois_ == NULL) phone_filtered_rois_ = new ::DMSFrameProtocol::Phone;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.PhoneDetectResult.phone_filtered_ROIs)
+  return phone_filtered_rois_;
+}
+inline ::DMSFrameProtocol::Phone* PhoneDetectResult::release_phone_filtered_rois() {
+  clear_has_phone_filtered_rois();
+  ::DMSFrameProtocol::Phone* temp = phone_filtered_rois_;
+  phone_filtered_rois_ = NULL;
+  return temp;
+}
+inline void PhoneDetectResult::set_allocated_phone_filtered_rois(::DMSFrameProtocol::Phone* phone_filtered_rois) {
+  delete phone_filtered_rois_;
+  phone_filtered_rois_ = phone_filtered_rois;
+  if (phone_filtered_rois) {
+    set_has_phone_filtered_rois();
+  } else {
+    clear_has_phone_filtered_rois();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.PhoneDetectResult.phone_filtered_ROIs)
+}
+
+// optional .DMSFrameProtocol.Rect_i phone_detect_ROI = 3;
+inline bool PhoneDetectResult::has_phone_detect_roi() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void PhoneDetectResult::set_has_phone_detect_roi() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void PhoneDetectResult::clear_has_phone_detect_roi() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void PhoneDetectResult::clear_phone_detect_roi() {
+  if (phone_detect_roi_ != NULL) phone_detect_roi_->::DMSFrameProtocol::Rect_i::Clear();
+  clear_has_phone_detect_roi();
+}
+inline const ::DMSFrameProtocol::Rect_i& PhoneDetectResult::phone_detect_roi() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PhoneDetectResult.phone_detect_ROI)
+  return phone_detect_roi_ != NULL ? *phone_detect_roi_ : *default_instance_->phone_detect_roi_;
+}
+inline ::DMSFrameProtocol::Rect_i* PhoneDetectResult::mutable_phone_detect_roi() {
+  set_has_phone_detect_roi();
+  if (phone_detect_roi_ == NULL) phone_detect_roi_ = new ::DMSFrameProtocol::Rect_i;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.PhoneDetectResult.phone_detect_ROI)
+  return phone_detect_roi_;
+}
+inline ::DMSFrameProtocol::Rect_i* PhoneDetectResult::release_phone_detect_roi() {
+  clear_has_phone_detect_roi();
+  ::DMSFrameProtocol::Rect_i* temp = phone_detect_roi_;
+  phone_detect_roi_ = NULL;
+  return temp;
+}
+inline void PhoneDetectResult::set_allocated_phone_detect_roi(::DMSFrameProtocol::Rect_i* phone_detect_roi) {
+  delete phone_detect_roi_;
+  phone_detect_roi_ = phone_detect_roi;
+  if (phone_detect_roi) {
+    set_has_phone_detect_roi();
+  } else {
+    clear_has_phone_detect_roi();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.PhoneDetectResult.phone_detect_ROI)
+}
+
+// -------------------------------------------------------------------
+
+// PhoneDetectPost
+
+// optional int32 phone_ear_dist = 1;
+inline bool PhoneDetectPost::has_phone_ear_dist() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void PhoneDetectPost::set_has_phone_ear_dist() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void PhoneDetectPost::clear_has_phone_ear_dist() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void PhoneDetectPost::clear_phone_ear_dist() {
+  phone_ear_dist_ = 0;
+  clear_has_phone_ear_dist();
+}
+inline ::google::protobuf::int32 PhoneDetectPost::phone_ear_dist() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PhoneDetectPost.phone_ear_dist)
+  return phone_ear_dist_;
+}
+inline void PhoneDetectPost::set_phone_ear_dist(::google::protobuf::int32 value) {
+  set_has_phone_ear_dist();
+  phone_ear_dist_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.PhoneDetectPost.phone_ear_dist)
+}
+
+// -------------------------------------------------------------------
+
+// SmokeClsfResult
+
+// optional float exist_score = 1;
+inline bool SmokeClsfResult::has_exist_score() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void SmokeClsfResult::set_has_exist_score() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void SmokeClsfResult::clear_has_exist_score() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void SmokeClsfResult::clear_exist_score() {
+  exist_score_ = 0;
+  clear_has_exist_score();
+}
+inline float SmokeClsfResult::exist_score() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.SmokeClsfResult.exist_score)
+  return exist_score_;
+}
+inline void SmokeClsfResult::set_exist_score(float value) {
+  set_has_exist_score();
+  exist_score_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.SmokeClsfResult.exist_score)
+}
+
+// optional float noexist_score = 2;
+inline bool SmokeClsfResult::has_noexist_score() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void SmokeClsfResult::set_has_noexist_score() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void SmokeClsfResult::clear_has_noexist_score() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void SmokeClsfResult::clear_noexist_score() {
+  noexist_score_ = 0;
+  clear_has_noexist_score();
+}
+inline float SmokeClsfResult::noexist_score() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.SmokeClsfResult.noexist_score)
+  return noexist_score_;
+}
+inline void SmokeClsfResult::set_noexist_score(float value) {
+  set_has_noexist_score();
+  noexist_score_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.SmokeClsfResult.noexist_score)
+}
+
+// optional .DMSFrameProtocol.Rect_i smoke_detect_ROI = 3;
+inline bool SmokeClsfResult::has_smoke_detect_roi() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void SmokeClsfResult::set_has_smoke_detect_roi() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void SmokeClsfResult::clear_has_smoke_detect_roi() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void SmokeClsfResult::clear_smoke_detect_roi() {
+  if (smoke_detect_roi_ != NULL) smoke_detect_roi_->::DMSFrameProtocol::Rect_i::Clear();
+  clear_has_smoke_detect_roi();
+}
+inline const ::DMSFrameProtocol::Rect_i& SmokeClsfResult::smoke_detect_roi() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.SmokeClsfResult.smoke_detect_ROI)
+  return smoke_detect_roi_ != NULL ? *smoke_detect_roi_ : *default_instance_->smoke_detect_roi_;
+}
+inline ::DMSFrameProtocol::Rect_i* SmokeClsfResult::mutable_smoke_detect_roi() {
+  set_has_smoke_detect_roi();
+  if (smoke_detect_roi_ == NULL) smoke_detect_roi_ = new ::DMSFrameProtocol::Rect_i;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.SmokeClsfResult.smoke_detect_ROI)
+  return smoke_detect_roi_;
+}
+inline ::DMSFrameProtocol::Rect_i* SmokeClsfResult::release_smoke_detect_roi() {
+  clear_has_smoke_detect_roi();
+  ::DMSFrameProtocol::Rect_i* temp = smoke_detect_roi_;
+  smoke_detect_roi_ = NULL;
+  return temp;
+}
+inline void SmokeClsfResult::set_allocated_smoke_detect_roi(::DMSFrameProtocol::Rect_i* smoke_detect_roi) {
+  delete smoke_detect_roi_;
+  smoke_detect_roi_ = smoke_detect_roi;
+  if (smoke_detect_roi) {
+    set_has_smoke_detect_roi();
+  } else {
+    clear_has_smoke_detect_roi();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.SmokeClsfResult.smoke_detect_ROI)
+}
+
+// optional .DMSFrameProtocol.SmokeStateEnum smoke_st = 4;
+inline bool SmokeClsfResult::has_smoke_st() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void SmokeClsfResult::set_has_smoke_st() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void SmokeClsfResult::clear_has_smoke_st() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void SmokeClsfResult::clear_smoke_st() {
+  smoke_st_ = 0;
+  clear_has_smoke_st();
+}
+inline ::DMSFrameProtocol::SmokeStateEnum SmokeClsfResult::smoke_st() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.SmokeClsfResult.smoke_st)
+  return static_cast< ::DMSFrameProtocol::SmokeStateEnum >(smoke_st_);
+}
+inline void SmokeClsfResult::set_smoke_st(::DMSFrameProtocol::SmokeStateEnum value) {
+  assert(::DMSFrameProtocol::SmokeStateEnum_IsValid(value));
+  set_has_smoke_st();
+  smoke_st_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.SmokeClsfResult.smoke_st)
+}
+
+// -------------------------------------------------------------------
+
+// SmokeClsfPost
+
+// -------------------------------------------------------------------
+
+// FaceRecogResult
+
+// optional int32 person_id = 1;
+inline bool FaceRecogResult::has_person_id() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void FaceRecogResult::set_has_person_id() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void FaceRecogResult::clear_has_person_id() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void FaceRecogResult::clear_person_id() {
+  person_id_ = 0;
+  clear_has_person_id();
+}
+inline ::google::protobuf::int32 FaceRecogResult::person_id() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.FaceRecogResult.person_id)
+  return person_id_;
+}
+inline void FaceRecogResult::set_person_id(::google::protobuf::int32 value) {
+  set_has_person_id();
+  person_id_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.FaceRecogResult.person_id)
+}
+
+// optional string person_name = 2;
+inline bool FaceRecogResult::has_person_name() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void FaceRecogResult::set_has_person_name() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void FaceRecogResult::clear_has_person_name() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void FaceRecogResult::clear_person_name() {
+  if (person_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    person_name_->clear();
+  }
+  clear_has_person_name();
+}
+inline const ::std::string& FaceRecogResult::person_name() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.FaceRecogResult.person_name)
+  return *person_name_;
+}
+inline void FaceRecogResult::set_person_name(const ::std::string& value) {
+  set_has_person_name();
+  if (person_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    person_name_ = new ::std::string;
+  }
+  person_name_->assign(value);
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.FaceRecogResult.person_name)
+}
+inline void FaceRecogResult::set_person_name(const char* value) {
+  set_has_person_name();
+  if (person_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    person_name_ = new ::std::string;
+  }
+  person_name_->assign(value);
+  // @@protoc_insertion_point(field_set_char:DMSFrameProtocol.FaceRecogResult.person_name)
+}
+inline void FaceRecogResult::set_person_name(const char* value, size_t size) {
+  set_has_person_name();
+  if (person_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    person_name_ = new ::std::string;
+  }
+  person_name_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:DMSFrameProtocol.FaceRecogResult.person_name)
+}
+inline ::std::string* FaceRecogResult::mutable_person_name() {
+  set_has_person_name();
+  if (person_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    person_name_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.FaceRecogResult.person_name)
+  return person_name_;
+}
+inline ::std::string* FaceRecogResult::release_person_name() {
+  clear_has_person_name();
+  if (person_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = person_name_;
+    person_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void FaceRecogResult::set_allocated_person_name(::std::string* person_name) {
+  if (person_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete person_name_;
+  }
+  if (person_name) {
+    set_has_person_name();
+    person_name_ = person_name;
+  } else {
+    clear_has_person_name();
+    person_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.FaceRecogResult.person_name)
+}
+
+// optional int64 person_timestamp = 3;
+inline bool FaceRecogResult::has_person_timestamp() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void FaceRecogResult::set_has_person_timestamp() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void FaceRecogResult::clear_has_person_timestamp() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void FaceRecogResult::clear_person_timestamp() {
+  person_timestamp_ = GOOGLE_LONGLONG(0);
+  clear_has_person_timestamp();
+}
+inline ::google::protobuf::int64 FaceRecogResult::person_timestamp() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.FaceRecogResult.person_timestamp)
+  return person_timestamp_;
+}
+inline void FaceRecogResult::set_person_timestamp(::google::protobuf::int64 value) {
+  set_has_person_timestamp();
+  person_timestamp_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.FaceRecogResult.person_timestamp)
+}
+
+// optional int32 person_frame_id = 4;
+inline bool FaceRecogResult::has_person_frame_id() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void FaceRecogResult::set_has_person_frame_id() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void FaceRecogResult::clear_has_person_frame_id() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void FaceRecogResult::clear_person_frame_id() {
+  person_frame_id_ = 0;
+  clear_has_person_frame_id();
+}
+inline ::google::protobuf::int32 FaceRecogResult::person_frame_id() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.FaceRecogResult.person_frame_id)
+  return person_frame_id_;
+}
+inline void FaceRecogResult::set_person_frame_id(::google::protobuf::int32 value) {
+  set_has_person_frame_id();
+  person_frame_id_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.FaceRecogResult.person_frame_id)
+}
+
+// optional .DMSFrameProtocol.Rect_i person_detect_ROI = 5;
+inline bool FaceRecogResult::has_person_detect_roi() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void FaceRecogResult::set_has_person_detect_roi() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void FaceRecogResult::clear_has_person_detect_roi() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void FaceRecogResult::clear_person_detect_roi() {
+  if (person_detect_roi_ != NULL) person_detect_roi_->::DMSFrameProtocol::Rect_i::Clear();
+  clear_has_person_detect_roi();
+}
+inline const ::DMSFrameProtocol::Rect_i& FaceRecogResult::person_detect_roi() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.FaceRecogResult.person_detect_ROI)
+  return person_detect_roi_ != NULL ? *person_detect_roi_ : *default_instance_->person_detect_roi_;
+}
+inline ::DMSFrameProtocol::Rect_i* FaceRecogResult::mutable_person_detect_roi() {
+  set_has_person_detect_roi();
+  if (person_detect_roi_ == NULL) person_detect_roi_ = new ::DMSFrameProtocol::Rect_i;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.FaceRecogResult.person_detect_ROI)
+  return person_detect_roi_;
+}
+inline ::DMSFrameProtocol::Rect_i* FaceRecogResult::release_person_detect_roi() {
+  clear_has_person_detect_roi();
+  ::DMSFrameProtocol::Rect_i* temp = person_detect_roi_;
+  person_detect_roi_ = NULL;
+  return temp;
+}
+inline void FaceRecogResult::set_allocated_person_detect_roi(::DMSFrameProtocol::Rect_i* person_detect_roi) {
+  delete person_detect_roi_;
+  person_detect_roi_ = person_detect_roi;
+  if (person_detect_roi) {
+    set_has_person_detect_roi();
+  } else {
+    clear_has_person_detect_roi();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.FaceRecogResult.person_detect_ROI)
+}
+
+// optional .DMSFrameProtocol.Rect_i person_result_ROI = 6;
+inline bool FaceRecogResult::has_person_result_roi() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void FaceRecogResult::set_has_person_result_roi() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void FaceRecogResult::clear_has_person_result_roi() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void FaceRecogResult::clear_person_result_roi() {
+  if (person_result_roi_ != NULL) person_result_roi_->::DMSFrameProtocol::Rect_i::Clear();
+  clear_has_person_result_roi();
+}
+inline const ::DMSFrameProtocol::Rect_i& FaceRecogResult::person_result_roi() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.FaceRecogResult.person_result_ROI)
+  return person_result_roi_ != NULL ? *person_result_roi_ : *default_instance_->person_result_roi_;
+}
+inline ::DMSFrameProtocol::Rect_i* FaceRecogResult::mutable_person_result_roi() {
+  set_has_person_result_roi();
+  if (person_result_roi_ == NULL) person_result_roi_ = new ::DMSFrameProtocol::Rect_i;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.FaceRecogResult.person_result_ROI)
+  return person_result_roi_;
+}
+inline ::DMSFrameProtocol::Rect_i* FaceRecogResult::release_person_result_roi() {
+  clear_has_person_result_roi();
+  ::DMSFrameProtocol::Rect_i* temp = person_result_roi_;
+  person_result_roi_ = NULL;
+  return temp;
+}
+inline void FaceRecogResult::set_allocated_person_result_roi(::DMSFrameProtocol::Rect_i* person_result_roi) {
+  delete person_result_roi_;
+  person_result_roi_ = person_result_roi;
+  if (person_result_roi) {
+    set_has_person_result_roi();
+  } else {
+    clear_has_person_result_roi();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.FaceRecogResult.person_result_ROI)
+}
+
+// -------------------------------------------------------------------
+
+// FaceRecogPost
+
+// -------------------------------------------------------------------
+
+// AlgoResult
+
+// optional .DMSFrameProtocol.FaceDetectResult face_detect = 1;
+inline bool AlgoResult::has_face_detect() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void AlgoResult::set_has_face_detect() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void AlgoResult::clear_has_face_detect() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void AlgoResult::clear_face_detect() {
+  if (face_detect_ != NULL) face_detect_->::DMSFrameProtocol::FaceDetectResult::Clear();
+  clear_has_face_detect();
+}
+inline const ::DMSFrameProtocol::FaceDetectResult& AlgoResult::face_detect() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.AlgoResult.face_detect)
+  return face_detect_ != NULL ? *face_detect_ : *default_instance_->face_detect_;
+}
+inline ::DMSFrameProtocol::FaceDetectResult* AlgoResult::mutable_face_detect() {
+  set_has_face_detect();
+  if (face_detect_ == NULL) face_detect_ = new ::DMSFrameProtocol::FaceDetectResult;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.AlgoResult.face_detect)
+  return face_detect_;
+}
+inline ::DMSFrameProtocol::FaceDetectResult* AlgoResult::release_face_detect() {
+  clear_has_face_detect();
+  ::DMSFrameProtocol::FaceDetectResult* temp = face_detect_;
+  face_detect_ = NULL;
+  return temp;
+}
+inline void AlgoResult::set_allocated_face_detect(::DMSFrameProtocol::FaceDetectResult* face_detect) {
+  delete face_detect_;
+  face_detect_ = face_detect;
+  if (face_detect) {
+    set_has_face_detect();
+  } else {
+    clear_has_face_detect();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.AlgoResult.face_detect)
+}
+
+// optional .DMSFrameProtocol.FaceDetectPost face_detect_post = 2;
+inline bool AlgoResult::has_face_detect_post() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void AlgoResult::set_has_face_detect_post() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void AlgoResult::clear_has_face_detect_post() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void AlgoResult::clear_face_detect_post() {
+  if (face_detect_post_ != NULL) face_detect_post_->::DMSFrameProtocol::FaceDetectPost::Clear();
+  clear_has_face_detect_post();
+}
+inline const ::DMSFrameProtocol::FaceDetectPost& AlgoResult::face_detect_post() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.AlgoResult.face_detect_post)
+  return face_detect_post_ != NULL ? *face_detect_post_ : *default_instance_->face_detect_post_;
+}
+inline ::DMSFrameProtocol::FaceDetectPost* AlgoResult::mutable_face_detect_post() {
+  set_has_face_detect_post();
+  if (face_detect_post_ == NULL) face_detect_post_ = new ::DMSFrameProtocol::FaceDetectPost;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.AlgoResult.face_detect_post)
+  return face_detect_post_;
+}
+inline ::DMSFrameProtocol::FaceDetectPost* AlgoResult::release_face_detect_post() {
+  clear_has_face_detect_post();
+  ::DMSFrameProtocol::FaceDetectPost* temp = face_detect_post_;
+  face_detect_post_ = NULL;
+  return temp;
+}
+inline void AlgoResult::set_allocated_face_detect_post(::DMSFrameProtocol::FaceDetectPost* face_detect_post) {
+  delete face_detect_post_;
+  face_detect_post_ = face_detect_post;
+  if (face_detect_post) {
+    set_has_face_detect_post();
+  } else {
+    clear_has_face_detect_post();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.AlgoResult.face_detect_post)
+}
+
+// optional .DMSFrameProtocol.PhoneDetectResult phone_detect = 3;
+inline bool AlgoResult::has_phone_detect() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void AlgoResult::set_has_phone_detect() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void AlgoResult::clear_has_phone_detect() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void AlgoResult::clear_phone_detect() {
+  if (phone_detect_ != NULL) phone_detect_->::DMSFrameProtocol::PhoneDetectResult::Clear();
+  clear_has_phone_detect();
+}
+inline const ::DMSFrameProtocol::PhoneDetectResult& AlgoResult::phone_detect() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.AlgoResult.phone_detect)
+  return phone_detect_ != NULL ? *phone_detect_ : *default_instance_->phone_detect_;
+}
+inline ::DMSFrameProtocol::PhoneDetectResult* AlgoResult::mutable_phone_detect() {
+  set_has_phone_detect();
+  if (phone_detect_ == NULL) phone_detect_ = new ::DMSFrameProtocol::PhoneDetectResult;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.AlgoResult.phone_detect)
+  return phone_detect_;
+}
+inline ::DMSFrameProtocol::PhoneDetectResult* AlgoResult::release_phone_detect() {
+  clear_has_phone_detect();
+  ::DMSFrameProtocol::PhoneDetectResult* temp = phone_detect_;
+  phone_detect_ = NULL;
+  return temp;
+}
+inline void AlgoResult::set_allocated_phone_detect(::DMSFrameProtocol::PhoneDetectResult* phone_detect) {
+  delete phone_detect_;
+  phone_detect_ = phone_detect;
+  if (phone_detect) {
+    set_has_phone_detect();
+  } else {
+    clear_has_phone_detect();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.AlgoResult.phone_detect)
+}
+
+// optional .DMSFrameProtocol.PhoneDetectPost phone_detect_post = 4;
+inline bool AlgoResult::has_phone_detect_post() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void AlgoResult::set_has_phone_detect_post() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void AlgoResult::clear_has_phone_detect_post() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void AlgoResult::clear_phone_detect_post() {
+  if (phone_detect_post_ != NULL) phone_detect_post_->::DMSFrameProtocol::PhoneDetectPost::Clear();
+  clear_has_phone_detect_post();
+}
+inline const ::DMSFrameProtocol::PhoneDetectPost& AlgoResult::phone_detect_post() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.AlgoResult.phone_detect_post)
+  return phone_detect_post_ != NULL ? *phone_detect_post_ : *default_instance_->phone_detect_post_;
+}
+inline ::DMSFrameProtocol::PhoneDetectPost* AlgoResult::mutable_phone_detect_post() {
+  set_has_phone_detect_post();
+  if (phone_detect_post_ == NULL) phone_detect_post_ = new ::DMSFrameProtocol::PhoneDetectPost;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.AlgoResult.phone_detect_post)
+  return phone_detect_post_;
+}
+inline ::DMSFrameProtocol::PhoneDetectPost* AlgoResult::release_phone_detect_post() {
+  clear_has_phone_detect_post();
+  ::DMSFrameProtocol::PhoneDetectPost* temp = phone_detect_post_;
+  phone_detect_post_ = NULL;
+  return temp;
+}
+inline void AlgoResult::set_allocated_phone_detect_post(::DMSFrameProtocol::PhoneDetectPost* phone_detect_post) {
+  delete phone_detect_post_;
+  phone_detect_post_ = phone_detect_post;
+  if (phone_detect_post) {
+    set_has_phone_detect_post();
+  } else {
+    clear_has_phone_detect_post();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.AlgoResult.phone_detect_post)
+}
+
+// optional .DMSFrameProtocol.LandMark21 landmark = 5;
+inline bool AlgoResult::has_landmark() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void AlgoResult::set_has_landmark() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void AlgoResult::clear_has_landmark() {
+  _has_bits_[0] &= ~0x00000010u;
+}
 inline void AlgoResult::clear_landmark() {
-  if (landmark_ != NULL)
-    landmark_->::DMSFrameProtocol::LandMark21::Clear();
+  if (landmark_ != NULL) landmark_->::DMSFrameProtocol::LandMark21::Clear();
   clear_has_landmark();
 }
-inline const ::DMSFrameProtocol::LandMark21 &AlgoResult::landmark() const {
+inline const ::DMSFrameProtocol::LandMark21& AlgoResult::landmark() const {
   // @@protoc_insertion_point(field_get:DMSFrameProtocol.AlgoResult.landmark)
   return landmark_ != NULL ? *landmark_ : *default_instance_->landmark_;
 }
-inline ::DMSFrameProtocol::LandMark21 *AlgoResult::mutable_landmark() {
+inline ::DMSFrameProtocol::LandMark21* AlgoResult::mutable_landmark() {
   set_has_landmark();
-  if (landmark_ == NULL)
-    landmark_ = new ::DMSFrameProtocol::LandMark21;
+  if (landmark_ == NULL) landmark_ = new ::DMSFrameProtocol::LandMark21;
   // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.AlgoResult.landmark)
   return landmark_;
 }
-inline ::DMSFrameProtocol::LandMark21 *AlgoResult::release_landmark() {
+inline ::DMSFrameProtocol::LandMark21* AlgoResult::release_landmark() {
   clear_has_landmark();
-  ::DMSFrameProtocol::LandMark21 *temp = landmark_;
+  ::DMSFrameProtocol::LandMark21* temp = landmark_;
   landmark_ = NULL;
   return temp;
 }
-inline void AlgoResult::set_allocated_landmark(
-    ::DMSFrameProtocol::LandMark21 *landmark) {
+inline void AlgoResult::set_allocated_landmark(::DMSFrameProtocol::LandMark21* landmark) {
   delete landmark_;
   landmark_ = landmark;
   if (landmark) {
@@ -2610,35 +6726,78 @@ inline void AlgoResult::set_allocated_landmark(
   // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.AlgoResult.landmark)
 }
 
-// optional .DMSFrameProtocol.Eyes eyes = 4;
-inline bool AlgoResult::has_eyes() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
+// optional .DMSFrameProtocol.LandmarkPost landmark_post = 6;
+inline bool AlgoResult::has_landmark_post() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
 }
-inline void AlgoResult::set_has_eyes() { _has_bits_[0] |= 0x00000008u; }
-inline void AlgoResult::clear_has_eyes() { _has_bits_[0] &= ~0x00000008u; }
+inline void AlgoResult::set_has_landmark_post() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void AlgoResult::clear_has_landmark_post() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void AlgoResult::clear_landmark_post() {
+  if (landmark_post_ != NULL) landmark_post_->::DMSFrameProtocol::LandmarkPost::Clear();
+  clear_has_landmark_post();
+}
+inline const ::DMSFrameProtocol::LandmarkPost& AlgoResult::landmark_post() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.AlgoResult.landmark_post)
+  return landmark_post_ != NULL ? *landmark_post_ : *default_instance_->landmark_post_;
+}
+inline ::DMSFrameProtocol::LandmarkPost* AlgoResult::mutable_landmark_post() {
+  set_has_landmark_post();
+  if (landmark_post_ == NULL) landmark_post_ = new ::DMSFrameProtocol::LandmarkPost;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.AlgoResult.landmark_post)
+  return landmark_post_;
+}
+inline ::DMSFrameProtocol::LandmarkPost* AlgoResult::release_landmark_post() {
+  clear_has_landmark_post();
+  ::DMSFrameProtocol::LandmarkPost* temp = landmark_post_;
+  landmark_post_ = NULL;
+  return temp;
+}
+inline void AlgoResult::set_allocated_landmark_post(::DMSFrameProtocol::LandmarkPost* landmark_post) {
+  delete landmark_post_;
+  landmark_post_ = landmark_post;
+  if (landmark_post) {
+    set_has_landmark_post();
+  } else {
+    clear_has_landmark_post();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.AlgoResult.landmark_post)
+}
+
+// optional .DMSFrameProtocol.Eyes eyes = 7;
+inline bool AlgoResult::has_eyes() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void AlgoResult::set_has_eyes() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void AlgoResult::clear_has_eyes() {
+  _has_bits_[0] &= ~0x00000040u;
+}
 inline void AlgoResult::clear_eyes() {
-  if (eyes_ != NULL)
-    eyes_->::DMSFrameProtocol::Eyes::Clear();
+  if (eyes_ != NULL) eyes_->::DMSFrameProtocol::Eyes::Clear();
   clear_has_eyes();
 }
-inline const ::DMSFrameProtocol::Eyes &AlgoResult::eyes() const {
+inline const ::DMSFrameProtocol::Eyes& AlgoResult::eyes() const {
   // @@protoc_insertion_point(field_get:DMSFrameProtocol.AlgoResult.eyes)
   return eyes_ != NULL ? *eyes_ : *default_instance_->eyes_;
 }
-inline ::DMSFrameProtocol::Eyes *AlgoResult::mutable_eyes() {
+inline ::DMSFrameProtocol::Eyes* AlgoResult::mutable_eyes() {
   set_has_eyes();
-  if (eyes_ == NULL)
-    eyes_ = new ::DMSFrameProtocol::Eyes;
+  if (eyes_ == NULL) eyes_ = new ::DMSFrameProtocol::Eyes;
   // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.AlgoResult.eyes)
   return eyes_;
 }
-inline ::DMSFrameProtocol::Eyes *AlgoResult::release_eyes() {
+inline ::DMSFrameProtocol::Eyes* AlgoResult::release_eyes() {
   clear_has_eyes();
-  ::DMSFrameProtocol::Eyes *temp = eyes_;
+  ::DMSFrameProtocol::Eyes* temp = eyes_;
   eyes_ = NULL;
   return temp;
 }
-inline void AlgoResult::set_allocated_eyes(::DMSFrameProtocol::Eyes *eyes) {
+inline void AlgoResult::set_allocated_eyes(::DMSFrameProtocol::Eyes* eyes) {
   delete eyes_;
   eyes_ = eyes;
   if (eyes) {
@@ -2649,925 +6808,275 @@ inline void AlgoResult::set_allocated_eyes(::DMSFrameProtocol::Eyes *eyes) {
   // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.AlgoResult.eyes)
 }
 
-// optional .DMSFrameProtocol.Rect face_detect_ROI = 5;
-inline bool AlgoResult::has_face_detect_roi() const {
-  return (_has_bits_[0] & 0x00000010u) != 0;
-}
-inline void AlgoResult::set_has_face_detect_roi() {
-  _has_bits_[0] |= 0x00000010u;
-}
-inline void AlgoResult::clear_has_face_detect_roi() {
-  _has_bits_[0] &= ~0x00000010u;
-}
-inline void AlgoResult::clear_face_detect_roi() {
-  if (face_detect_roi_ != NULL)
-    face_detect_roi_->::DMSFrameProtocol::Rect::Clear();
-  clear_has_face_detect_roi();
-}
-inline const ::DMSFrameProtocol::Rect &AlgoResult::face_detect_roi() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.AlgoResult.face_detect_ROI)
-  return face_detect_roi_ != NULL ? *face_detect_roi_
-                                  : *default_instance_->face_detect_roi_;
-}
-inline ::DMSFrameProtocol::Rect *AlgoResult::mutable_face_detect_roi() {
-  set_has_face_detect_roi();
-  if (face_detect_roi_ == NULL)
-    face_detect_roi_ = new ::DMSFrameProtocol::Rect;
-  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.AlgoResult.face_detect_ROI)
-  return face_detect_roi_;
-}
-inline ::DMSFrameProtocol::Rect *AlgoResult::release_face_detect_roi() {
-  clear_has_face_detect_roi();
-  ::DMSFrameProtocol::Rect *temp = face_detect_roi_;
-  face_detect_roi_ = NULL;
-  return temp;
-}
-inline void AlgoResult::set_allocated_face_detect_roi(
-    ::DMSFrameProtocol::Rect *face_detect_roi) {
-  delete face_detect_roi_;
-  face_detect_roi_ = face_detect_roi;
-  if (face_detect_roi) {
-    set_has_face_detect_roi();
-  } else {
-    clear_has_face_detect_roi();
-  }
-  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.AlgoResult.face_detect_ROI)
-}
-
-// -------------------------------------------------------------------
-
-// PolicyParams
-
-// optional float r_eye_gradient = 1;
-inline bool PolicyParams::has_r_eye_gradient() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void PolicyParams::set_has_r_eye_gradient() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void PolicyParams::clear_has_r_eye_gradient() {
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline void PolicyParams::clear_r_eye_gradient() {
-  r_eye_gradient_ = 0;
-  clear_has_r_eye_gradient();
-}
-inline float PolicyParams::r_eye_gradient() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PolicyParams.r_eye_gradient)
-  return r_eye_gradient_;
-}
-inline void PolicyParams::set_r_eye_gradient(float value) {
-  set_has_r_eye_gradient();
-  r_eye_gradient_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.PolicyParams.r_eye_gradient)
-}
-
-// optional float l_eye_gradient = 2;
-inline bool PolicyParams::has_l_eye_gradient() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void PolicyParams::set_has_l_eye_gradient() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void PolicyParams::clear_has_l_eye_gradient() {
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline void PolicyParams::clear_l_eye_gradient() {
-  l_eye_gradient_ = 0;
-  clear_has_l_eye_gradient();
-}
-inline float PolicyParams::l_eye_gradient() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PolicyParams.l_eye_gradient)
-  return l_eye_gradient_;
-}
-inline void PolicyParams::set_l_eye_gradient(float value) {
-  set_has_l_eye_gradient();
-  l_eye_gradient_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.PolicyParams.l_eye_gradient)
-}
-
-// optional float eye_gradient_thld = 3;
-inline bool PolicyParams::has_eye_gradient_thld() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void PolicyParams::set_has_eye_gradient_thld() {
-  _has_bits_[0] |= 0x00000004u;
-}
-inline void PolicyParams::clear_has_eye_gradient_thld() {
-  _has_bits_[0] &= ~0x00000004u;
-}
-inline void PolicyParams::clear_eye_gradient_thld() {
-  eye_gradient_thld_ = 0;
-  clear_has_eye_gradient_thld();
-}
-inline float PolicyParams::eye_gradient_thld() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PolicyParams.eye_gradient_thld)
-  return eye_gradient_thld_;
-}
-inline void PolicyParams::set_eye_gradient_thld(float value) {
-  set_has_eye_gradient_thld();
-  eye_gradient_thld_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.PolicyParams.eye_gradient_thld)
-}
-
-// optional float avr_r_eye_close = 4;
-inline bool PolicyParams::has_avr_r_eye_close() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
-}
-inline void PolicyParams::set_has_avr_r_eye_close() {
-  _has_bits_[0] |= 0x00000008u;
-}
-inline void PolicyParams::clear_has_avr_r_eye_close() {
-  _has_bits_[0] &= ~0x00000008u;
-}
-inline void PolicyParams::clear_avr_r_eye_close() {
-  avr_r_eye_close_ = 0;
-  clear_has_avr_r_eye_close();
-}
-inline float PolicyParams::avr_r_eye_close() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PolicyParams.avr_r_eye_close)
-  return avr_r_eye_close_;
-}
-inline void PolicyParams::set_avr_r_eye_close(float value) {
-  set_has_avr_r_eye_close();
-  avr_r_eye_close_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.PolicyParams.avr_r_eye_close)
-}
-
-// optional float avr_l_eye_close = 5;
-inline bool PolicyParams::has_avr_l_eye_close() const {
-  return (_has_bits_[0] & 0x00000010u) != 0;
-}
-inline void PolicyParams::set_has_avr_l_eye_close() {
-  _has_bits_[0] |= 0x00000010u;
-}
-inline void PolicyParams::clear_has_avr_l_eye_close() {
-  _has_bits_[0] &= ~0x00000010u;
-}
-inline void PolicyParams::clear_avr_l_eye_close() {
-  avr_l_eye_close_ = 0;
-  clear_has_avr_l_eye_close();
-}
-inline float PolicyParams::avr_l_eye_close() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PolicyParams.avr_l_eye_close)
-  return avr_l_eye_close_;
-}
-inline void PolicyParams::set_avr_l_eye_close(float value) {
-  set_has_avr_l_eye_close();
-  avr_l_eye_close_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.PolicyParams.avr_l_eye_close)
-}
-
-// optional float avr_eyes_dist = 6;
-inline bool PolicyParams::has_avr_eyes_dist() const {
-  return (_has_bits_[0] & 0x00000020u) != 0;
-}
-inline void PolicyParams::set_has_avr_eyes_dist() {
-  _has_bits_[0] |= 0x00000020u;
-}
-inline void PolicyParams::clear_has_avr_eyes_dist() {
-  _has_bits_[0] &= ~0x00000020u;
-}
-inline void PolicyParams::clear_avr_eyes_dist() {
-  avr_eyes_dist_ = 0;
-  clear_has_avr_eyes_dist();
-}
-inline float PolicyParams::avr_eyes_dist() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PolicyParams.avr_eyes_dist)
-  return avr_eyes_dist_;
-}
-inline void PolicyParams::set_avr_eyes_dist(float value) {
-  set_has_avr_eyes_dist();
-  avr_eyes_dist_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.PolicyParams.avr_eyes_dist)
-}
-
-// optional float avr_eyes_dist_thld = 7;
-inline bool PolicyParams::has_avr_eyes_dist_thld() const {
-  return (_has_bits_[0] & 0x00000040u) != 0;
-}
-inline void PolicyParams::set_has_avr_eyes_dist_thld() {
-  _has_bits_[0] |= 0x00000040u;
-}
-inline void PolicyParams::clear_has_avr_eyes_dist_thld() {
-  _has_bits_[0] &= ~0x00000040u;
-}
-inline void PolicyParams::clear_avr_eyes_dist_thld() {
-  avr_eyes_dist_thld_ = 0;
-  clear_has_avr_eyes_dist_thld();
-}
-inline float PolicyParams::avr_eyes_dist_thld() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PolicyParams.avr_eyes_dist_thld)
-  return avr_eyes_dist_thld_;
-}
-inline void PolicyParams::set_avr_eyes_dist_thld(float value) {
-  set_has_avr_eyes_dist_thld();
-  avr_eyes_dist_thld_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.PolicyParams.avr_eyes_dist_thld)
-}
-
-// optional .DMSFrameProtocol.Point avr_l_eye_point = 8;
-inline bool PolicyParams::has_avr_l_eye_point() const {
+// optional .DMSFrameProtocol.EyesPost eyes_post = 8;
+inline bool AlgoResult::has_eyes_post() const {
   return (_has_bits_[0] & 0x00000080u) != 0;
 }
-inline void PolicyParams::set_has_avr_l_eye_point() {
+inline void AlgoResult::set_has_eyes_post() {
   _has_bits_[0] |= 0x00000080u;
 }
-inline void PolicyParams::clear_has_avr_l_eye_point() {
+inline void AlgoResult::clear_has_eyes_post() {
   _has_bits_[0] &= ~0x00000080u;
 }
-inline void PolicyParams::clear_avr_l_eye_point() {
-  if (avr_l_eye_point_ != NULL)
-    avr_l_eye_point_->::DMSFrameProtocol::Point::Clear();
-  clear_has_avr_l_eye_point();
+inline void AlgoResult::clear_eyes_post() {
+  if (eyes_post_ != NULL) eyes_post_->::DMSFrameProtocol::EyesPost::Clear();
+  clear_has_eyes_post();
 }
-inline const ::DMSFrameProtocol::Point &PolicyParams::avr_l_eye_point() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PolicyParams.avr_l_eye_point)
-  return avr_l_eye_point_ != NULL ? *avr_l_eye_point_
-                                  : *default_instance_->avr_l_eye_point_;
+inline const ::DMSFrameProtocol::EyesPost& AlgoResult::eyes_post() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.AlgoResult.eyes_post)
+  return eyes_post_ != NULL ? *eyes_post_ : *default_instance_->eyes_post_;
 }
-inline ::DMSFrameProtocol::Point *PolicyParams::mutable_avr_l_eye_point() {
-  set_has_avr_l_eye_point();
-  if (avr_l_eye_point_ == NULL)
-    avr_l_eye_point_ = new ::DMSFrameProtocol::Point;
-  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.PolicyParams.avr_l_eye_point)
-  return avr_l_eye_point_;
+inline ::DMSFrameProtocol::EyesPost* AlgoResult::mutable_eyes_post() {
+  set_has_eyes_post();
+  if (eyes_post_ == NULL) eyes_post_ = new ::DMSFrameProtocol::EyesPost;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.AlgoResult.eyes_post)
+  return eyes_post_;
 }
-inline ::DMSFrameProtocol::Point *PolicyParams::release_avr_l_eye_point() {
-  clear_has_avr_l_eye_point();
-  ::DMSFrameProtocol::Point *temp = avr_l_eye_point_;
-  avr_l_eye_point_ = NULL;
+inline ::DMSFrameProtocol::EyesPost* AlgoResult::release_eyes_post() {
+  clear_has_eyes_post();
+  ::DMSFrameProtocol::EyesPost* temp = eyes_post_;
+  eyes_post_ = NULL;
   return temp;
 }
-inline void PolicyParams::set_allocated_avr_l_eye_point(
-    ::DMSFrameProtocol::Point *avr_l_eye_point) {
-  delete avr_l_eye_point_;
-  avr_l_eye_point_ = avr_l_eye_point;
-  if (avr_l_eye_point) {
-    set_has_avr_l_eye_point();
+inline void AlgoResult::set_allocated_eyes_post(::DMSFrameProtocol::EyesPost* eyes_post) {
+  delete eyes_post_;
+  eyes_post_ = eyes_post;
+  if (eyes_post) {
+    set_has_eyes_post();
   } else {
-    clear_has_avr_l_eye_point();
+    clear_has_eyes_post();
   }
-  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.PolicyParams.avr_l_eye_point)
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.AlgoResult.eyes_post)
 }
 
-// optional .DMSFrameProtocol.Point avr_r_eye_point = 9;
-inline bool PolicyParams::has_avr_r_eye_point() const {
+// optional .DMSFrameProtocol.SmokeClsfResult smoke_clsf = 9;
+inline bool AlgoResult::has_smoke_clsf() const {
   return (_has_bits_[0] & 0x00000100u) != 0;
 }
-inline void PolicyParams::set_has_avr_r_eye_point() {
+inline void AlgoResult::set_has_smoke_clsf() {
   _has_bits_[0] |= 0x00000100u;
 }
-inline void PolicyParams::clear_has_avr_r_eye_point() {
+inline void AlgoResult::clear_has_smoke_clsf() {
   _has_bits_[0] &= ~0x00000100u;
 }
-inline void PolicyParams::clear_avr_r_eye_point() {
-  if (avr_r_eye_point_ != NULL)
-    avr_r_eye_point_->::DMSFrameProtocol::Point::Clear();
-  clear_has_avr_r_eye_point();
+inline void AlgoResult::clear_smoke_clsf() {
+  if (smoke_clsf_ != NULL) smoke_clsf_->::DMSFrameProtocol::SmokeClsfResult::Clear();
+  clear_has_smoke_clsf();
 }
-inline const ::DMSFrameProtocol::Point &PolicyParams::avr_r_eye_point() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PolicyParams.avr_r_eye_point)
-  return avr_r_eye_point_ != NULL ? *avr_r_eye_point_
-                                  : *default_instance_->avr_r_eye_point_;
+inline const ::DMSFrameProtocol::SmokeClsfResult& AlgoResult::smoke_clsf() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.AlgoResult.smoke_clsf)
+  return smoke_clsf_ != NULL ? *smoke_clsf_ : *default_instance_->smoke_clsf_;
 }
-inline ::DMSFrameProtocol::Point *PolicyParams::mutable_avr_r_eye_point() {
-  set_has_avr_r_eye_point();
-  if (avr_r_eye_point_ == NULL)
-    avr_r_eye_point_ = new ::DMSFrameProtocol::Point;
-  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.PolicyParams.avr_r_eye_point)
-  return avr_r_eye_point_;
+inline ::DMSFrameProtocol::SmokeClsfResult* AlgoResult::mutable_smoke_clsf() {
+  set_has_smoke_clsf();
+  if (smoke_clsf_ == NULL) smoke_clsf_ = new ::DMSFrameProtocol::SmokeClsfResult;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.AlgoResult.smoke_clsf)
+  return smoke_clsf_;
 }
-inline ::DMSFrameProtocol::Point *PolicyParams::release_avr_r_eye_point() {
-  clear_has_avr_r_eye_point();
-  ::DMSFrameProtocol::Point *temp = avr_r_eye_point_;
-  avr_r_eye_point_ = NULL;
+inline ::DMSFrameProtocol::SmokeClsfResult* AlgoResult::release_smoke_clsf() {
+  clear_has_smoke_clsf();
+  ::DMSFrameProtocol::SmokeClsfResult* temp = smoke_clsf_;
+  smoke_clsf_ = NULL;
   return temp;
 }
-inline void PolicyParams::set_allocated_avr_r_eye_point(
-    ::DMSFrameProtocol::Point *avr_r_eye_point) {
-  delete avr_r_eye_point_;
-  avr_r_eye_point_ = avr_r_eye_point;
-  if (avr_r_eye_point) {
-    set_has_avr_r_eye_point();
+inline void AlgoResult::set_allocated_smoke_clsf(::DMSFrameProtocol::SmokeClsfResult* smoke_clsf) {
+  delete smoke_clsf_;
+  smoke_clsf_ = smoke_clsf;
+  if (smoke_clsf) {
+    set_has_smoke_clsf();
   } else {
-    clear_has_avr_r_eye_point();
+    clear_has_smoke_clsf();
   }
-  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.PolicyParams.avr_r_eye_point)
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.AlgoResult.smoke_clsf)
 }
 
-// optional float avr_nose_leye_dist = 10;
-inline bool PolicyParams::has_avr_nose_leye_dist() const {
+// optional .DMSFrameProtocol.SmokeClsfPost smoke_clsf_post = 10;
+inline bool AlgoResult::has_smoke_clsf_post() const {
   return (_has_bits_[0] & 0x00000200u) != 0;
 }
-inline void PolicyParams::set_has_avr_nose_leye_dist() {
+inline void AlgoResult::set_has_smoke_clsf_post() {
   _has_bits_[0] |= 0x00000200u;
 }
-inline void PolicyParams::clear_has_avr_nose_leye_dist() {
+inline void AlgoResult::clear_has_smoke_clsf_post() {
   _has_bits_[0] &= ~0x00000200u;
 }
-inline void PolicyParams::clear_avr_nose_leye_dist() {
-  avr_nose_leye_dist_ = 0;
-  clear_has_avr_nose_leye_dist();
+inline void AlgoResult::clear_smoke_clsf_post() {
+  if (smoke_clsf_post_ != NULL) smoke_clsf_post_->::DMSFrameProtocol::SmokeClsfPost::Clear();
+  clear_has_smoke_clsf_post();
 }
-inline float PolicyParams::avr_nose_leye_dist() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PolicyParams.avr_nose_leye_dist)
-  return avr_nose_leye_dist_;
+inline const ::DMSFrameProtocol::SmokeClsfPost& AlgoResult::smoke_clsf_post() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.AlgoResult.smoke_clsf_post)
+  return smoke_clsf_post_ != NULL ? *smoke_clsf_post_ : *default_instance_->smoke_clsf_post_;
 }
-inline void PolicyParams::set_avr_nose_leye_dist(float value) {
-  set_has_avr_nose_leye_dist();
-  avr_nose_leye_dist_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.PolicyParams.avr_nose_leye_dist)
+inline ::DMSFrameProtocol::SmokeClsfPost* AlgoResult::mutable_smoke_clsf_post() {
+  set_has_smoke_clsf_post();
+  if (smoke_clsf_post_ == NULL) smoke_clsf_post_ = new ::DMSFrameProtocol::SmokeClsfPost;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.AlgoResult.smoke_clsf_post)
+  return smoke_clsf_post_;
+}
+inline ::DMSFrameProtocol::SmokeClsfPost* AlgoResult::release_smoke_clsf_post() {
+  clear_has_smoke_clsf_post();
+  ::DMSFrameProtocol::SmokeClsfPost* temp = smoke_clsf_post_;
+  smoke_clsf_post_ = NULL;
+  return temp;
+}
+inline void AlgoResult::set_allocated_smoke_clsf_post(::DMSFrameProtocol::SmokeClsfPost* smoke_clsf_post) {
+  delete smoke_clsf_post_;
+  smoke_clsf_post_ = smoke_clsf_post;
+  if (smoke_clsf_post) {
+    set_has_smoke_clsf_post();
+  } else {
+    clear_has_smoke_clsf_post();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.AlgoResult.smoke_clsf_post)
 }
 
-// optional float avr_nose_reye_dist = 11;
-inline bool PolicyParams::has_avr_nose_reye_dist() const {
+// optional .DMSFrameProtocol.FaceRecogResult facerecog_result = 11;
+inline bool AlgoResult::has_facerecog_result() const {
   return (_has_bits_[0] & 0x00000400u) != 0;
 }
-inline void PolicyParams::set_has_avr_nose_reye_dist() {
+inline void AlgoResult::set_has_facerecog_result() {
   _has_bits_[0] |= 0x00000400u;
 }
-inline void PolicyParams::clear_has_avr_nose_reye_dist() {
+inline void AlgoResult::clear_has_facerecog_result() {
   _has_bits_[0] &= ~0x00000400u;
 }
-inline void PolicyParams::clear_avr_nose_reye_dist() {
-  avr_nose_reye_dist_ = 0;
-  clear_has_avr_nose_reye_dist();
+inline void AlgoResult::clear_facerecog_result() {
+  if (facerecog_result_ != NULL) facerecog_result_->::DMSFrameProtocol::FaceRecogResult::Clear();
+  clear_has_facerecog_result();
 }
-inline float PolicyParams::avr_nose_reye_dist() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PolicyParams.avr_nose_reye_dist)
-  return avr_nose_reye_dist_;
+inline const ::DMSFrameProtocol::FaceRecogResult& AlgoResult::facerecog_result() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.AlgoResult.facerecog_result)
+  return facerecog_result_ != NULL ? *facerecog_result_ : *default_instance_->facerecog_result_;
 }
-inline void PolicyParams::set_avr_nose_reye_dist(float value) {
-  set_has_avr_nose_reye_dist();
-  avr_nose_reye_dist_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.PolicyParams.avr_nose_reye_dist)
+inline ::DMSFrameProtocol::FaceRecogResult* AlgoResult::mutable_facerecog_result() {
+  set_has_facerecog_result();
+  if (facerecog_result_ == NULL) facerecog_result_ = new ::DMSFrameProtocol::FaceRecogResult;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.AlgoResult.facerecog_result)
+  return facerecog_result_;
+}
+inline ::DMSFrameProtocol::FaceRecogResult* AlgoResult::release_facerecog_result() {
+  clear_has_facerecog_result();
+  ::DMSFrameProtocol::FaceRecogResult* temp = facerecog_result_;
+  facerecog_result_ = NULL;
+  return temp;
+}
+inline void AlgoResult::set_allocated_facerecog_result(::DMSFrameProtocol::FaceRecogResult* facerecog_result) {
+  delete facerecog_result_;
+  facerecog_result_ = facerecog_result;
+  if (facerecog_result) {
+    set_has_facerecog_result();
+  } else {
+    clear_has_facerecog_result();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.AlgoResult.facerecog_result)
 }
 
-// optional .DMSFrameProtocol.Point avr_nose_point = 12;
-inline bool PolicyParams::has_avr_nose_point() const {
+// optional .DMSFrameProtocol.FaceRecogPost facerecog_result_post = 12;
+inline bool AlgoResult::has_facerecog_result_post() const {
   return (_has_bits_[0] & 0x00000800u) != 0;
 }
-inline void PolicyParams::set_has_avr_nose_point() {
+inline void AlgoResult::set_has_facerecog_result_post() {
   _has_bits_[0] |= 0x00000800u;
 }
-inline void PolicyParams::clear_has_avr_nose_point() {
+inline void AlgoResult::clear_has_facerecog_result_post() {
   _has_bits_[0] &= ~0x00000800u;
 }
-inline void PolicyParams::clear_avr_nose_point() {
-  if (avr_nose_point_ != NULL)
-    avr_nose_point_->::DMSFrameProtocol::Point::Clear();
-  clear_has_avr_nose_point();
+inline void AlgoResult::clear_facerecog_result_post() {
+  if (facerecog_result_post_ != NULL) facerecog_result_post_->::DMSFrameProtocol::FaceRecogPost::Clear();
+  clear_has_facerecog_result_post();
 }
-inline const ::DMSFrameProtocol::Point &PolicyParams::avr_nose_point() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PolicyParams.avr_nose_point)
-  return avr_nose_point_ != NULL ? *avr_nose_point_
-                                 : *default_instance_->avr_nose_point_;
+inline const ::DMSFrameProtocol::FaceRecogPost& AlgoResult::facerecog_result_post() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.AlgoResult.facerecog_result_post)
+  return facerecog_result_post_ != NULL ? *facerecog_result_post_ : *default_instance_->facerecog_result_post_;
 }
-inline ::DMSFrameProtocol::Point *PolicyParams::mutable_avr_nose_point() {
-  set_has_avr_nose_point();
-  if (avr_nose_point_ == NULL)
-    avr_nose_point_ = new ::DMSFrameProtocol::Point;
-  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.PolicyParams.avr_nose_point)
-  return avr_nose_point_;
+inline ::DMSFrameProtocol::FaceRecogPost* AlgoResult::mutable_facerecog_result_post() {
+  set_has_facerecog_result_post();
+  if (facerecog_result_post_ == NULL) facerecog_result_post_ = new ::DMSFrameProtocol::FaceRecogPost;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.AlgoResult.facerecog_result_post)
+  return facerecog_result_post_;
 }
-inline ::DMSFrameProtocol::Point *PolicyParams::release_avr_nose_point() {
-  clear_has_avr_nose_point();
-  ::DMSFrameProtocol::Point *temp = avr_nose_point_;
-  avr_nose_point_ = NULL;
+inline ::DMSFrameProtocol::FaceRecogPost* AlgoResult::release_facerecog_result_post() {
+  clear_has_facerecog_result_post();
+  ::DMSFrameProtocol::FaceRecogPost* temp = facerecog_result_post_;
+  facerecog_result_post_ = NULL;
   return temp;
 }
-inline void PolicyParams::set_allocated_avr_nose_point(
-    ::DMSFrameProtocol::Point *avr_nose_point) {
-  delete avr_nose_point_;
-  avr_nose_point_ = avr_nose_point;
-  if (avr_nose_point) {
-    set_has_avr_nose_point();
+inline void AlgoResult::set_allocated_facerecog_result_post(::DMSFrameProtocol::FaceRecogPost* facerecog_result_post) {
+  delete facerecog_result_post_;
+  facerecog_result_post_ = facerecog_result_post;
+  if (facerecog_result_post) {
+    set_has_facerecog_result_post();
   } else {
-    clear_has_avr_nose_point();
+    clear_has_facerecog_result_post();
   }
-  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.PolicyParams.avr_nose_point)
-}
-
-// optional float avr_nose_rl_ratio = 13;
-inline bool PolicyParams::has_avr_nose_rl_ratio() const {
-  return (_has_bits_[0] & 0x00001000u) != 0;
-}
-inline void PolicyParams::set_has_avr_nose_rl_ratio() {
-  _has_bits_[0] |= 0x00001000u;
-}
-inline void PolicyParams::clear_has_avr_nose_rl_ratio() {
-  _has_bits_[0] &= ~0x00001000u;
-}
-inline void PolicyParams::clear_avr_nose_rl_ratio() {
-  avr_nose_rl_ratio_ = 0;
-  clear_has_avr_nose_rl_ratio();
-}
-inline float PolicyParams::avr_nose_rl_ratio() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PolicyParams.avr_nose_rl_ratio)
-  return avr_nose_rl_ratio_;
-}
-inline void PolicyParams::set_avr_nose_rl_ratio(float value) {
-  set_has_avr_nose_rl_ratio();
-  avr_nose_rl_ratio_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.PolicyParams.avr_nose_rl_ratio)
-}
-
-// optional float avr_nose_rl_ratio_thld = 14;
-inline bool PolicyParams::has_avr_nose_rl_ratio_thld() const {
-  return (_has_bits_[0] & 0x00002000u) != 0;
-}
-inline void PolicyParams::set_has_avr_nose_rl_ratio_thld() {
-  _has_bits_[0] |= 0x00002000u;
-}
-inline void PolicyParams::clear_has_avr_nose_rl_ratio_thld() {
-  _has_bits_[0] &= ~0x00002000u;
-}
-inline void PolicyParams::clear_avr_nose_rl_ratio_thld() {
-  avr_nose_rl_ratio_thld_ = 0;
-  clear_has_avr_nose_rl_ratio_thld();
-}
-inline float PolicyParams::avr_nose_rl_ratio_thld() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PolicyParams.avr_nose_rl_ratio_thld)
-  return avr_nose_rl_ratio_thld_;
-}
-inline void PolicyParams::set_avr_nose_rl_ratio_thld(float value) {
-  set_has_avr_nose_rl_ratio_thld();
-  avr_nose_rl_ratio_thld_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.PolicyParams.avr_nose_rl_ratio_thld)
-}
-
-// optional .DMSFrameProtocol.Point archor_nose_point = 15;
-inline bool PolicyParams::has_archor_nose_point() const {
-  return (_has_bits_[0] & 0x00004000u) != 0;
-}
-inline void PolicyParams::set_has_archor_nose_point() {
-  _has_bits_[0] |= 0x00004000u;
-}
-inline void PolicyParams::clear_has_archor_nose_point() {
-  _has_bits_[0] &= ~0x00004000u;
-}
-inline void PolicyParams::clear_archor_nose_point() {
-  if (archor_nose_point_ != NULL)
-    archor_nose_point_->::DMSFrameProtocol::Point::Clear();
-  clear_has_archor_nose_point();
-}
-inline const ::DMSFrameProtocol::Point &PolicyParams::archor_nose_point()
-    const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PolicyParams.archor_nose_point)
-  return archor_nose_point_ != NULL ? *archor_nose_point_
-                                    : *default_instance_->archor_nose_point_;
-}
-inline ::DMSFrameProtocol::Point *PolicyParams::mutable_archor_nose_point() {
-  set_has_archor_nose_point();
-  if (archor_nose_point_ == NULL)
-    archor_nose_point_ = new ::DMSFrameProtocol::Point;
-  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.PolicyParams.archor_nose_point)
-  return archor_nose_point_;
-}
-inline ::DMSFrameProtocol::Point *PolicyParams::release_archor_nose_point() {
-  clear_has_archor_nose_point();
-  ::DMSFrameProtocol::Point *temp = archor_nose_point_;
-  archor_nose_point_ = NULL;
-  return temp;
-}
-inline void PolicyParams::set_allocated_archor_nose_point(
-    ::DMSFrameProtocol::Point *archor_nose_point) {
-  delete archor_nose_point_;
-  archor_nose_point_ = archor_nose_point;
-  if (archor_nose_point) {
-    set_has_archor_nose_point();
-  } else {
-    clear_has_archor_nose_point();
-  }
-  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.PolicyParams.archor_nose_point)
-}
-
-// optional float devi_nose_dist_x = 16;
-inline bool PolicyParams::has_devi_nose_dist_x() const {
-  return (_has_bits_[0] & 0x00008000u) != 0;
-}
-inline void PolicyParams::set_has_devi_nose_dist_x() {
-  _has_bits_[0] |= 0x00008000u;
-}
-inline void PolicyParams::clear_has_devi_nose_dist_x() {
-  _has_bits_[0] &= ~0x00008000u;
-}
-inline void PolicyParams::clear_devi_nose_dist_x() {
-  devi_nose_dist_x_ = 0;
-  clear_has_devi_nose_dist_x();
-}
-inline float PolicyParams::devi_nose_dist_x() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PolicyParams.devi_nose_dist_x)
-  return devi_nose_dist_x_;
-}
-inline void PolicyParams::set_devi_nose_dist_x(float value) {
-  set_has_devi_nose_dist_x();
-  devi_nose_dist_x_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.PolicyParams.devi_nose_dist_x)
-}
-
-// optional float devi_nose_dist_y = 17;
-inline bool PolicyParams::has_devi_nose_dist_y() const {
-  return (_has_bits_[0] & 0x00010000u) != 0;
-}
-inline void PolicyParams::set_has_devi_nose_dist_y() {
-  _has_bits_[0] |= 0x00010000u;
-}
-inline void PolicyParams::clear_has_devi_nose_dist_y() {
-  _has_bits_[0] &= ~0x00010000u;
-}
-inline void PolicyParams::clear_devi_nose_dist_y() {
-  devi_nose_dist_y_ = 0;
-  clear_has_devi_nose_dist_y();
-}
-inline float PolicyParams::devi_nose_dist_y() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PolicyParams.devi_nose_dist_y)
-  return devi_nose_dist_y_;
-}
-inline void PolicyParams::set_devi_nose_dist_y(float value) {
-  set_has_devi_nose_dist_y();
-  devi_nose_dist_y_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.PolicyParams.devi_nose_dist_y)
-}
-
-// optional float devi_nose_dist_x_thld = 18;
-inline bool PolicyParams::has_devi_nose_dist_x_thld() const {
-  return (_has_bits_[0] & 0x00020000u) != 0;
-}
-inline void PolicyParams::set_has_devi_nose_dist_x_thld() {
-  _has_bits_[0] |= 0x00020000u;
-}
-inline void PolicyParams::clear_has_devi_nose_dist_x_thld() {
-  _has_bits_[0] &= ~0x00020000u;
-}
-inline void PolicyParams::clear_devi_nose_dist_x_thld() {
-  devi_nose_dist_x_thld_ = 0;
-  clear_has_devi_nose_dist_x_thld();
-}
-inline float PolicyParams::devi_nose_dist_x_thld() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PolicyParams.devi_nose_dist_x_thld)
-  return devi_nose_dist_x_thld_;
-}
-inline void PolicyParams::set_devi_nose_dist_x_thld(float value) {
-  set_has_devi_nose_dist_x_thld();
-  devi_nose_dist_x_thld_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.PolicyParams.devi_nose_dist_x_thld)
-}
-
-// optional float vari_nose_posi_x = 19;
-inline bool PolicyParams::has_vari_nose_posi_x() const {
-  return (_has_bits_[0] & 0x00040000u) != 0;
-}
-inline void PolicyParams::set_has_vari_nose_posi_x() {
-  _has_bits_[0] |= 0x00040000u;
-}
-inline void PolicyParams::clear_has_vari_nose_posi_x() {
-  _has_bits_[0] &= ~0x00040000u;
-}
-inline void PolicyParams::clear_vari_nose_posi_x() {
-  vari_nose_posi_x_ = 0;
-  clear_has_vari_nose_posi_x();
-}
-inline float PolicyParams::vari_nose_posi_x() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PolicyParams.vari_nose_posi_x)
-  return vari_nose_posi_x_;
-}
-inline void PolicyParams::set_vari_nose_posi_x(float value) {
-  set_has_vari_nose_posi_x();
-  vari_nose_posi_x_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.PolicyParams.vari_nose_posi_x)
-}
-
-// optional float vari_nose_posi_y = 20;
-inline bool PolicyParams::has_vari_nose_posi_y() const {
-  return (_has_bits_[0] & 0x00080000u) != 0;
-}
-inline void PolicyParams::set_has_vari_nose_posi_y() {
-  _has_bits_[0] |= 0x00080000u;
-}
-inline void PolicyParams::clear_has_vari_nose_posi_y() {
-  _has_bits_[0] &= ~0x00080000u;
-}
-inline void PolicyParams::clear_vari_nose_posi_y() {
-  vari_nose_posi_y_ = 0;
-  clear_has_vari_nose_posi_y();
-}
-inline float PolicyParams::vari_nose_posi_y() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PolicyParams.vari_nose_posi_y)
-  return vari_nose_posi_y_;
-}
-inline void PolicyParams::set_vari_nose_posi_y(float value) {
-  set_has_vari_nose_posi_y();
-  vari_nose_posi_y_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.PolicyParams.vari_nose_posi_y)
-}
-
-// optional float vari_nose_posi_x_thld = 21;
-inline bool PolicyParams::has_vari_nose_posi_x_thld() const {
-  return (_has_bits_[0] & 0x00100000u) != 0;
-}
-inline void PolicyParams::set_has_vari_nose_posi_x_thld() {
-  _has_bits_[0] |= 0x00100000u;
-}
-inline void PolicyParams::clear_has_vari_nose_posi_x_thld() {
-  _has_bits_[0] &= ~0x00100000u;
-}
-inline void PolicyParams::clear_vari_nose_posi_x_thld() {
-  vari_nose_posi_x_thld_ = 0;
-  clear_has_vari_nose_posi_x_thld();
-}
-inline float PolicyParams::vari_nose_posi_x_thld() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PolicyParams.vari_nose_posi_x_thld)
-  return vari_nose_posi_x_thld_;
-}
-inline void PolicyParams::set_vari_nose_posi_x_thld(float value) {
-  set_has_vari_nose_posi_x_thld();
-  vari_nose_posi_x_thld_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.PolicyParams.vari_nose_posi_x_thld)
-}
-
-// optional float vari_nose_posi_y_thld = 22;
-inline bool PolicyParams::has_vari_nose_posi_y_thld() const {
-  return (_has_bits_[0] & 0x00200000u) != 0;
-}
-inline void PolicyParams::set_has_vari_nose_posi_y_thld() {
-  _has_bits_[0] |= 0x00200000u;
-}
-inline void PolicyParams::clear_has_vari_nose_posi_y_thld() {
-  _has_bits_[0] &= ~0x00200000u;
-}
-inline void PolicyParams::clear_vari_nose_posi_y_thld() {
-  vari_nose_posi_y_thld_ = 0;
-  clear_has_vari_nose_posi_y_thld();
-}
-inline float PolicyParams::vari_nose_posi_y_thld() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PolicyParams.vari_nose_posi_y_thld)
-  return vari_nose_posi_y_thld_;
-}
-inline void PolicyParams::set_vari_nose_posi_y_thld(float value) {
-  set_has_vari_nose_posi_y_thld();
-  vari_nose_posi_y_thld_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.PolicyParams.vari_nose_posi_y_thld)
-}
-
-// optional float devi_nose_dist_y_thld = 23;
-inline bool PolicyParams::has_devi_nose_dist_y_thld() const {
-  return (_has_bits_[0] & 0x00400000u) != 0;
-}
-inline void PolicyParams::set_has_devi_nose_dist_y_thld() {
-  _has_bits_[0] |= 0x00400000u;
-}
-inline void PolicyParams::clear_has_devi_nose_dist_y_thld() {
-  _has_bits_[0] &= ~0x00400000u;
-}
-inline void PolicyParams::clear_devi_nose_dist_y_thld() {
-  devi_nose_dist_y_thld_ = 0;
-  clear_has_devi_nose_dist_y_thld();
-}
-inline float PolicyParams::devi_nose_dist_y_thld() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PolicyParams.devi_nose_dist_y_thld)
-  return devi_nose_dist_y_thld_;
-}
-inline void PolicyParams::set_devi_nose_dist_y_thld(float value) {
-  set_has_devi_nose_dist_y_thld();
-  devi_nose_dist_y_thld_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.PolicyParams.devi_nose_dist_y_thld)
-}
-
-// optional float avr_rn_rl_ratio = 24;
-inline bool PolicyParams::has_avr_rn_rl_ratio() const {
-  return (_has_bits_[0] & 0x00800000u) != 0;
-}
-inline void PolicyParams::set_has_avr_rn_rl_ratio() {
-  _has_bits_[0] |= 0x00800000u;
-}
-inline void PolicyParams::clear_has_avr_rn_rl_ratio() {
-  _has_bits_[0] &= ~0x00800000u;
-}
-inline void PolicyParams::clear_avr_rn_rl_ratio() {
-  avr_rn_rl_ratio_ = 0;
-  clear_has_avr_rn_rl_ratio();
-}
-inline float PolicyParams::avr_rn_rl_ratio() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PolicyParams.avr_rn_rl_ratio)
-  return avr_rn_rl_ratio_;
-}
-inline void PolicyParams::set_avr_rn_rl_ratio(float value) {
-  set_has_avr_rn_rl_ratio();
-  avr_rn_rl_ratio_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.PolicyParams.avr_rn_rl_ratio)
-}
-
-// optional float avr_ln_rl_ratio = 25;
-inline bool PolicyParams::has_avr_ln_rl_ratio() const {
-  return (_has_bits_[0] & 0x01000000u) != 0;
-}
-inline void PolicyParams::set_has_avr_ln_rl_ratio() {
-  _has_bits_[0] |= 0x01000000u;
-}
-inline void PolicyParams::clear_has_avr_ln_rl_ratio() {
-  _has_bits_[0] &= ~0x01000000u;
-}
-inline void PolicyParams::clear_avr_ln_rl_ratio() {
-  avr_ln_rl_ratio_ = 0;
-  clear_has_avr_ln_rl_ratio();
-}
-inline float PolicyParams::avr_ln_rl_ratio() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PolicyParams.avr_ln_rl_ratio)
-  return avr_ln_rl_ratio_;
-}
-inline void PolicyParams::set_avr_ln_rl_ratio(float value) {
-  set_has_avr_ln_rl_ratio();
-  avr_ln_rl_ratio_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.PolicyParams.avr_ln_rl_ratio)
-}
-
-// optional float cur_rn_rl_ratio = 26;
-inline bool PolicyParams::has_cur_rn_rl_ratio() const {
-  return (_has_bits_[0] & 0x02000000u) != 0;
-}
-inline void PolicyParams::set_has_cur_rn_rl_ratio() {
-  _has_bits_[0] |= 0x02000000u;
-}
-inline void PolicyParams::clear_has_cur_rn_rl_ratio() {
-  _has_bits_[0] &= ~0x02000000u;
-}
-inline void PolicyParams::clear_cur_rn_rl_ratio() {
-  cur_rn_rl_ratio_ = 0;
-  clear_has_cur_rn_rl_ratio();
-}
-inline float PolicyParams::cur_rn_rl_ratio() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PolicyParams.cur_rn_rl_ratio)
-  return cur_rn_rl_ratio_;
-}
-inline void PolicyParams::set_cur_rn_rl_ratio(float value) {
-  set_has_cur_rn_rl_ratio();
-  cur_rn_rl_ratio_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.PolicyParams.cur_rn_rl_ratio)
-}
-
-// optional float cur_ln_rl_ratio = 27;
-inline bool PolicyParams::has_cur_ln_rl_ratio() const {
-  return (_has_bits_[0] & 0x04000000u) != 0;
-}
-inline void PolicyParams::set_has_cur_ln_rl_ratio() {
-  _has_bits_[0] |= 0x04000000u;
-}
-inline void PolicyParams::clear_has_cur_ln_rl_ratio() {
-  _has_bits_[0] &= ~0x04000000u;
-}
-inline void PolicyParams::clear_cur_ln_rl_ratio() {
-  cur_ln_rl_ratio_ = 0;
-  clear_has_cur_ln_rl_ratio();
-}
-inline float PolicyParams::cur_ln_rl_ratio() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PolicyParams.cur_ln_rl_ratio)
-  return cur_ln_rl_ratio_;
-}
-inline void PolicyParams::set_cur_ln_rl_ratio(float value) {
-  set_has_cur_ln_rl_ratio();
-  cur_ln_rl_ratio_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.PolicyParams.cur_ln_rl_ratio)
-}
-
-// optional float cur_nose_rl_ratio = 28;
-inline bool PolicyParams::has_cur_nose_rl_ratio() const {
-  return (_has_bits_[0] & 0x08000000u) != 0;
-}
-inline void PolicyParams::set_has_cur_nose_rl_ratio() {
-  _has_bits_[0] |= 0x08000000u;
-}
-inline void PolicyParams::clear_has_cur_nose_rl_ratio() {
-  _has_bits_[0] &= ~0x08000000u;
-}
-inline void PolicyParams::clear_cur_nose_rl_ratio() {
-  cur_nose_rl_ratio_ = 0;
-  clear_has_cur_nose_rl_ratio();
-}
-inline float PolicyParams::cur_nose_rl_ratio() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PolicyParams.cur_nose_rl_ratio)
-  return cur_nose_rl_ratio_;
-}
-inline void PolicyParams::set_cur_nose_rl_ratio(float value) {
-  set_has_cur_nose_rl_ratio();
-  cur_nose_rl_ratio_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.PolicyParams.cur_nose_rl_ratio)
-}
-
-// optional float cur_nose_rl_ratio_side_thld = 29;
-inline bool PolicyParams::has_cur_nose_rl_ratio_side_thld() const {
-  return (_has_bits_[0] & 0x10000000u) != 0;
-}
-inline void PolicyParams::set_has_cur_nose_rl_ratio_side_thld() {
-  _has_bits_[0] |= 0x10000000u;
-}
-inline void PolicyParams::clear_has_cur_nose_rl_ratio_side_thld() {
-  _has_bits_[0] &= ~0x10000000u;
-}
-inline void PolicyParams::clear_cur_nose_rl_ratio_side_thld() {
-  cur_nose_rl_ratio_side_thld_ = 0;
-  clear_has_cur_nose_rl_ratio_side_thld();
-}
-inline float PolicyParams::cur_nose_rl_ratio_side_thld() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PolicyParams.cur_nose_rl_ratio_side_thld)
-  return cur_nose_rl_ratio_side_thld_;
-}
-inline void PolicyParams::set_cur_nose_rl_ratio_side_thld(float value) {
-  set_has_cur_nose_rl_ratio_side_thld();
-  cur_nose_rl_ratio_side_thld_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.PolicyParams.cur_nose_rl_ratio_side_thld)
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.AlgoResult.facerecog_result_post)
 }
 
 // -------------------------------------------------------------------
 
-// MonitorResult
+// DFWPolicyParams
 
-// required .DMSFrameProtocol.WarnState warn_state = 1;
-inline bool MonitorResult::has_warn_state() const {
+// -------------------------------------------------------------------
+
+// DFWPolicyResult
+
+// required .DMSFrameProtocol.WarnStateEnum warn_state = 1;
+inline bool DFWPolicyResult::has_warn_state() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void MonitorResult::set_has_warn_state() {
+inline void DFWPolicyResult::set_has_warn_state() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void MonitorResult::clear_has_warn_state() {
+inline void DFWPolicyResult::clear_has_warn_state() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void MonitorResult::clear_warn_state() {
+inline void DFWPolicyResult::clear_warn_state() {
   warn_state_ = 0;
   clear_has_warn_state();
 }
-inline ::DMSFrameProtocol::WarnState MonitorResult::warn_state() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.MonitorResult.warn_state)
-  return static_cast< ::DMSFrameProtocol::WarnState>(warn_state_);
+inline ::DMSFrameProtocol::WarnStateEnum DFWPolicyResult::warn_state() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.DFWPolicyResult.warn_state)
+  return static_cast< ::DMSFrameProtocol::WarnStateEnum >(warn_state_);
 }
-inline void MonitorResult::set_warn_state(::DMSFrameProtocol::WarnState value) {
-  assert(::DMSFrameProtocol::WarnState_IsValid(value));
+inline void DFWPolicyResult::set_warn_state(::DMSFrameProtocol::WarnStateEnum value) {
+  assert(::DMSFrameProtocol::WarnStateEnum_IsValid(value));
   set_has_warn_state();
   warn_state_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.MonitorResult.warn_state)
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.DFWPolicyResult.warn_state)
 }
 
-// required int64 dur_time = 2;
-inline bool MonitorResult::has_dur_time() const {
+// optional .DMSFrameProtocol.DFWPolicyParams policy_params = 2;
+inline bool DFWPolicyResult::has_policy_params() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void MonitorResult::set_has_dur_time() { _has_bits_[0] |= 0x00000002u; }
-inline void MonitorResult::clear_has_dur_time() {
+inline void DFWPolicyResult::set_has_policy_params() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void DFWPolicyResult::clear_has_policy_params() {
   _has_bits_[0] &= ~0x00000002u;
 }
-inline void MonitorResult::clear_dur_time() {
-  dur_time_ = GOOGLE_LONGLONG(0);
-  clear_has_dur_time();
-}
-inline ::google::protobuf::int64 MonitorResult::dur_time() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.MonitorResult.dur_time)
-  return dur_time_;
-}
-inline void MonitorResult::set_dur_time(::google::protobuf::int64 value) {
-  set_has_dur_time();
-  dur_time_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.MonitorResult.dur_time)
-}
-
-// optional .DMSFrameProtocol.PolicyParams policy_params = 3;
-inline bool MonitorResult::has_policy_params() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void MonitorResult::set_has_policy_params() {
-  _has_bits_[0] |= 0x00000004u;
-}
-inline void MonitorResult::clear_has_policy_params() {
-  _has_bits_[0] &= ~0x00000004u;
-}
-inline void MonitorResult::clear_policy_params() {
-  if (policy_params_ != NULL)
-    policy_params_->::DMSFrameProtocol::PolicyParams::Clear();
+inline void DFWPolicyResult::clear_policy_params() {
+  if (policy_params_ != NULL) policy_params_->::DMSFrameProtocol::DFWPolicyParams::Clear();
   clear_has_policy_params();
 }
-inline const ::DMSFrameProtocol::PolicyParams &MonitorResult::policy_params()
-    const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.MonitorResult.policy_params)
-  return policy_params_ != NULL ? *policy_params_
-                                : *default_instance_->policy_params_;
+inline const ::DMSFrameProtocol::DFWPolicyParams& DFWPolicyResult::policy_params() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.DFWPolicyResult.policy_params)
+  return policy_params_ != NULL ? *policy_params_ : *default_instance_->policy_params_;
 }
-inline ::DMSFrameProtocol::PolicyParams *
-MonitorResult::mutable_policy_params() {
+inline ::DMSFrameProtocol::DFWPolicyParams* DFWPolicyResult::mutable_policy_params() {
   set_has_policy_params();
-  if (policy_params_ == NULL)
-    policy_params_ = new ::DMSFrameProtocol::PolicyParams;
-  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.MonitorResult.policy_params)
+  if (policy_params_ == NULL) policy_params_ = new ::DMSFrameProtocol::DFWPolicyParams;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.DFWPolicyResult.policy_params)
   return policy_params_;
 }
-inline ::DMSFrameProtocol::PolicyParams *
-MonitorResult::release_policy_params() {
+inline ::DMSFrameProtocol::DFWPolicyParams* DFWPolicyResult::release_policy_params() {
   clear_has_policy_params();
-  ::DMSFrameProtocol::PolicyParams *temp = policy_params_;
+  ::DMSFrameProtocol::DFWPolicyParams* temp = policy_params_;
   policy_params_ = NULL;
   return temp;
 }
-inline void MonitorResult::set_allocated_policy_params(
-    ::DMSFrameProtocol::PolicyParams *policy_params) {
+inline void DFWPolicyResult::set_allocated_policy_params(::DMSFrameProtocol::DFWPolicyParams* policy_params) {
   delete policy_params_;
   policy_params_ = policy_params;
   if (policy_params) {
@@ -3575,290 +7084,847 @@ inline void MonitorResult::set_allocated_policy_params(
   } else {
     clear_has_policy_params();
   }
-  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.MonitorResult.policy_params)
-}
-
-// optional .DMSFrameProtocol.FaceDir face_dir = 4;
-inline bool MonitorResult::has_face_dir() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
-}
-inline void MonitorResult::set_has_face_dir() { _has_bits_[0] |= 0x00000008u; }
-inline void MonitorResult::clear_has_face_dir() {
-  _has_bits_[0] &= ~0x00000008u;
-}
-inline void MonitorResult::clear_face_dir() {
-  face_dir_ = 0;
-  clear_has_face_dir();
-}
-inline ::DMSFrameProtocol::FaceDir MonitorResult::face_dir() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.MonitorResult.face_dir)
-  return static_cast< ::DMSFrameProtocol::FaceDir>(face_dir_);
-}
-inline void MonitorResult::set_face_dir(::DMSFrameProtocol::FaceDir value) {
-  assert(::DMSFrameProtocol::FaceDir_IsValid(value));
-  set_has_face_dir();
-  face_dir_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.MonitorResult.face_dir)
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.DFWPolicyResult.policy_params)
 }
 
 // -------------------------------------------------------------------
 
-// FaceRecogResult
+// DDWPolicyParams
 
-// optional int32 persion_id = 1;
-inline bool FaceRecogResult::has_persion_id() const {
+// optional .DMSFrameProtocol.Point_f archor_nose_point = 1;
+inline bool DDWPolicyParams::has_archor_nose_point() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void FaceRecogResult::set_has_persion_id() {
+inline void DDWPolicyParams::set_has_archor_nose_point() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void FaceRecogResult::clear_has_persion_id() {
+inline void DDWPolicyParams::clear_has_archor_nose_point() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void FaceRecogResult::clear_persion_id() {
-  persion_id_ = 0;
-  clear_has_persion_id();
+inline void DDWPolicyParams::clear_archor_nose_point() {
+  if (archor_nose_point_ != NULL) archor_nose_point_->::DMSFrameProtocol::Point_f::Clear();
+  clear_has_archor_nose_point();
 }
-inline ::google::protobuf::int32 FaceRecogResult::persion_id() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.FaceRecogResult.persion_id)
-  return persion_id_;
+inline const ::DMSFrameProtocol::Point_f& DDWPolicyParams::archor_nose_point() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.DDWPolicyParams.archor_nose_point)
+  return archor_nose_point_ != NULL ? *archor_nose_point_ : *default_instance_->archor_nose_point_;
 }
-inline void FaceRecogResult::set_persion_id(::google::protobuf::int32 value) {
-  set_has_persion_id();
-  persion_id_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.FaceRecogResult.persion_id)
+inline ::DMSFrameProtocol::Point_f* DDWPolicyParams::mutable_archor_nose_point() {
+  set_has_archor_nose_point();
+  if (archor_nose_point_ == NULL) archor_nose_point_ = new ::DMSFrameProtocol::Point_f;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.DDWPolicyParams.archor_nose_point)
+  return archor_nose_point_;
+}
+inline ::DMSFrameProtocol::Point_f* DDWPolicyParams::release_archor_nose_point() {
+  clear_has_archor_nose_point();
+  ::DMSFrameProtocol::Point_f* temp = archor_nose_point_;
+  archor_nose_point_ = NULL;
+  return temp;
+}
+inline void DDWPolicyParams::set_allocated_archor_nose_point(::DMSFrameProtocol::Point_f* archor_nose_point) {
+  delete archor_nose_point_;
+  archor_nose_point_ = archor_nose_point;
+  if (archor_nose_point) {
+    set_has_archor_nose_point();
+  } else {
+    clear_has_archor_nose_point();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.DDWPolicyParams.archor_nose_point)
 }
 
-// optional string persion_name = 2;
-inline bool FaceRecogResult::has_persion_name() const {
+// optional float devi_nose_dist_x = 2;
+inline bool DDWPolicyParams::has_devi_nose_dist_x() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void FaceRecogResult::set_has_persion_name() {
+inline void DDWPolicyParams::set_has_devi_nose_dist_x() {
   _has_bits_[0] |= 0x00000002u;
 }
-inline void FaceRecogResult::clear_has_persion_name() {
+inline void DDWPolicyParams::clear_has_devi_nose_dist_x() {
   _has_bits_[0] &= ~0x00000002u;
 }
-inline void FaceRecogResult::clear_persion_name() {
-  if (persion_name_ !=
-      &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    persion_name_->clear();
-  }
-  clear_has_persion_name();
+inline void DDWPolicyParams::clear_devi_nose_dist_x() {
+  devi_nose_dist_x_ = 0;
+  clear_has_devi_nose_dist_x();
 }
-inline const ::std::string &FaceRecogResult::persion_name() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.FaceRecogResult.persion_name)
-  return *persion_name_;
+inline float DDWPolicyParams::devi_nose_dist_x() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.DDWPolicyParams.devi_nose_dist_x)
+  return devi_nose_dist_x_;
 }
-inline void FaceRecogResult::set_persion_name(const ::std::string &value) {
-  set_has_persion_name();
-  if (persion_name_ ==
-      &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    persion_name_ = new ::std::string;
-  }
-  persion_name_->assign(value);
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.FaceRecogResult.persion_name)
-}
-inline void FaceRecogResult::set_persion_name(const char *value) {
-  set_has_persion_name();
-  if (persion_name_ ==
-      &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    persion_name_ = new ::std::string;
-  }
-  persion_name_->assign(value);
-  // @@protoc_insertion_point(field_set_char:DMSFrameProtocol.FaceRecogResult.persion_name)
-}
-inline void FaceRecogResult::set_persion_name(const char *value, size_t size) {
-  set_has_persion_name();
-  if (persion_name_ ==
-      &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    persion_name_ = new ::std::string;
-  }
-  persion_name_->assign(reinterpret_cast<const char *>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:DMSFrameProtocol.FaceRecogResult.persion_name)
-}
-inline ::std::string *FaceRecogResult::mutable_persion_name() {
-  set_has_persion_name();
-  if (persion_name_ ==
-      &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    persion_name_ = new ::std::string;
-  }
-  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.FaceRecogResult.persion_name)
-  return persion_name_;
-}
-inline ::std::string *FaceRecogResult::release_persion_name() {
-  clear_has_persion_name();
-  if (persion_name_ ==
-      &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    return NULL;
-  } else {
-    ::std::string *temp = persion_name_;
-    persion_name_ = const_cast< ::std::string *>(
-        &::google::protobuf::internal::GetEmptyStringAlreadyInited());
-    return temp;
-  }
-}
-inline void FaceRecogResult::set_allocated_persion_name(
-    ::std::string *persion_name) {
-  if (persion_name_ !=
-      &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete persion_name_;
-  }
-  if (persion_name) {
-    set_has_persion_name();
-    persion_name_ = persion_name;
-  } else {
-    clear_has_persion_name();
-    persion_name_ = const_cast< ::std::string *>(
-        &::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  }
-  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.FaceRecogResult.persion_name)
+inline void DDWPolicyParams::set_devi_nose_dist_x(float value) {
+  set_has_devi_nose_dist_x();
+  devi_nose_dist_x_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.DDWPolicyParams.devi_nose_dist_x)
 }
 
-// optional int64 persion_timestamp = 3;
-inline bool FaceRecogResult::has_persion_timestamp() const {
+// optional float devi_nose_dist_y = 3;
+inline bool DDWPolicyParams::has_devi_nose_dist_y() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void FaceRecogResult::set_has_persion_timestamp() {
+inline void DDWPolicyParams::set_has_devi_nose_dist_y() {
   _has_bits_[0] |= 0x00000004u;
 }
-inline void FaceRecogResult::clear_has_persion_timestamp() {
+inline void DDWPolicyParams::clear_has_devi_nose_dist_y() {
   _has_bits_[0] &= ~0x00000004u;
 }
-inline void FaceRecogResult::clear_persion_timestamp() {
-  persion_timestamp_ = GOOGLE_LONGLONG(0);
-  clear_has_persion_timestamp();
+inline void DDWPolicyParams::clear_devi_nose_dist_y() {
+  devi_nose_dist_y_ = 0;
+  clear_has_devi_nose_dist_y();
 }
-inline ::google::protobuf::int64 FaceRecogResult::persion_timestamp() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.FaceRecogResult.persion_timestamp)
-  return persion_timestamp_;
+inline float DDWPolicyParams::devi_nose_dist_y() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.DDWPolicyParams.devi_nose_dist_y)
+  return devi_nose_dist_y_;
 }
-inline void FaceRecogResult::set_persion_timestamp(
-    ::google::protobuf::int64 value) {
-  set_has_persion_timestamp();
-  persion_timestamp_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.FaceRecogResult.persion_timestamp)
+inline void DDWPolicyParams::set_devi_nose_dist_y(float value) {
+  set_has_devi_nose_dist_y();
+  devi_nose_dist_y_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.DDWPolicyParams.devi_nose_dist_y)
 }
 
-// optional int32 persion_frame_id = 4;
-inline bool FaceRecogResult::has_persion_frame_id() const {
+// optional float avr_eyes_dist_thld = 4;
+inline bool DDWPolicyParams::has_avr_eyes_dist_thld() const {
   return (_has_bits_[0] & 0x00000008u) != 0;
 }
-inline void FaceRecogResult::set_has_persion_frame_id() {
+inline void DDWPolicyParams::set_has_avr_eyes_dist_thld() {
   _has_bits_[0] |= 0x00000008u;
 }
-inline void FaceRecogResult::clear_has_persion_frame_id() {
+inline void DDWPolicyParams::clear_has_avr_eyes_dist_thld() {
   _has_bits_[0] &= ~0x00000008u;
 }
-inline void FaceRecogResult::clear_persion_frame_id() {
-  persion_frame_id_ = 0;
-  clear_has_persion_frame_id();
+inline void DDWPolicyParams::clear_avr_eyes_dist_thld() {
+  avr_eyes_dist_thld_ = 0;
+  clear_has_avr_eyes_dist_thld();
 }
-inline ::google::protobuf::int32 FaceRecogResult::persion_frame_id() const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.FaceRecogResult.persion_frame_id)
-  return persion_frame_id_;
+inline float DDWPolicyParams::avr_eyes_dist_thld() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.DDWPolicyParams.avr_eyes_dist_thld)
+  return avr_eyes_dist_thld_;
 }
-inline void FaceRecogResult::set_persion_frame_id(
-    ::google::protobuf::int32 value) {
-  set_has_persion_frame_id();
-  persion_frame_id_ = value;
-  // @@protoc_insertion_point(field_set:DMSFrameProtocol.FaceRecogResult.persion_frame_id)
+inline void DDWPolicyParams::set_avr_eyes_dist_thld(float value) {
+  set_has_avr_eyes_dist_thld();
+  avr_eyes_dist_thld_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.DDWPolicyParams.avr_eyes_dist_thld)
 }
 
-// optional .DMSFrameProtocol.Rect_i persion_detect_ROI = 5;
-inline bool FaceRecogResult::has_persion_detect_roi() const {
+// optional float devi_nose_dist_x_thld = 5;
+inline bool DDWPolicyParams::has_devi_nose_dist_x_thld() const {
   return (_has_bits_[0] & 0x00000010u) != 0;
 }
-inline void FaceRecogResult::set_has_persion_detect_roi() {
+inline void DDWPolicyParams::set_has_devi_nose_dist_x_thld() {
   _has_bits_[0] |= 0x00000010u;
 }
-inline void FaceRecogResult::clear_has_persion_detect_roi() {
+inline void DDWPolicyParams::clear_has_devi_nose_dist_x_thld() {
   _has_bits_[0] &= ~0x00000010u;
 }
-inline void FaceRecogResult::clear_persion_detect_roi() {
-  if (persion_detect_roi_ != NULL)
-    persion_detect_roi_->::DMSFrameProtocol::Rect_i::Clear();
-  clear_has_persion_detect_roi();
+inline void DDWPolicyParams::clear_devi_nose_dist_x_thld() {
+  devi_nose_dist_x_thld_ = 0;
+  clear_has_devi_nose_dist_x_thld();
 }
-inline const ::DMSFrameProtocol::Rect_i &FaceRecogResult::persion_detect_roi()
-    const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.FaceRecogResult.persion_detect_ROI)
-  return persion_detect_roi_ != NULL ? *persion_detect_roi_
-                                     : *default_instance_->persion_detect_roi_;
+inline float DDWPolicyParams::devi_nose_dist_x_thld() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.DDWPolicyParams.devi_nose_dist_x_thld)
+  return devi_nose_dist_x_thld_;
 }
-inline ::DMSFrameProtocol::Rect_i *
-FaceRecogResult::mutable_persion_detect_roi() {
-  set_has_persion_detect_roi();
-  if (persion_detect_roi_ == NULL)
-    persion_detect_roi_ = new ::DMSFrameProtocol::Rect_i;
-  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.FaceRecogResult.persion_detect_ROI)
-  return persion_detect_roi_;
-}
-inline ::DMSFrameProtocol::Rect_i *
-FaceRecogResult::release_persion_detect_roi() {
-  clear_has_persion_detect_roi();
-  ::DMSFrameProtocol::Rect_i *temp = persion_detect_roi_;
-  persion_detect_roi_ = NULL;
-  return temp;
-}
-inline void FaceRecogResult::set_allocated_persion_detect_roi(
-    ::DMSFrameProtocol::Rect_i *persion_detect_roi) {
-  delete persion_detect_roi_;
-  persion_detect_roi_ = persion_detect_roi;
-  if (persion_detect_roi) {
-    set_has_persion_detect_roi();
-  } else {
-    clear_has_persion_detect_roi();
-  }
-  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.FaceRecogResult.persion_detect_ROI)
+inline void DDWPolicyParams::set_devi_nose_dist_x_thld(float value) {
+  set_has_devi_nose_dist_x_thld();
+  devi_nose_dist_x_thld_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.DDWPolicyParams.devi_nose_dist_x_thld)
 }
 
-// optional .DMSFrameProtocol.Rect_i persion_result_ROI = 6;
-inline bool FaceRecogResult::has_persion_result_roi() const {
+// optional float devi_nose_dist_y_thld = 7;
+inline bool DDWPolicyParams::has_devi_nose_dist_y_thld() const {
   return (_has_bits_[0] & 0x00000020u) != 0;
 }
-inline void FaceRecogResult::set_has_persion_result_roi() {
+inline void DDWPolicyParams::set_has_devi_nose_dist_y_thld() {
   _has_bits_[0] |= 0x00000020u;
 }
-inline void FaceRecogResult::clear_has_persion_result_roi() {
+inline void DDWPolicyParams::clear_has_devi_nose_dist_y_thld() {
   _has_bits_[0] &= ~0x00000020u;
 }
-inline void FaceRecogResult::clear_persion_result_roi() {
-  if (persion_result_roi_ != NULL)
-    persion_result_roi_->::DMSFrameProtocol::Rect_i::Clear();
-  clear_has_persion_result_roi();
+inline void DDWPolicyParams::clear_devi_nose_dist_y_thld() {
+  devi_nose_dist_y_thld_ = 0;
+  clear_has_devi_nose_dist_y_thld();
 }
-inline const ::DMSFrameProtocol::Rect_i &FaceRecogResult::persion_result_roi()
-    const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.FaceRecogResult.persion_result_ROI)
-  return persion_result_roi_ != NULL ? *persion_result_roi_
-                                     : *default_instance_->persion_result_roi_;
+inline float DDWPolicyParams::devi_nose_dist_y_thld() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.DDWPolicyParams.devi_nose_dist_y_thld)
+  return devi_nose_dist_y_thld_;
 }
-inline ::DMSFrameProtocol::Rect_i *
-FaceRecogResult::mutable_persion_result_roi() {
-  set_has_persion_result_roi();
-  if (persion_result_roi_ == NULL)
-    persion_result_roi_ = new ::DMSFrameProtocol::Rect_i;
-  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.FaceRecogResult.persion_result_ROI)
-  return persion_result_roi_;
+inline void DDWPolicyParams::set_devi_nose_dist_y_thld(float value) {
+  set_has_devi_nose_dist_y_thld();
+  devi_nose_dist_y_thld_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.DDWPolicyParams.devi_nose_dist_y_thld)
 }
-inline ::DMSFrameProtocol::Rect_i *
-FaceRecogResult::release_persion_result_roi() {
-  clear_has_persion_result_roi();
-  ::DMSFrameProtocol::Rect_i *temp = persion_result_roi_;
-  persion_result_roi_ = NULL;
+
+// optional float eye_gradient_thld = 8;
+inline bool DDWPolicyParams::has_eye_gradient_thld() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void DDWPolicyParams::set_has_eye_gradient_thld() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void DDWPolicyParams::clear_has_eye_gradient_thld() {
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline void DDWPolicyParams::clear_eye_gradient_thld() {
+  eye_gradient_thld_ = 0;
+  clear_has_eye_gradient_thld();
+}
+inline float DDWPolicyParams::eye_gradient_thld() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.DDWPolicyParams.eye_gradient_thld)
+  return eye_gradient_thld_;
+}
+inline void DDWPolicyParams::set_eye_gradient_thld(float value) {
+  set_has_eye_gradient_thld();
+  eye_gradient_thld_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.DDWPolicyParams.eye_gradient_thld)
+}
+
+// optional float vari_nose_posi_x_thld = 9;
+inline bool DDWPolicyParams::has_vari_nose_posi_x_thld() const {
+  return (_has_bits_[0] & 0x00000080u) != 0;
+}
+inline void DDWPolicyParams::set_has_vari_nose_posi_x_thld() {
+  _has_bits_[0] |= 0x00000080u;
+}
+inline void DDWPolicyParams::clear_has_vari_nose_posi_x_thld() {
+  _has_bits_[0] &= ~0x00000080u;
+}
+inline void DDWPolicyParams::clear_vari_nose_posi_x_thld() {
+  vari_nose_posi_x_thld_ = 0;
+  clear_has_vari_nose_posi_x_thld();
+}
+inline float DDWPolicyParams::vari_nose_posi_x_thld() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.DDWPolicyParams.vari_nose_posi_x_thld)
+  return vari_nose_posi_x_thld_;
+}
+inline void DDWPolicyParams::set_vari_nose_posi_x_thld(float value) {
+  set_has_vari_nose_posi_x_thld();
+  vari_nose_posi_x_thld_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.DDWPolicyParams.vari_nose_posi_x_thld)
+}
+
+// optional float vari_nose_posi_y_thld = 10;
+inline bool DDWPolicyParams::has_vari_nose_posi_y_thld() const {
+  return (_has_bits_[0] & 0x00000100u) != 0;
+}
+inline void DDWPolicyParams::set_has_vari_nose_posi_y_thld() {
+  _has_bits_[0] |= 0x00000100u;
+}
+inline void DDWPolicyParams::clear_has_vari_nose_posi_y_thld() {
+  _has_bits_[0] &= ~0x00000100u;
+}
+inline void DDWPolicyParams::clear_vari_nose_posi_y_thld() {
+  vari_nose_posi_y_thld_ = 0;
+  clear_has_vari_nose_posi_y_thld();
+}
+inline float DDWPolicyParams::vari_nose_posi_y_thld() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.DDWPolicyParams.vari_nose_posi_y_thld)
+  return vari_nose_posi_y_thld_;
+}
+inline void DDWPolicyParams::set_vari_nose_posi_y_thld(float value) {
+  set_has_vari_nose_posi_y_thld();
+  vari_nose_posi_y_thld_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.DDWPolicyParams.vari_nose_posi_y_thld)
+}
+
+// optional float rl_nose_dist_thld = 11;
+inline bool DDWPolicyParams::has_rl_nose_dist_thld() const {
+  return (_has_bits_[0] & 0x00000200u) != 0;
+}
+inline void DDWPolicyParams::set_has_rl_nose_dist_thld() {
+  _has_bits_[0] |= 0x00000200u;
+}
+inline void DDWPolicyParams::clear_has_rl_nose_dist_thld() {
+  _has_bits_[0] &= ~0x00000200u;
+}
+inline void DDWPolicyParams::clear_rl_nose_dist_thld() {
+  rl_nose_dist_thld_ = 0;
+  clear_has_rl_nose_dist_thld();
+}
+inline float DDWPolicyParams::rl_nose_dist_thld() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.DDWPolicyParams.rl_nose_dist_thld)
+  return rl_nose_dist_thld_;
+}
+inline void DDWPolicyParams::set_rl_nose_dist_thld(float value) {
+  set_has_rl_nose_dist_thld();
+  rl_nose_dist_thld_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.DDWPolicyParams.rl_nose_dist_thld)
+}
+
+// -------------------------------------------------------------------
+
+// DDWPolicyResult
+
+// required .DMSFrameProtocol.WarnStateEnum warn_state = 1;
+inline bool DDWPolicyResult::has_warn_state() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void DDWPolicyResult::set_has_warn_state() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void DDWPolicyResult::clear_has_warn_state() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void DDWPolicyResult::clear_warn_state() {
+  warn_state_ = 0;
+  clear_has_warn_state();
+}
+inline ::DMSFrameProtocol::WarnStateEnum DDWPolicyResult::warn_state() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.DDWPolicyResult.warn_state)
+  return static_cast< ::DMSFrameProtocol::WarnStateEnum >(warn_state_);
+}
+inline void DDWPolicyResult::set_warn_state(::DMSFrameProtocol::WarnStateEnum value) {
+  assert(::DMSFrameProtocol::WarnStateEnum_IsValid(value));
+  set_has_warn_state();
+  warn_state_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.DDWPolicyResult.warn_state)
+}
+
+// optional .DMSFrameProtocol.DDWPolicyParams policy_params = 2;
+inline bool DDWPolicyResult::has_policy_params() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void DDWPolicyResult::set_has_policy_params() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void DDWPolicyResult::clear_has_policy_params() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void DDWPolicyResult::clear_policy_params() {
+  if (policy_params_ != NULL) policy_params_->::DMSFrameProtocol::DDWPolicyParams::Clear();
+  clear_has_policy_params();
+}
+inline const ::DMSFrameProtocol::DDWPolicyParams& DDWPolicyResult::policy_params() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.DDWPolicyResult.policy_params)
+  return policy_params_ != NULL ? *policy_params_ : *default_instance_->policy_params_;
+}
+inline ::DMSFrameProtocol::DDWPolicyParams* DDWPolicyResult::mutable_policy_params() {
+  set_has_policy_params();
+  if (policy_params_ == NULL) policy_params_ = new ::DMSFrameProtocol::DDWPolicyParams;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.DDWPolicyResult.policy_params)
+  return policy_params_;
+}
+inline ::DMSFrameProtocol::DDWPolicyParams* DDWPolicyResult::release_policy_params() {
+  clear_has_policy_params();
+  ::DMSFrameProtocol::DDWPolicyParams* temp = policy_params_;
+  policy_params_ = NULL;
   return temp;
 }
-inline void FaceRecogResult::set_allocated_persion_result_roi(
-    ::DMSFrameProtocol::Rect_i *persion_result_roi) {
-  delete persion_result_roi_;
-  persion_result_roi_ = persion_result_roi;
-  if (persion_result_roi) {
-    set_has_persion_result_roi();
+inline void DDWPolicyResult::set_allocated_policy_params(::DMSFrameProtocol::DDWPolicyParams* policy_params) {
+  delete policy_params_;
+  policy_params_ = policy_params;
+  if (policy_params) {
+    set_has_policy_params();
   } else {
-    clear_has_persion_result_roi();
+    clear_has_policy_params();
   }
-  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.FaceRecogResult.persion_result_ROI)
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.DDWPolicyResult.policy_params)
+}
+
+// -------------------------------------------------------------------
+
+// DCAPolicyParams
+
+// -------------------------------------------------------------------
+
+// DCAPolicyResult
+
+// required .DMSFrameProtocol.WarnStateEnum warn_state = 1;
+inline bool DCAPolicyResult::has_warn_state() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void DCAPolicyResult::set_has_warn_state() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void DCAPolicyResult::clear_has_warn_state() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void DCAPolicyResult::clear_warn_state() {
+  warn_state_ = 0;
+  clear_has_warn_state();
+}
+inline ::DMSFrameProtocol::WarnStateEnum DCAPolicyResult::warn_state() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.DCAPolicyResult.warn_state)
+  return static_cast< ::DMSFrameProtocol::WarnStateEnum >(warn_state_);
+}
+inline void DCAPolicyResult::set_warn_state(::DMSFrameProtocol::WarnStateEnum value) {
+  assert(::DMSFrameProtocol::WarnStateEnum_IsValid(value));
+  set_has_warn_state();
+  warn_state_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.DCAPolicyResult.warn_state)
+}
+
+// optional .DMSFrameProtocol.DCAPolicyParams policy_params = 2;
+inline bool DCAPolicyResult::has_policy_params() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void DCAPolicyResult::set_has_policy_params() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void DCAPolicyResult::clear_has_policy_params() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void DCAPolicyResult::clear_policy_params() {
+  if (policy_params_ != NULL) policy_params_->::DMSFrameProtocol::DCAPolicyParams::Clear();
+  clear_has_policy_params();
+}
+inline const ::DMSFrameProtocol::DCAPolicyParams& DCAPolicyResult::policy_params() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.DCAPolicyResult.policy_params)
+  return policy_params_ != NULL ? *policy_params_ : *default_instance_->policy_params_;
+}
+inline ::DMSFrameProtocol::DCAPolicyParams* DCAPolicyResult::mutable_policy_params() {
+  set_has_policy_params();
+  if (policy_params_ == NULL) policy_params_ = new ::DMSFrameProtocol::DCAPolicyParams;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.DCAPolicyResult.policy_params)
+  return policy_params_;
+}
+inline ::DMSFrameProtocol::DCAPolicyParams* DCAPolicyResult::release_policy_params() {
+  clear_has_policy_params();
+  ::DMSFrameProtocol::DCAPolicyParams* temp = policy_params_;
+  policy_params_ = NULL;
+  return temp;
+}
+inline void DCAPolicyResult::set_allocated_policy_params(::DMSFrameProtocol::DCAPolicyParams* policy_params) {
+  delete policy_params_;
+  policy_params_ = policy_params;
+  if (policy_params) {
+    set_has_policy_params();
+  } else {
+    clear_has_policy_params();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.DCAPolicyResult.policy_params)
+}
+
+// -------------------------------------------------------------------
+
+// DSAPolicyParams
+
+// -------------------------------------------------------------------
+
+// DSAPolicyResult
+
+// required .DMSFrameProtocol.WarnStateEnum warn_state = 1;
+inline bool DSAPolicyResult::has_warn_state() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void DSAPolicyResult::set_has_warn_state() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void DSAPolicyResult::clear_has_warn_state() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void DSAPolicyResult::clear_warn_state() {
+  warn_state_ = 0;
+  clear_has_warn_state();
+}
+inline ::DMSFrameProtocol::WarnStateEnum DSAPolicyResult::warn_state() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.DSAPolicyResult.warn_state)
+  return static_cast< ::DMSFrameProtocol::WarnStateEnum >(warn_state_);
+}
+inline void DSAPolicyResult::set_warn_state(::DMSFrameProtocol::WarnStateEnum value) {
+  assert(::DMSFrameProtocol::WarnStateEnum_IsValid(value));
+  set_has_warn_state();
+  warn_state_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.DSAPolicyResult.warn_state)
+}
+
+// optional .DMSFrameProtocol.DSAPolicyParams policy_params = 2;
+inline bool DSAPolicyResult::has_policy_params() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void DSAPolicyResult::set_has_policy_params() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void DSAPolicyResult::clear_has_policy_params() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void DSAPolicyResult::clear_policy_params() {
+  if (policy_params_ != NULL) policy_params_->::DMSFrameProtocol::DSAPolicyParams::Clear();
+  clear_has_policy_params();
+}
+inline const ::DMSFrameProtocol::DSAPolicyParams& DSAPolicyResult::policy_params() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.DSAPolicyResult.policy_params)
+  return policy_params_ != NULL ? *policy_params_ : *default_instance_->policy_params_;
+}
+inline ::DMSFrameProtocol::DSAPolicyParams* DSAPolicyResult::mutable_policy_params() {
+  set_has_policy_params();
+  if (policy_params_ == NULL) policy_params_ = new ::DMSFrameProtocol::DSAPolicyParams;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.DSAPolicyResult.policy_params)
+  return policy_params_;
+}
+inline ::DMSFrameProtocol::DSAPolicyParams* DSAPolicyResult::release_policy_params() {
+  clear_has_policy_params();
+  ::DMSFrameProtocol::DSAPolicyParams* temp = policy_params_;
+  policy_params_ = NULL;
+  return temp;
+}
+inline void DSAPolicyResult::set_allocated_policy_params(::DMSFrameProtocol::DSAPolicyParams* policy_params) {
+  delete policy_params_;
+  policy_params_ = policy_params;
+  if (policy_params) {
+    set_has_policy_params();
+  } else {
+    clear_has_policy_params();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.DSAPolicyResult.policy_params)
+}
+
+// -------------------------------------------------------------------
+
+// FaceDirParams
+
+// -------------------------------------------------------------------
+
+// FaceDirResult
+
+// optional .DMSFrameProtocol.FaceDirEnum face_dir = 1;
+inline bool FaceDirResult::has_face_dir() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void FaceDirResult::set_has_face_dir() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void FaceDirResult::clear_has_face_dir() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void FaceDirResult::clear_face_dir() {
+  face_dir_ = 0;
+  clear_has_face_dir();
+}
+inline ::DMSFrameProtocol::FaceDirEnum FaceDirResult::face_dir() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.FaceDirResult.face_dir)
+  return static_cast< ::DMSFrameProtocol::FaceDirEnum >(face_dir_);
+}
+inline void FaceDirResult::set_face_dir(::DMSFrameProtocol::FaceDirEnum value) {
+  assert(::DMSFrameProtocol::FaceDirEnum_IsValid(value));
+  set_has_face_dir();
+  face_dir_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.FaceDirResult.face_dir)
+}
+
+// optional .DMSFrameProtocol.FaceDirParams policy_params = 2;
+inline bool FaceDirResult::has_policy_params() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void FaceDirResult::set_has_policy_params() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void FaceDirResult::clear_has_policy_params() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void FaceDirResult::clear_policy_params() {
+  if (policy_params_ != NULL) policy_params_->::DMSFrameProtocol::FaceDirParams::Clear();
+  clear_has_policy_params();
+}
+inline const ::DMSFrameProtocol::FaceDirParams& FaceDirResult::policy_params() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.FaceDirResult.policy_params)
+  return policy_params_ != NULL ? *policy_params_ : *default_instance_->policy_params_;
+}
+inline ::DMSFrameProtocol::FaceDirParams* FaceDirResult::mutable_policy_params() {
+  set_has_policy_params();
+  if (policy_params_ == NULL) policy_params_ = new ::DMSFrameProtocol::FaceDirParams;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.FaceDirResult.policy_params)
+  return policy_params_;
+}
+inline ::DMSFrameProtocol::FaceDirParams* FaceDirResult::release_policy_params() {
+  clear_has_policy_params();
+  ::DMSFrameProtocol::FaceDirParams* temp = policy_params_;
+  policy_params_ = NULL;
+  return temp;
+}
+inline void FaceDirResult::set_allocated_policy_params(::DMSFrameProtocol::FaceDirParams* policy_params) {
+  delete policy_params_;
+  policy_params_ = policy_params;
+  if (policy_params) {
+    set_has_policy_params();
+  } else {
+    clear_has_policy_params();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.FaceDirResult.policy_params)
+}
+
+// -------------------------------------------------------------------
+
+// DIRPolicyParams
+
+// -------------------------------------------------------------------
+
+// DIRPolicyResult
+
+// optional .DMSFrameProtocol.DIRPolicyParams policy_params = 1;
+inline bool DIRPolicyResult::has_policy_params() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void DIRPolicyResult::set_has_policy_params() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void DIRPolicyResult::clear_has_policy_params() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void DIRPolicyResult::clear_policy_params() {
+  if (policy_params_ != NULL) policy_params_->::DMSFrameProtocol::DIRPolicyParams::Clear();
+  clear_has_policy_params();
+}
+inline const ::DMSFrameProtocol::DIRPolicyParams& DIRPolicyResult::policy_params() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.DIRPolicyResult.policy_params)
+  return policy_params_ != NULL ? *policy_params_ : *default_instance_->policy_params_;
+}
+inline ::DMSFrameProtocol::DIRPolicyParams* DIRPolicyResult::mutable_policy_params() {
+  set_has_policy_params();
+  if (policy_params_ == NULL) policy_params_ = new ::DMSFrameProtocol::DIRPolicyParams;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.DIRPolicyResult.policy_params)
+  return policy_params_;
+}
+inline ::DMSFrameProtocol::DIRPolicyParams* DIRPolicyResult::release_policy_params() {
+  clear_has_policy_params();
+  ::DMSFrameProtocol::DIRPolicyParams* temp = policy_params_;
+  policy_params_ = NULL;
+  return temp;
+}
+inline void DIRPolicyResult::set_allocated_policy_params(::DMSFrameProtocol::DIRPolicyParams* policy_params) {
+  delete policy_params_;
+  policy_params_ = policy_params;
+  if (policy_params) {
+    set_has_policy_params();
+  } else {
+    clear_has_policy_params();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.DIRPolicyResult.policy_params)
+}
+
+// -------------------------------------------------------------------
+
+// PolicyResult
+
+// optional .DMSFrameProtocol.DDWPolicyResult DDW_result = 1;
+inline bool PolicyResult::has_ddw_result() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void PolicyResult::set_has_ddw_result() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void PolicyResult::clear_has_ddw_result() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void PolicyResult::clear_ddw_result() {
+  if (ddw_result_ != NULL) ddw_result_->::DMSFrameProtocol::DDWPolicyResult::Clear();
+  clear_has_ddw_result();
+}
+inline const ::DMSFrameProtocol::DDWPolicyResult& PolicyResult::ddw_result() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PolicyResult.DDW_result)
+  return ddw_result_ != NULL ? *ddw_result_ : *default_instance_->ddw_result_;
+}
+inline ::DMSFrameProtocol::DDWPolicyResult* PolicyResult::mutable_ddw_result() {
+  set_has_ddw_result();
+  if (ddw_result_ == NULL) ddw_result_ = new ::DMSFrameProtocol::DDWPolicyResult;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.PolicyResult.DDW_result)
+  return ddw_result_;
+}
+inline ::DMSFrameProtocol::DDWPolicyResult* PolicyResult::release_ddw_result() {
+  clear_has_ddw_result();
+  ::DMSFrameProtocol::DDWPolicyResult* temp = ddw_result_;
+  ddw_result_ = NULL;
+  return temp;
+}
+inline void PolicyResult::set_allocated_ddw_result(::DMSFrameProtocol::DDWPolicyResult* ddw_result) {
+  delete ddw_result_;
+  ddw_result_ = ddw_result;
+  if (ddw_result) {
+    set_has_ddw_result();
+  } else {
+    clear_has_ddw_result();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.PolicyResult.DDW_result)
+}
+
+// optional .DMSFrameProtocol.DFWPolicyResult DFW_result = 2;
+inline bool PolicyResult::has_dfw_result() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void PolicyResult::set_has_dfw_result() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void PolicyResult::clear_has_dfw_result() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void PolicyResult::clear_dfw_result() {
+  if (dfw_result_ != NULL) dfw_result_->::DMSFrameProtocol::DFWPolicyResult::Clear();
+  clear_has_dfw_result();
+}
+inline const ::DMSFrameProtocol::DFWPolicyResult& PolicyResult::dfw_result() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PolicyResult.DFW_result)
+  return dfw_result_ != NULL ? *dfw_result_ : *default_instance_->dfw_result_;
+}
+inline ::DMSFrameProtocol::DFWPolicyResult* PolicyResult::mutable_dfw_result() {
+  set_has_dfw_result();
+  if (dfw_result_ == NULL) dfw_result_ = new ::DMSFrameProtocol::DFWPolicyResult;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.PolicyResult.DFW_result)
+  return dfw_result_;
+}
+inline ::DMSFrameProtocol::DFWPolicyResult* PolicyResult::release_dfw_result() {
+  clear_has_dfw_result();
+  ::DMSFrameProtocol::DFWPolicyResult* temp = dfw_result_;
+  dfw_result_ = NULL;
+  return temp;
+}
+inline void PolicyResult::set_allocated_dfw_result(::DMSFrameProtocol::DFWPolicyResult* dfw_result) {
+  delete dfw_result_;
+  dfw_result_ = dfw_result;
+  if (dfw_result) {
+    set_has_dfw_result();
+  } else {
+    clear_has_dfw_result();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.PolicyResult.DFW_result)
+}
+
+// optional .DMSFrameProtocol.DCAPolicyResult DCA_result = 3;
+inline bool PolicyResult::has_dca_result() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void PolicyResult::set_has_dca_result() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void PolicyResult::clear_has_dca_result() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void PolicyResult::clear_dca_result() {
+  if (dca_result_ != NULL) dca_result_->::DMSFrameProtocol::DCAPolicyResult::Clear();
+  clear_has_dca_result();
+}
+inline const ::DMSFrameProtocol::DCAPolicyResult& PolicyResult::dca_result() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PolicyResult.DCA_result)
+  return dca_result_ != NULL ? *dca_result_ : *default_instance_->dca_result_;
+}
+inline ::DMSFrameProtocol::DCAPolicyResult* PolicyResult::mutable_dca_result() {
+  set_has_dca_result();
+  if (dca_result_ == NULL) dca_result_ = new ::DMSFrameProtocol::DCAPolicyResult;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.PolicyResult.DCA_result)
+  return dca_result_;
+}
+inline ::DMSFrameProtocol::DCAPolicyResult* PolicyResult::release_dca_result() {
+  clear_has_dca_result();
+  ::DMSFrameProtocol::DCAPolicyResult* temp = dca_result_;
+  dca_result_ = NULL;
+  return temp;
+}
+inline void PolicyResult::set_allocated_dca_result(::DMSFrameProtocol::DCAPolicyResult* dca_result) {
+  delete dca_result_;
+  dca_result_ = dca_result;
+  if (dca_result) {
+    set_has_dca_result();
+  } else {
+    clear_has_dca_result();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.PolicyResult.DCA_result)
+}
+
+// optional .DMSFrameProtocol.DSAPolicyResult DSA_result = 4;
+inline bool PolicyResult::has_dsa_result() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void PolicyResult::set_has_dsa_result() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void PolicyResult::clear_has_dsa_result() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void PolicyResult::clear_dsa_result() {
+  if (dsa_result_ != NULL) dsa_result_->::DMSFrameProtocol::DSAPolicyResult::Clear();
+  clear_has_dsa_result();
+}
+inline const ::DMSFrameProtocol::DSAPolicyResult& PolicyResult::dsa_result() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PolicyResult.DSA_result)
+  return dsa_result_ != NULL ? *dsa_result_ : *default_instance_->dsa_result_;
+}
+inline ::DMSFrameProtocol::DSAPolicyResult* PolicyResult::mutable_dsa_result() {
+  set_has_dsa_result();
+  if (dsa_result_ == NULL) dsa_result_ = new ::DMSFrameProtocol::DSAPolicyResult;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.PolicyResult.DSA_result)
+  return dsa_result_;
+}
+inline ::DMSFrameProtocol::DSAPolicyResult* PolicyResult::release_dsa_result() {
+  clear_has_dsa_result();
+  ::DMSFrameProtocol::DSAPolicyResult* temp = dsa_result_;
+  dsa_result_ = NULL;
+  return temp;
+}
+inline void PolicyResult::set_allocated_dsa_result(::DMSFrameProtocol::DSAPolicyResult* dsa_result) {
+  delete dsa_result_;
+  dsa_result_ = dsa_result;
+  if (dsa_result) {
+    set_has_dsa_result();
+  } else {
+    clear_has_dsa_result();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.PolicyResult.DSA_result)
+}
+
+// optional .DMSFrameProtocol.FaceDirResult FaceDir_result = 5;
+inline bool PolicyResult::has_facedir_result() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void PolicyResult::set_has_facedir_result() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void PolicyResult::clear_has_facedir_result() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void PolicyResult::clear_facedir_result() {
+  if (facedir_result_ != NULL) facedir_result_->::DMSFrameProtocol::FaceDirResult::Clear();
+  clear_has_facedir_result();
+}
+inline const ::DMSFrameProtocol::FaceDirResult& PolicyResult::facedir_result() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.PolicyResult.FaceDir_result)
+  return facedir_result_ != NULL ? *facedir_result_ : *default_instance_->facedir_result_;
+}
+inline ::DMSFrameProtocol::FaceDirResult* PolicyResult::mutable_facedir_result() {
+  set_has_facedir_result();
+  if (facedir_result_ == NULL) facedir_result_ = new ::DMSFrameProtocol::FaceDirResult;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.PolicyResult.FaceDir_result)
+  return facedir_result_;
+}
+inline ::DMSFrameProtocol::FaceDirResult* PolicyResult::release_facedir_result() {
+  clear_has_facedir_result();
+  ::DMSFrameProtocol::FaceDirResult* temp = facedir_result_;
+  facedir_result_ = NULL;
+  return temp;
+}
+inline void PolicyResult::set_allocated_facedir_result(::DMSFrameProtocol::FaceDirResult* facedir_result) {
+  delete facedir_result_;
+  facedir_result_ = facedir_result;
+  if (facedir_result) {
+    set_has_facedir_result();
+  } else {
+    clear_has_facedir_result();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.PolicyResult.FaceDir_result)
+}
+
+// -------------------------------------------------------------------
+
+// EventResult
+
+// required .DMSFrameProtocol.EventEnum event = 1;
+inline bool EventResult::has_event() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void EventResult::set_has_event() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void EventResult::clear_has_event() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void EventResult::clear_event() {
+  event_ = 0;
+  clear_has_event();
+}
+inline ::DMSFrameProtocol::EventEnum EventResult::event() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.EventResult.event)
+  return static_cast< ::DMSFrameProtocol::EventEnum >(event_);
+}
+inline void EventResult::set_event(::DMSFrameProtocol::EventEnum value) {
+  assert(::DMSFrameProtocol::EventEnum_IsValid(value));
+  set_has_event();
+  event_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.EventResult.event)
 }
 
 // -------------------------------------------------------------------
@@ -3869,8 +7935,12 @@ inline void FaceRecogResult::set_allocated_persion_result_roi(
 inline bool CANInfo::has_angle() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void CANInfo::set_has_angle() { _has_bits_[0] |= 0x00000001u; }
-inline void CANInfo::clear_has_angle() { _has_bits_[0] &= ~0x00000001u; }
+inline void CANInfo::set_has_angle() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void CANInfo::clear_has_angle() {
+  _has_bits_[0] &= ~0x00000001u;
+}
 inline void CANInfo::clear_angle() {
   angle_ = 0;
   clear_has_angle();
@@ -3889,8 +7959,12 @@ inline void CANInfo::set_angle(::google::protobuf::int32 value) {
 inline bool CANInfo::has_direction() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void CANInfo::set_has_direction() { _has_bits_[0] |= 0x00000002u; }
-inline void CANInfo::clear_has_direction() { _has_bits_[0] &= ~0x00000002u; }
+inline void CANInfo::set_has_direction() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void CANInfo::clear_has_direction() {
+  _has_bits_[0] &= ~0x00000002u;
+}
 inline void CANInfo::clear_direction() {
   direction_ = 0;
   clear_has_direction();
@@ -3909,8 +7983,12 @@ inline void CANInfo::set_direction(::google::protobuf::int32 value) {
 inline bool CANInfo::has_gears() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void CANInfo::set_has_gears() { _has_bits_[0] |= 0x00000004u; }
-inline void CANInfo::clear_has_gears() { _has_bits_[0] &= ~0x00000004u; }
+inline void CANInfo::set_has_gears() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void CANInfo::clear_has_gears() {
+  _has_bits_[0] &= ~0x00000004u;
+}
 inline void CANInfo::clear_gears() {
   gears_ = 0;
   clear_has_gears();
@@ -3929,8 +8007,12 @@ inline void CANInfo::set_gears(::google::protobuf::int32 value) {
 inline bool CANInfo::has_speed() const {
   return (_has_bits_[0] & 0x00000008u) != 0;
 }
-inline void CANInfo::set_has_speed() { _has_bits_[0] |= 0x00000008u; }
-inline void CANInfo::clear_has_speed() { _has_bits_[0] &= ~0x00000008u; }
+inline void CANInfo::set_has_speed() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void CANInfo::clear_has_speed() {
+  _has_bits_[0] &= ~0x00000008u;
+}
 inline void CANInfo::clear_speed() {
   speed_ = 0;
   clear_has_speed();
@@ -3949,8 +8031,12 @@ inline void CANInfo::set_speed(::google::protobuf::int32 value) {
 inline bool CANInfo::has_timestamp() const {
   return (_has_bits_[0] & 0x00000010u) != 0;
 }
-inline void CANInfo::set_has_timestamp() { _has_bits_[0] |= 0x00000010u; }
-inline void CANInfo::clear_has_timestamp() { _has_bits_[0] &= ~0x00000010u; }
+inline void CANInfo::set_has_timestamp() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void CANInfo::clear_has_timestamp() {
+  _has_bits_[0] &= ~0x00000010u;
+}
 inline void CANInfo::clear_timestamp() {
   timestamp_ = GOOGLE_LONGLONG(0);
   clear_has_timestamp();
@@ -3967,14 +8053,144 @@ inline void CANInfo::set_timestamp(::google::protobuf::int64 value) {
 
 // -------------------------------------------------------------------
 
+// VehicleInfo
+
+// optional .DMSFrameProtocol.TurnLightStateEnum turn_light = 1;
+inline bool VehicleInfo::has_turn_light() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void VehicleInfo::set_has_turn_light() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void VehicleInfo::clear_has_turn_light() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void VehicleInfo::clear_turn_light() {
+  turn_light_ = 0;
+  clear_has_turn_light();
+}
+inline ::DMSFrameProtocol::TurnLightStateEnum VehicleInfo::turn_light() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.VehicleInfo.turn_light)
+  return static_cast< ::DMSFrameProtocol::TurnLightStateEnum >(turn_light_);
+}
+inline void VehicleInfo::set_turn_light(::DMSFrameProtocol::TurnLightStateEnum value) {
+  assert(::DMSFrameProtocol::TurnLightStateEnum_IsValid(value));
+  set_has_turn_light();
+  turn_light_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.VehicleInfo.turn_light)
+}
+
+// optional .DMSFrameProtocol.GearsStateEnum gears = 2;
+inline bool VehicleInfo::has_gears() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void VehicleInfo::set_has_gears() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void VehicleInfo::clear_has_gears() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void VehicleInfo::clear_gears() {
+  gears_ = 0;
+  clear_has_gears();
+}
+inline ::DMSFrameProtocol::GearsStateEnum VehicleInfo::gears() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.VehicleInfo.gears)
+  return static_cast< ::DMSFrameProtocol::GearsStateEnum >(gears_);
+}
+inline void VehicleInfo::set_gears(::DMSFrameProtocol::GearsStateEnum value) {
+  assert(::DMSFrameProtocol::GearsStateEnum_IsValid(value));
+  set_has_gears();
+  gears_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.VehicleInfo.gears)
+}
+
+// optional int32 wheel_angle = 3;
+inline bool VehicleInfo::has_wheel_angle() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void VehicleInfo::set_has_wheel_angle() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void VehicleInfo::clear_has_wheel_angle() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void VehicleInfo::clear_wheel_angle() {
+  wheel_angle_ = 0;
+  clear_has_wheel_angle();
+}
+inline ::google::protobuf::int32 VehicleInfo::wheel_angle() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.VehicleInfo.wheel_angle)
+  return wheel_angle_;
+}
+inline void VehicleInfo::set_wheel_angle(::google::protobuf::int32 value) {
+  set_has_wheel_angle();
+  wheel_angle_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.VehicleInfo.wheel_angle)
+}
+
+// optional int32 veh_speed = 4;
+inline bool VehicleInfo::has_veh_speed() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void VehicleInfo::set_has_veh_speed() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void VehicleInfo::clear_has_veh_speed() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void VehicleInfo::clear_veh_speed() {
+  veh_speed_ = 0;
+  clear_has_veh_speed();
+}
+inline ::google::protobuf::int32 VehicleInfo::veh_speed() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.VehicleInfo.veh_speed)
+  return veh_speed_;
+}
+inline void VehicleInfo::set_veh_speed(::google::protobuf::int32 value) {
+  set_has_veh_speed();
+  veh_speed_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.VehicleInfo.veh_speed)
+}
+
+// optional int64 timestamp = 5;
+inline bool VehicleInfo::has_timestamp() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void VehicleInfo::set_has_timestamp() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void VehicleInfo::clear_has_timestamp() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void VehicleInfo::clear_timestamp() {
+  timestamp_ = GOOGLE_LONGLONG(0);
+  clear_has_timestamp();
+}
+inline ::google::protobuf::int64 VehicleInfo::timestamp() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.VehicleInfo.timestamp)
+  return timestamp_;
+}
+inline void VehicleInfo::set_timestamp(::google::protobuf::int64 value) {
+  set_has_timestamp();
+  timestamp_ = value;
+  // @@protoc_insertion_point(field_set:DMSFrameProtocol.VehicleInfo.timestamp)
+}
+
+// -------------------------------------------------------------------
+
 // ImageInfo
 
 // required int64 time = 1;
 inline bool ImageInfo::has_time() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void ImageInfo::set_has_time() { _has_bits_[0] |= 0x00000001u; }
-inline void ImageInfo::clear_has_time() { _has_bits_[0] &= ~0x00000001u; }
+inline void ImageInfo::set_has_time() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void ImageInfo::clear_has_time() {
+  _has_bits_[0] &= ~0x00000001u;
+}
 inline void ImageInfo::clear_time() {
   time_ = GOOGLE_LONGLONG(0);
   clear_has_time();
@@ -3993,8 +8209,12 @@ inline void ImageInfo::set_time(::google::protobuf::int64 value) {
 inline bool ImageInfo::has_width() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void ImageInfo::set_has_width() { _has_bits_[0] |= 0x00000002u; }
-inline void ImageInfo::clear_has_width() { _has_bits_[0] &= ~0x00000002u; }
+inline void ImageInfo::set_has_width() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void ImageInfo::clear_has_width() {
+  _has_bits_[0] &= ~0x00000002u;
+}
 inline void ImageInfo::clear_width() {
   width_ = 0;
   clear_has_width();
@@ -4013,8 +8233,12 @@ inline void ImageInfo::set_width(::google::protobuf::int32 value) {
 inline bool ImageInfo::has_height() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void ImageInfo::set_has_height() { _has_bits_[0] |= 0x00000004u; }
-inline void ImageInfo::clear_has_height() { _has_bits_[0] &= ~0x00000004u; }
+inline void ImageInfo::set_has_height() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void ImageInfo::clear_has_height() {
+  _has_bits_[0] &= ~0x00000004u;
+}
 inline void ImageInfo::clear_height() {
   height_ = 0;
   clear_has_height();
@@ -4033,8 +8257,12 @@ inline void ImageInfo::set_height(::google::protobuf::int32 value) {
 inline bool ImageInfo::has_format() const {
   return (_has_bits_[0] & 0x00000008u) != 0;
 }
-inline void ImageInfo::set_has_format() { _has_bits_[0] |= 0x00000008u; }
-inline void ImageInfo::clear_has_format() { _has_bits_[0] &= ~0x00000008u; }
+inline void ImageInfo::set_has_format() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void ImageInfo::clear_has_format() {
+  _has_bits_[0] &= ~0x00000008u;
+}
 inline void ImageInfo::clear_format() {
   format_ = 0;
   clear_has_format();
@@ -4053,8 +8281,12 @@ inline void ImageInfo::set_format(::google::protobuf::int32 value) {
 inline bool ImageInfo::has_luma() const {
   return (_has_bits_[0] & 0x00000010u) != 0;
 }
-inline void ImageInfo::set_has_luma() { _has_bits_[0] |= 0x00000010u; }
-inline void ImageInfo::clear_has_luma() { _has_bits_[0] &= ~0x00000010u; }
+inline void ImageInfo::set_has_luma() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void ImageInfo::clear_has_luma() {
+  _has_bits_[0] &= ~0x00000010u;
+}
 inline void ImageInfo::clear_luma() {
   luma_ = 0;
   clear_has_luma();
@@ -4073,8 +8305,12 @@ inline void ImageInfo::set_luma(::google::protobuf::int32 value) {
 inline bool ImageInfo::has_img_id() const {
   return (_has_bits_[0] & 0x00000020u) != 0;
 }
-inline void ImageInfo::set_has_img_id() { _has_bits_[0] |= 0x00000020u; }
-inline void ImageInfo::clear_has_img_id() { _has_bits_[0] &= ~0x00000020u; }
+inline void ImageInfo::set_has_img_id() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void ImageInfo::clear_has_img_id() {
+  _has_bits_[0] &= ~0x00000020u;
+}
 inline void ImageInfo::clear_img_id() {
   img_id_ = 0;
   clear_has_img_id();
@@ -4097,8 +8333,12 @@ inline void ImageInfo::set_img_id(::google::protobuf::int32 value) {
 inline bool DMSFrame::has_frame_id() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void DMSFrame::set_has_frame_id() { _has_bits_[0] |= 0x00000001u; }
-inline void DMSFrame::clear_has_frame_id() { _has_bits_[0] &= ~0x00000001u; }
+inline void DMSFrame::set_has_frame_id() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void DMSFrame::clear_has_frame_id() {
+  _has_bits_[0] &= ~0x00000001u;
+}
 inline void DMSFrame::clear_frame_id() {
   frame_id_ = 0;
   clear_has_frame_id();
@@ -4117,32 +8357,33 @@ inline void DMSFrame::set_frame_id(::google::protobuf::int32 value) {
 inline bool DMSFrame::has_image() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void DMSFrame::set_has_image() { _has_bits_[0] |= 0x00000002u; }
-inline void DMSFrame::clear_has_image() { _has_bits_[0] &= ~0x00000002u; }
+inline void DMSFrame::set_has_image() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void DMSFrame::clear_has_image() {
+  _has_bits_[0] &= ~0x00000002u;
+}
 inline void DMSFrame::clear_image() {
-  if (image_ != NULL)
-    image_->::DMSFrameProtocol::ImageInfo::Clear();
+  if (image_ != NULL) image_->::DMSFrameProtocol::ImageInfo::Clear();
   clear_has_image();
 }
-inline const ::DMSFrameProtocol::ImageInfo &DMSFrame::image() const {
+inline const ::DMSFrameProtocol::ImageInfo& DMSFrame::image() const {
   // @@protoc_insertion_point(field_get:DMSFrameProtocol.DMSFrame.image)
   return image_ != NULL ? *image_ : *default_instance_->image_;
 }
-inline ::DMSFrameProtocol::ImageInfo *DMSFrame::mutable_image() {
+inline ::DMSFrameProtocol::ImageInfo* DMSFrame::mutable_image() {
   set_has_image();
-  if (image_ == NULL)
-    image_ = new ::DMSFrameProtocol::ImageInfo;
+  if (image_ == NULL) image_ = new ::DMSFrameProtocol::ImageInfo;
   // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.DMSFrame.image)
   return image_;
 }
-inline ::DMSFrameProtocol::ImageInfo *DMSFrame::release_image() {
+inline ::DMSFrameProtocol::ImageInfo* DMSFrame::release_image() {
   clear_has_image();
-  ::DMSFrameProtocol::ImageInfo *temp = image_;
+  ::DMSFrameProtocol::ImageInfo* temp = image_;
   image_ = NULL;
   return temp;
 }
-inline void DMSFrame::set_allocated_image(
-    ::DMSFrameProtocol::ImageInfo *image) {
+inline void DMSFrame::set_allocated_image(::DMSFrameProtocol::ImageInfo* image) {
   delete image_;
   image_ = image;
   if (image) {
@@ -4157,33 +8398,33 @@ inline void DMSFrame::set_allocated_image(
 inline bool DMSFrame::has_algo_result() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void DMSFrame::set_has_algo_result() { _has_bits_[0] |= 0x00000004u; }
-inline void DMSFrame::clear_has_algo_result() { _has_bits_[0] &= ~0x00000004u; }
+inline void DMSFrame::set_has_algo_result() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void DMSFrame::clear_has_algo_result() {
+  _has_bits_[0] &= ~0x00000004u;
+}
 inline void DMSFrame::clear_algo_result() {
-  if (algo_result_ != NULL)
-    algo_result_->::DMSFrameProtocol::AlgoResult::Clear();
+  if (algo_result_ != NULL) algo_result_->::DMSFrameProtocol::AlgoResult::Clear();
   clear_has_algo_result();
 }
-inline const ::DMSFrameProtocol::AlgoResult &DMSFrame::algo_result() const {
+inline const ::DMSFrameProtocol::AlgoResult& DMSFrame::algo_result() const {
   // @@protoc_insertion_point(field_get:DMSFrameProtocol.DMSFrame.algo_result)
-  return algo_result_ != NULL ? *algo_result_
-                              : *default_instance_->algo_result_;
+  return algo_result_ != NULL ? *algo_result_ : *default_instance_->algo_result_;
 }
-inline ::DMSFrameProtocol::AlgoResult *DMSFrame::mutable_algo_result() {
+inline ::DMSFrameProtocol::AlgoResult* DMSFrame::mutable_algo_result() {
   set_has_algo_result();
-  if (algo_result_ == NULL)
-    algo_result_ = new ::DMSFrameProtocol::AlgoResult;
+  if (algo_result_ == NULL) algo_result_ = new ::DMSFrameProtocol::AlgoResult;
   // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.DMSFrame.algo_result)
   return algo_result_;
 }
-inline ::DMSFrameProtocol::AlgoResult *DMSFrame::release_algo_result() {
+inline ::DMSFrameProtocol::AlgoResult* DMSFrame::release_algo_result() {
   clear_has_algo_result();
-  ::DMSFrameProtocol::AlgoResult *temp = algo_result_;
+  ::DMSFrameProtocol::AlgoResult* temp = algo_result_;
   algo_result_ = NULL;
   return temp;
 }
-inline void DMSFrame::set_allocated_algo_result(
-    ::DMSFrameProtocol::AlgoResult *algo_result) {
+inline void DMSFrame::set_allocated_algo_result(::DMSFrameProtocol::AlgoResult* algo_result) {
   delete algo_result_;
   algo_result_ = algo_result;
   if (algo_result) {
@@ -4194,82 +8435,158 @@ inline void DMSFrame::set_allocated_algo_result(
   // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.DMSFrame.algo_result)
 }
 
-// optional .DMSFrameProtocol.MonitorResult monitor_result = 4;
-inline bool DMSFrame::has_monitor_result() const {
+// optional .DMSFrameProtocol.PolicyResult policy_result = 4;
+inline bool DMSFrame::has_policy_result() const {
   return (_has_bits_[0] & 0x00000008u) != 0;
 }
-inline void DMSFrame::set_has_monitor_result() { _has_bits_[0] |= 0x00000008u; }
-inline void DMSFrame::clear_has_monitor_result() {
+inline void DMSFrame::set_has_policy_result() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void DMSFrame::clear_has_policy_result() {
   _has_bits_[0] &= ~0x00000008u;
 }
-inline void DMSFrame::clear_monitor_result() {
-  if (monitor_result_ != NULL)
-    monitor_result_->::DMSFrameProtocol::MonitorResult::Clear();
-  clear_has_monitor_result();
+inline void DMSFrame::clear_policy_result() {
+  if (policy_result_ != NULL) policy_result_->::DMSFrameProtocol::PolicyResult::Clear();
+  clear_has_policy_result();
 }
-inline const ::DMSFrameProtocol::MonitorResult &DMSFrame::monitor_result()
-    const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.DMSFrame.monitor_result)
-  return monitor_result_ != NULL ? *monitor_result_
-                                 : *default_instance_->monitor_result_;
+inline const ::DMSFrameProtocol::PolicyResult& DMSFrame::policy_result() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.DMSFrame.policy_result)
+  return policy_result_ != NULL ? *policy_result_ : *default_instance_->policy_result_;
 }
-inline ::DMSFrameProtocol::MonitorResult *DMSFrame::mutable_monitor_result() {
-  set_has_monitor_result();
-  if (monitor_result_ == NULL)
-    monitor_result_ = new ::DMSFrameProtocol::MonitorResult;
-  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.DMSFrame.monitor_result)
-  return monitor_result_;
+inline ::DMSFrameProtocol::PolicyResult* DMSFrame::mutable_policy_result() {
+  set_has_policy_result();
+  if (policy_result_ == NULL) policy_result_ = new ::DMSFrameProtocol::PolicyResult;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.DMSFrame.policy_result)
+  return policy_result_;
 }
-inline ::DMSFrameProtocol::MonitorResult *DMSFrame::release_monitor_result() {
-  clear_has_monitor_result();
-  ::DMSFrameProtocol::MonitorResult *temp = monitor_result_;
-  monitor_result_ = NULL;
+inline ::DMSFrameProtocol::PolicyResult* DMSFrame::release_policy_result() {
+  clear_has_policy_result();
+  ::DMSFrameProtocol::PolicyResult* temp = policy_result_;
+  policy_result_ = NULL;
   return temp;
 }
-inline void DMSFrame::set_allocated_monitor_result(
-    ::DMSFrameProtocol::MonitorResult *monitor_result) {
-  delete monitor_result_;
-  monitor_result_ = monitor_result;
-  if (monitor_result) {
-    set_has_monitor_result();
+inline void DMSFrame::set_allocated_policy_result(::DMSFrameProtocol::PolicyResult* policy_result) {
+  delete policy_result_;
+  policy_result_ = policy_result;
+  if (policy_result) {
+    set_has_policy_result();
   } else {
-    clear_has_monitor_result();
+    clear_has_policy_result();
   }
-  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.DMSFrame.monitor_result)
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.DMSFrame.policy_result)
 }
 
-// repeated .DMSFrameProtocol.CANInfo can_info = 5;
-inline int DMSFrame::can_info_size() const { return can_info_.size(); }
-inline void DMSFrame::clear_can_info() { can_info_.Clear(); }
-inline const ::DMSFrameProtocol::CANInfo &DMSFrame::can_info(int index) const {
+// repeated .DMSFrameProtocol.EventResult event_result = 5;
+inline int DMSFrame::event_result_size() const {
+  return event_result_.size();
+}
+inline void DMSFrame::clear_event_result() {
+  event_result_.Clear();
+}
+inline const ::DMSFrameProtocol::EventResult& DMSFrame::event_result(int index) const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.DMSFrame.event_result)
+  return event_result_.Get(index);
+}
+inline ::DMSFrameProtocol::EventResult* DMSFrame::mutable_event_result(int index) {
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.DMSFrame.event_result)
+  return event_result_.Mutable(index);
+}
+inline ::DMSFrameProtocol::EventResult* DMSFrame::add_event_result() {
+  // @@protoc_insertion_point(field_add:DMSFrameProtocol.DMSFrame.event_result)
+  return event_result_.Add();
+}
+inline const ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::EventResult >&
+DMSFrame::event_result() const {
+  // @@protoc_insertion_point(field_list:DMSFrameProtocol.DMSFrame.event_result)
+  return event_result_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::EventResult >*
+DMSFrame::mutable_event_result() {
+  // @@protoc_insertion_point(field_mutable_list:DMSFrameProtocol.DMSFrame.event_result)
+  return &event_result_;
+}
+
+// repeated .DMSFrameProtocol.CANInfo can_info = 6;
+inline int DMSFrame::can_info_size() const {
+  return can_info_.size();
+}
+inline void DMSFrame::clear_can_info() {
+  can_info_.Clear();
+}
+inline const ::DMSFrameProtocol::CANInfo& DMSFrame::can_info(int index) const {
   // @@protoc_insertion_point(field_get:DMSFrameProtocol.DMSFrame.can_info)
   return can_info_.Get(index);
 }
-inline ::DMSFrameProtocol::CANInfo *DMSFrame::mutable_can_info(int index) {
+inline ::DMSFrameProtocol::CANInfo* DMSFrame::mutable_can_info(int index) {
   // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.DMSFrame.can_info)
   return can_info_.Mutable(index);
 }
-inline ::DMSFrameProtocol::CANInfo *DMSFrame::add_can_info() {
+inline ::DMSFrameProtocol::CANInfo* DMSFrame::add_can_info() {
   // @@protoc_insertion_point(field_add:DMSFrameProtocol.DMSFrame.can_info)
   return can_info_.Add();
 }
-inline const ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::CANInfo>
-    &DMSFrame::can_info() const {
+inline const ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::CANInfo >&
+DMSFrame::can_info() const {
   // @@protoc_insertion_point(field_list:DMSFrameProtocol.DMSFrame.can_info)
   return can_info_;
 }
-inline ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::CANInfo>
-    *DMSFrame::mutable_can_info() {
+inline ::google::protobuf::RepeatedPtrField< ::DMSFrameProtocol::CANInfo >*
+DMSFrame::mutable_can_info() {
   // @@protoc_insertion_point(field_mutable_list:DMSFrameProtocol.DMSFrame.can_info)
   return &can_info_;
 }
 
-// optional bool seek_flag = 6 [default = false];
-inline bool DMSFrame::has_seek_flag() const {
-  return (_has_bits_[0] & 0x00000020u) != 0;
+// optional .DMSFrameProtocol.VehicleInfo veh_info = 7;
+inline bool DMSFrame::has_veh_info() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
 }
-inline void DMSFrame::set_has_seek_flag() { _has_bits_[0] |= 0x00000020u; }
-inline void DMSFrame::clear_has_seek_flag() { _has_bits_[0] &= ~0x00000020u; }
+inline void DMSFrame::set_has_veh_info() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void DMSFrame::clear_has_veh_info() {
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline void DMSFrame::clear_veh_info() {
+  if (veh_info_ != NULL) veh_info_->::DMSFrameProtocol::VehicleInfo::Clear();
+  clear_has_veh_info();
+}
+inline const ::DMSFrameProtocol::VehicleInfo& DMSFrame::veh_info() const {
+  // @@protoc_insertion_point(field_get:DMSFrameProtocol.DMSFrame.veh_info)
+  return veh_info_ != NULL ? *veh_info_ : *default_instance_->veh_info_;
+}
+inline ::DMSFrameProtocol::VehicleInfo* DMSFrame::mutable_veh_info() {
+  set_has_veh_info();
+  if (veh_info_ == NULL) veh_info_ = new ::DMSFrameProtocol::VehicleInfo;
+  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.DMSFrame.veh_info)
+  return veh_info_;
+}
+inline ::DMSFrameProtocol::VehicleInfo* DMSFrame::release_veh_info() {
+  clear_has_veh_info();
+  ::DMSFrameProtocol::VehicleInfo* temp = veh_info_;
+  veh_info_ = NULL;
+  return temp;
+}
+inline void DMSFrame::set_allocated_veh_info(::DMSFrameProtocol::VehicleInfo* veh_info) {
+  delete veh_info_;
+  veh_info_ = veh_info;
+  if (veh_info) {
+    set_has_veh_info();
+  } else {
+    clear_has_veh_info();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.DMSFrame.veh_info)
+}
+
+// optional bool seek_flag = 8 [default = false];
+inline bool DMSFrame::has_seek_flag() const {
+  return (_has_bits_[0] & 0x00000080u) != 0;
+}
+inline void DMSFrame::set_has_seek_flag() {
+  _has_bits_[0] |= 0x00000080u;
+}
+inline void DMSFrame::clear_has_seek_flag() {
+  _has_bits_[0] &= ~0x00000080u;
+}
 inline void DMSFrame::clear_seek_flag() {
   seek_flag_ = false;
   clear_has_seek_flag();
@@ -4284,53 +8601,6 @@ inline void DMSFrame::set_seek_flag(bool value) {
   // @@protoc_insertion_point(field_set:DMSFrameProtocol.DMSFrame.seek_flag)
 }
 
-// optional .DMSFrameProtocol.FaceRecogResult facerecog_result = 7;
-inline bool DMSFrame::has_facerecog_result() const {
-  return (_has_bits_[0] & 0x00000040u) != 0;
-}
-inline void DMSFrame::set_has_facerecog_result() {
-  _has_bits_[0] |= 0x00000040u;
-}
-inline void DMSFrame::clear_has_facerecog_result() {
-  _has_bits_[0] &= ~0x00000040u;
-}
-inline void DMSFrame::clear_facerecog_result() {
-  if (facerecog_result_ != NULL)
-    facerecog_result_->::DMSFrameProtocol::FaceRecogResult::Clear();
-  clear_has_facerecog_result();
-}
-inline const ::DMSFrameProtocol::FaceRecogResult &DMSFrame::facerecog_result()
-    const {
-  // @@protoc_insertion_point(field_get:DMSFrameProtocol.DMSFrame.facerecog_result)
-  return facerecog_result_ != NULL ? *facerecog_result_
-                                   : *default_instance_->facerecog_result_;
-}
-inline ::DMSFrameProtocol::FaceRecogResult *
-DMSFrame::mutable_facerecog_result() {
-  set_has_facerecog_result();
-  if (facerecog_result_ == NULL)
-    facerecog_result_ = new ::DMSFrameProtocol::FaceRecogResult;
-  // @@protoc_insertion_point(field_mutable:DMSFrameProtocol.DMSFrame.facerecog_result)
-  return facerecog_result_;
-}
-inline ::DMSFrameProtocol::FaceRecogResult *
-DMSFrame::release_facerecog_result() {
-  clear_has_facerecog_result();
-  ::DMSFrameProtocol::FaceRecogResult *temp = facerecog_result_;
-  facerecog_result_ = NULL;
-  return temp;
-}
-inline void DMSFrame::set_allocated_facerecog_result(
-    ::DMSFrameProtocol::FaceRecogResult *facerecog_result) {
-  delete facerecog_result_;
-  facerecog_result_ = facerecog_result;
-  if (facerecog_result) {
-    set_has_facerecog_result();
-  } else {
-    clear_has_facerecog_result();
-  }
-  // @@protoc_insertion_point(field_set_allocated:DMSFrameProtocol.DMSFrame.facerecog_result)
-}
 
 // @@protoc_insertion_point(namespace_scope)
 
@@ -4340,20 +8610,45 @@ inline void DMSFrame::set_allocated_facerecog_result(
 namespace google {
 namespace protobuf {
 
+template <> struct is_proto_enum< ::DMSFrameProtocol::FaceStateEnum> : ::google::protobuf::internal::true_type {};
 template <>
-struct is_proto_enum< ::DMSFrameProtocol::WarnState>
-    : ::google::protobuf::internal::true_type {};
-template <>
-inline const EnumDescriptor *
-GetEnumDescriptor< ::DMSFrameProtocol::WarnState>() {
-  return ::DMSFrameProtocol::WarnState_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::DMSFrameProtocol::FaceStateEnum>() {
+  return ::DMSFrameProtocol::FaceStateEnum_descriptor();
 }
+template <> struct is_proto_enum< ::DMSFrameProtocol::EyeStateEnum> : ::google::protobuf::internal::true_type {};
 template <>
-struct is_proto_enum< ::DMSFrameProtocol::FaceDir>
-    : ::google::protobuf::internal::true_type {};
+inline const EnumDescriptor* GetEnumDescriptor< ::DMSFrameProtocol::EyeStateEnum>() {
+  return ::DMSFrameProtocol::EyeStateEnum_descriptor();
+}
+template <> struct is_proto_enum< ::DMSFrameProtocol::SmokeStateEnum> : ::google::protobuf::internal::true_type {};
 template <>
-inline const EnumDescriptor *GetEnumDescriptor< ::DMSFrameProtocol::FaceDir>() {
-  return ::DMSFrameProtocol::FaceDir_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::DMSFrameProtocol::SmokeStateEnum>() {
+  return ::DMSFrameProtocol::SmokeStateEnum_descriptor();
+}
+template <> struct is_proto_enum< ::DMSFrameProtocol::WarnStateEnum> : ::google::protobuf::internal::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::DMSFrameProtocol::WarnStateEnum>() {
+  return ::DMSFrameProtocol::WarnStateEnum_descriptor();
+}
+template <> struct is_proto_enum< ::DMSFrameProtocol::FaceDirEnum> : ::google::protobuf::internal::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::DMSFrameProtocol::FaceDirEnum>() {
+  return ::DMSFrameProtocol::FaceDirEnum_descriptor();
+}
+template <> struct is_proto_enum< ::DMSFrameProtocol::EventEnum> : ::google::protobuf::internal::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::DMSFrameProtocol::EventEnum>() {
+  return ::DMSFrameProtocol::EventEnum_descriptor();
+}
+template <> struct is_proto_enum< ::DMSFrameProtocol::TurnLightStateEnum> : ::google::protobuf::internal::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::DMSFrameProtocol::TurnLightStateEnum>() {
+  return ::DMSFrameProtocol::TurnLightStateEnum_descriptor();
+}
+template <> struct is_proto_enum< ::DMSFrameProtocol::GearsStateEnum> : ::google::protobuf::internal::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::DMSFrameProtocol::GearsStateEnum>() {
+  return ::DMSFrameProtocol::GearsStateEnum_descriptor();
 }
 
 }  // namespace google

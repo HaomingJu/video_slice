@@ -1,0 +1,17 @@
+{
+  "SearchRootPath" : ["/media/haoming/7A35-9123/data/"],
+
+  "DMS" : {
+      "search_path_name" : "test_bk/",
+      "slice_path_name" : "test_slice/",
+      "re_str" : "DMS_RAW_Nebula_\\w*\\d{8}-\\d{6}_\\d{3}.mp4",
+      "slice_data_flag" : "DMS_SLICE_Nebula_"
+  },
+
+  "ADAS" : {
+      "search_path_name" : "hobot/media/adas/video/",
+      "slice_path_name" : "hobot/media/adas/slice/",
+      "re_str" : "ADAS_RAW_Nebula_\\w*\\d{8}-\\d{6}_\\d{3}.mp4",
+      "slice_data_flag" : "ADAS_SLICE_Nebula_"
+  }
+}
